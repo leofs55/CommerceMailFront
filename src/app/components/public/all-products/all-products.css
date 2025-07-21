@@ -1,0 +1,70 @@
+.product-section {
+max-width: 1200px;
+margin: 40px auto;
+padding: 0 20px;
+font-family: Arial, sans-serif;
+}
+
+.section-label {
+display: inline-block;
+background-color: #e0e0e0;
+color: #333;
+font-size: 12px;
+padding: 4px 8px;
+border-radius: 4px;
+margin-bottom: 10px;
+}
+
+.section-title {
+font-size: 28px;
+font-weight: bold;
+margin-bottom: 30px;
+}
+
+.product-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+gap: 30px;
+}
+
+.product-card {
+background-color: #f0f0f0;
+padding: 10px;
+text-align: center;
+border-radius: 8px;
+transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+transform: translateY(-4px);
+}
+
+.product-image {
+background-color: #cfcfcf;
+width: 100%;
+aspect-ratio: 1 / 1;
+border-radius: 4px;
+margin-bottom: 10px;
+}
+
+.product-info {
+color: #222;
+}
+
+.product-name {
+font-size: 16px;
+margin: 5px 0;
+}
+
+.product-rating {
+font-size: 14px;
+color: #ffcc00; /* cor das estrelas */
+margin: 4px 0;
+}
+
+.product-price {
+font-size: 14px;
+color: #333;
+font-weight: bold;
+}
+  

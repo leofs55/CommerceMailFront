@@ -1,7 +1,10 @@
-<section class="product-section">
+<section class="all-products-section">
+    <div class="title-section">
+        <h1>Todos os produtos</h1>
+    </div>
     <div class="product-grid" >
         <div class="product-card" *ngFor="let product of products">
-          <div class="product-image"><a href=""><img src="{{ product.image }}" alt="{{ product.name }}"></a></div>
+            <div class="product-image"><a [routerLink]="['/product', product.id]"><img src="{{ product.imgUrl}}" [alt]="product?.name"></a></div>
             <div class="product-info">
                 <h3 class="product-name">{{ product.name }}</h3>
                 <div class="product-rating">★★★★★</div>

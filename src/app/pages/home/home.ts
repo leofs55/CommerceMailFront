@@ -4,7 +4,7 @@ import { Footer } from '../../components/public/footer/footer';
 import { ProductFeatured } from '../../components/public/product-featured/product-featured';
 import { CompanyDifferentiators } from '../../components/public/company-differentiators/company-differentiators';
 import { ProductsFeatured } from '../../components/public/products-featured/products-featured';
-import { ProductsDiscounted } from '../../components/public/products-discounted/products-discounted';
+import { ProductDiscounted } from '../../components/public/product-discounted/product-discounted';
 import { AllProducts } from '../../components/public/all-products/all-products';
 import { ClientsFeedbacks } from '../../components/public/clients-feedbacks/clients-feedbacks';
 
@@ -16,7 +16,7 @@ import { ClientsFeedbacks } from '../../components/public/clients-feedbacks/clie
     ProductFeatured,
     CompanyDifferentiators,
     ProductsFeatured,
-    ProductsDiscounted,
+    ProductDiscounted,
     AllProducts,
     ClientsFeedbacks
   ],

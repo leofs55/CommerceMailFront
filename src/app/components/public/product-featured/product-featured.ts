@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../../service/product-requisition';
-
+import { ProductService } from '../../../service/product-requisition';  
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-product-featured',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './product-featured.html',
   styleUrl: './product-featured.css'
 })

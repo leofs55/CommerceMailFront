@@ -1,0 +1,42 @@
+.company-differentiators-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Remover height e max-height fixos */
+  min-height: 80px;
+  text-align: center;
+  padding: 0;
+  margin: 32px 0;
+  width: 100%;
+}
+
+.company-differentiators-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+.company-differentiators-images {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap; /* permite quebrar linha em telas pequenas */
+}
+
+.company-differentiators-images img {
+  height: 8vw;         /* altura relativa à largura da tela */
+  max-height: 100px;   /* limite máximo */
+  min-height: 40px;    /* limite mínimo */
+  width: auto;
+  object-fit: contain;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-sizing: content-box;
+  transition: height 0.2s;
+}

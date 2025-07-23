@@ -1,12 +1,13 @@
-<section class="product-section">
-    <div class="product-grid" >
-        <div class="product-card">
-          <div class="product-image"><a href=""><img src="{{ product.image }}" alt="{{ product.name }}"></a></div>
-            <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-                <div class="product-rating">★★★★★</div>
-                <p class="product-price">R$ {{ product.price }}</p>
+<section class="product-featured-section">
+    <div class="product-featured">
+        <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-price">{{ product.description }}</p>
+            <div class="product-buttons">
+                <button class="product-button">Comprar</button>
+                <button class="product-button">Adicionar ao carrinho</button>
             </div>
         </div>
+        <div class="product-image"><a [routerLink]="['/product', product.id]"><img src="{{ product.imgUrl }}" alt="{{ product.name }}"></a></div>
     </div>
 </section>

@@ -1,5 +1,5 @@
 <section class="product-featured-section">
-    <div class="product-featured">
+    <div class="product-featured" *ngIf="product">
         <div class="product-info">
             <h3 class="product-name">{{ product.name }}</h3>
             <p class="product-price">{{ product.description }}</p>
@@ -8,6 +8,16 @@
                 <button class="product-button">Adicionar ao carrinho</button>
             </div>
         </div>
-        <div class="product-image"><a [routerLink]="['/product', product.id]"><img src="{{ product.imgUrl }}" alt="{{ product.name }}"></a></div>
+        <div class="product-image">
+            <a href="/product/{{ product.id }}">
+                <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
+            </a>
+        </div>
+    </div>
+    
+    <!-- Loading state -->
+    <div class="loading-container" *ngIf="!product">
+        <div class="loading-spinner"></div>
+        <p>Carregando produto em destaque...</p>
     </div>
 </section>

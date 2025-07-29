@@ -1,1 +1,25 @@
-<p>header works!</p>
+<header class="site-header">
+    <div class="header-container">
+      <p class="header-left">(11) 99999-9991</p>
+      <a class="link-header-center" href="/" ><h1 class="header-center" >LOREM IPSUM</h1></a>
+      <div class="header-right">
+        <!-- Ícone do Carrinho -->
+        <a href="/cart/{{user?.id}}" class="cart-button">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        
+        <!-- Dropdown da Conta -->
+        <div class="account-dropdown">
+          <button class="account-button" (click)="toggleDropdown()">
+            <i class="fas fa-user"></i>
+          </button>
+          <div class="dropdown-menu" [class.show]="dropdownOpen">
+            <a href="/account/{{user?.id}}" class="dropdown-item">Minha Conta</a>
+            <a href="/all-carts/{{user?.id}}" class="dropdown-item">Meus Pedidos</a>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item logout-button" (click)="logout()">Sair</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>

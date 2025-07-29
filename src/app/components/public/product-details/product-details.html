@@ -1,1 +1,142 @@
-<p>product-details works!</p>
+<div class="product-details-container" *ngIf="product && !loading">
+  <div class="product-details-content">
+    <!-- Galeria de Imagens -->
+    <div class="product-gallery">
+      <div class="main-image">
+        <img [src]="product.imgUrl" [alt]="product.name" class="product-image">
+      </div>
+      <div class="thumbnail-grid">
+        <div class="thumbnail active">
+          <img [src]="product.imgUrl" [alt]="product.name">
+        </div>
+        <div class="thumbnail">
+          <img [src]="product.imgUrl" [alt]="product.name">
+        </div>
+        <div class="thumbnail">
+          <img [src]="product.imgUrl" [alt]="product.name">
+        </div>
+        <div class="thumbnail">
+          <img [src]="product.imgUrl" [alt]="product.name">
+        </div>
+      </div>
+    </div>
+
+    <!-- Informações do Produto -->
+    <div class="product-info">
+      <div class="product-header">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <div class="product-rating">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <span class="rating-text">(4.8 - 127 avaliações)</span>
+        </div>
+      </div>
+
+      <div class="product-price">
+        <span class="current-price">{{ formatPrice(product.price) }}</span>
+        <span class="original-price" *ngIf="product.originalPrice">{{ formatPrice(product.originalPrice) }}</span>
+        <span class="discount-badge" *ngIf="product.originalPrice">-{{ ((product.originalPrice - product.price) / product.originalPrice * 100).toFixed(0) }}%</span>
+      </div>
+
+      <div class="product-description">
+        <h3>Descrição</h3>
+        <p>{{ product.description }}</p>
+      </div>
+
+      <div class="product-specs">
+        <div class="spec-item">
+          <span class="spec-label">Peso:</span>
+          <span class="spec-value">{{ product.grams }}g</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Categoria:</span>
+          <span class="spec-value">{{ product.category || 'Geral' }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Estoque:</span>
+          <span class="spec-value" [class.low-stock]="product.stock <= 5">
+            {{ product.quantity > 0 ? product.quantity + ' unidades' : 'Fora de estoque' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Controles de Quantidade -->
+      <div class="quantity-section">
+        <label class="quantity-label">Quantidade:</label>
+        <div class="quantity-controls">
+          <button class="quantity-btn" 
+                  (click)="decreaseQuantity()"
+                  [disabled]="quantity <= 1">
+            <span>-</span>
+          </button>
+          <input type="number" 
+                 [value]="quantity" 
+                 (change)="onQuantityChange($event)"
+                 min="1" 
+                 max="product.quantity"
+                 class="quantity-input">
+          <button class="quantity-btn" 
+                  (click)="increaseQuantity()"
+                  [disabled]="quantity >= product.quantity">
+            <span>+</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Preço Total -->
+      <div class="total-price">
+        <span class="total-label">Total:</span>
+        <span class="total-value">{{ formatPrice(getTotalPrice()) }}</span>
+      </div>
+
+      <!-- Mensagem do Carrinho -->
+      <div class="cart-message" *ngIf="cartMessage" [class.success]="cartMessage.includes('✅')">
+        {{ cartMessage }}
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="action-buttons">
+        <button class="btn-primary" 
+                (click)="addToCart()"
+                [disabled]="addingToCart || !product.quantity">
+          <span *ngIf="addingToCart">⏳ Adicionando...</span>
+          <span *ngIf="!addingToCart">🛒 Adicionar ao Carrinho</span>
+        </button>
+      </div>
+
+      <!-- Informações Adicionais -->
+      <div class="additional-info">
+        <div class="info-item">
+          <span class="info-icon">🚚</span>
+          <span class="info-text">Frete grátis para compras acima de R$ 50</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🔄</span>
+          <span class="info-text">30 dias para troca ou devolução</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🔒</span>
+          <span class="info-text">Compra 100% segura</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading state -->
+<div class="loading-container" *ngIf="loading">
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Carregando detalhes do produto...</p>
+  </div>
+</div>
+
+<!-- Error state -->
+<div class="error-container" *ngIf="error && !loading">
+  <div class="error-message">
+    <div class="error-icon">❌</div>
+    <h3>Erro ao carregar produto</h3>
+    <p>Não foi possível carregar os detalhes do produto.</p>
+    <p>Tente novamente mais tarde.</p>
+    <button class="btn-retry" (click)="ngOnInit()">🔄 Tentar Novamente</button>
+  </div>
+</div>

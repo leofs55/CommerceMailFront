@@ -1,4 +1,9 @@
 <div>
-  <app-header/> 
+  <!-- Header baseado no status de autenticação -->
+  <app-header *ngIf="!isLoggedIn"/>
+  <app-header-logged *ngIf="isLoggedIn"/>
+  
+  <!-- Conteúdo da página -->
+  <app-product-details/>
   <app-footer/>
 </div>

@@ -1,1 +1,40 @@
-<p>products-discounted works!</p>
+<section class="products-discounted-section">
+    <div class="products-discounted-grid" *ngIf="product1 && product2">
+        <div class="product-discounted">
+            <div class="product-info">
+                <h3 class="product-name">{{ product1.name }}</h3>
+                <p class="product-price">{{ product1.description }}</p>
+                <div class="product-buttons">
+                    <button class="product-button">Comprar</button>
+                    <button class="product-button">Adicionar ao carrinho</button>
+                </div>
+            </div>
+            <div class="product-image">
+                <a href="/product/{{ product1.id }}">
+                    <img src="{{ product1.imgUrl }}" alt="{{ product1.name }}">
+                </a>
+            </div>
+        </div>
+        <div class="product-discounted">
+            <div class="product-info">
+                <h3 class="product-name">{{ product2.name }}</h3>
+                <p class="product-price">{{ product2.description }}</p>
+                <div class="product-buttons">
+                    <button class="product-button">Comprar</button>
+                    <button class="product-button">Adicionar ao carrinho</button>
+                </div>
+            </div>
+            <div class="product-image">
+                <a href="/product/{{ product2.id }}">
+                    <img src="{{ product2.imgUrl }}" alt="{{ product2.name }}">
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading state -->
+    <div class="loading-container" *ngIf="!product1 || !product2">
+        <div class="loading-spinner"></div>
+        <p>Carregando produtos com desconto...</p>
+    </div>
+</section>

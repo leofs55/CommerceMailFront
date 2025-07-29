@@ -1,1 +1,109 @@
-<p>account works!</p>
+<div class="account-container">
+  <div class="account-header">
+    <h1>Minha Conta</h1>
+    <p>Gerencie suas informações pessoais</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Carregando informações...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+    <button (click)="loadUserDetails()" class="retry-button">Tentar Novamente</button>
+  </div>
+
+  <!-- User Details -->
+  <div *ngIf="userDetails && !isLoading && !errorMessage" class="user-details">
+    <div class="details-card">
+      <div class="card-header">
+        <h2>Informações Pessoais</h2>
+        <button 
+          *ngIf="!isEditing" 
+          (click)="startEditing()" 
+          class="edit-button">
+          <span>✏️</span> Editar
+        </button>
+      </div>
+
+      <!-- View Mode -->
+      <div *ngIf="!isEditing" class="details-view">
+        <div class="detail-item">
+          <label>Nome:</label>
+          <span>{{ userDetails.name }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <label>Email:</label>
+          <span>{{ userDetails.email }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <label>Telefone:</label>
+          <span>{{ userDetails.numberPhone }}</span>
+        </div>
+        
+      </div>
+
+      <!-- Edit Mode -->
+      <div *ngIf="isEditing" class="edit-form">
+        <div class="form-group">
+          <label for="name">Nome:</label>
+          <input 
+            type="text" 
+            id="name"
+            [(ngModel)]="editForm.name" 
+            placeholder="Digite seu nome"
+            class="form-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            type="email" 
+            id="email"
+            [(ngModel)]="editForm.email" 
+            placeholder="Digite seu email"
+            class="form-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Telefone:</label>
+          <input 
+            type="tel" 
+            id="phone"
+            [(ngModel)]="editForm.numberPhone" 
+            placeholder="Digite seu telefone"
+            class="form-input">
+        </div>
+
+        <div class="form-actions">
+          <button 
+            (click)="onSaveClick()" 
+            [disabled]="isLoading"
+            class="save-button">
+            <span *ngIf="!isLoading">💾</span>
+            <span *ngIf="isLoading">⏳</span>
+            {{ isLoading ? 'Salvando...' : 'Salvar' }}
+          </button>
+          
+          <button 
+            (click)="cancelEditing()" 
+            [disabled]="isLoading"
+            class="cancel-button">
+            ❌ Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No User Data -->
+  <div *ngIf="!userDetails && !isLoading && !errorMessage" class="no-data">
+    <p>Nenhuma informação encontrada.</p>
+    <button (click)="loadUserDetails()" class="retry-button">Carregar Dados</button>
+  </div>
+</div>

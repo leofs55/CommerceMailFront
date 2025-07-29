@@ -2,14 +2,24 @@
     <div class="title-section">
         <h1>Todos os produtos</h1>
     </div>
-    <div class="product-grid" >
-        <div class="product-card" *ngFor="let product of products">
-            <div class="product-image"><a [routerLink]="['/product', product.id]"><img src="{{ product.imgUrl}}" [alt]="product?.name"></a></div>
+    
+    <!-- Products grid -->
+    <div class="product-grid" *ngIf="products && products.length > 0">
+        <a class="product-card" *ngFor="let product of products" href="/product/{{ product.id }}">
+            <div class="product-image">
+                <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
+            </div>
             <div class="product-info">
                 <h3 class="product-name">{{ product.name }}</h3>
                 <div class="product-rating">★★★★★</div>
-                <p class="product-price">R$ {{ product.price }}</p>
+                <p class="product-price">R$ {{ product.price | number:'1.2-2' }}</p>
             </div>
-        </div>
+        </a>
+    </div>
+    
+    <!-- Loading state -->
+    <div class="loading-container" *ngIf="!products || products.length === 0">
+        <div class="loading-spinner"></div>
+        <p>Carregando produtos...</p>
     </div>
 </section>

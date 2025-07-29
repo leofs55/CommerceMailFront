@@ -1,0 +1,116 @@
+.products-discounted-section {
+    max-height: 380px;
+    height: 380px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .products-discounted-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .product-discounted {
+    display: flex;
+    flex-direction: row;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 32px 20px;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 48%;
+    margin: 0 8px;
+    align-items: center;
+  }
+  
+  .product-info, .product-image {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+  }
+  
+  .product-info {
+    align-items: flex-start;
+    padding-right: 24px;
+  }
+  
+  .product-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  
+  .product-button {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    background: #121212;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-bottom: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .product-button:hover {
+    background: #333;
+    transform: translateY(-2px) scale(1.04);
+  }
+  
+  .product-image {
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+  }
+  
+  .product-image img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+/* Loading styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+  

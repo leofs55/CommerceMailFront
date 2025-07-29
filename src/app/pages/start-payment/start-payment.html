@@ -1,0 +1,64 @@
+<div>
+    <!-- Header baseado no status de autenticação -->
+    <app-header *ngIf="!isLoggedIn"/>
+    <app-header-logged *ngIf="isLoggedIn"/>
+    
+    <!-- Conteúdo da página -->
+    <div class="payment-container">
+      <div class="payment-card">
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="loading-state">
+          <div class="spinner"></div>
+          <p>Carregando seu pedido...</p>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="errorMessage && !isLoading" class="error-state">
+          <div class="error-icon">⚠️</div>
+          <h2>Ops! Algo deu errado</h2>
+          <p>{{ errorMessage }}</p>
+          <button class="btn-secondary" (click)="loadUserCart()">
+            Tentar Novamente
+          </button>
+        </div>
+
+        <!-- Success State -->
+        <div *ngIf="!isLoading && !errorMessage" class="success-state">
+          <div class="success-icon">💳</div>
+          <h1>Finalizar Compra</h1>
+          
+          <div class="message-section">
+            <p class="main-message">
+              Fale com o vendedor para efetuar seu pagamento
+            </p>
+            <p class="sub-message">
+              Clique no botão abaixo para abrir o WhatsApp e enviar seu pedido automaticamente
+            </p>
+          </div>
+
+          <div class="preview-section" *ngIf="cartMessage">
+            <h3>📋 Resumo do seu pedido:</h3>
+            <div class="cart-preview">
+              <pre>{{ cartMessage }}</pre>
+            </div>
+          </div>
+
+          <button 
+            class="btn-whatsapp" 
+            (click)="redirectToWhatsApp()"
+            [disabled]="!cartMessage">
+            <span class="whatsapp-icon">📱</span>
+            Falar com Vendedor no WhatsApp
+          </button>
+
+          <div class="info-section">
+            <p class="info-text">
+              <strong>💡 Dica:</strong> O vendedor receberá automaticamente os detalhes do seu pedido
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <app-footer/>
+</div>

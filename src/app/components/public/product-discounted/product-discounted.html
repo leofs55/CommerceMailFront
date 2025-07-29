@@ -1,26 +1,16 @@
-<section class="products-discounted-section">
-    <div class="products-discounted-grid">
-        <div class="product-discounted">
-            <div class="product-info">
-                <h3 class="product-name">{{ product1.name }}</h3>
-                <p class="product-price">{{ product1.description }}</p>
-                <div class="product-buttons">
-                    <button class="product-button">Comprar</button>
-                    <button class="product-button">Adicionar ao carrinho</button>
-                </div>
-            </div>
-            <div class="product-image"><a [routerLink]="['/product', product1.id]"><img src="{{ product1.imgUrl }}" alt="{{ product1.name }}"></a></div>
-        </div>
-        <div class="product-discounted">
-            <div class="product-info">
-                <h3 class="product-name">{{ product2.name }}</h3>
-                <p class="product-price">{{ product2.description }}</p>
-                <div class="product-buttons">
-                    <button class="product-button">Comprar</button>
-                    <button class="product-button">Adicionar ao carrinho</button>
-                </div>
-            </div>
-            <div class="product-image"><a [routerLink]="['/product', product2.id]"><img src="{{ product2.imgUrl }}" alt="{{ product2.name }}"></a></div>
-        </div>
-    </div>
-</section>
+<div class="product-highlight-container" *ngIf="product">
+  <div class="product-highlight-info">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <button class="product-highlight-buy" (click)="goToProductDetails(product.id)">Comprar</button>
+  </div>
+  <div class="product-highlight-image">
+    <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
+  </div>
+</div>
+
+<!-- Loading state -->
+<div class="loading-container" *ngIf="!product">
+  <div class="loading-spinner"></div>
+  <p>Carregando produto...</p>
+</div>

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-all-products',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './all-products.html',
   styleUrl: './all-products.css'
 })

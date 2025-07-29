@@ -1,28 +1,27 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../service/product-requisition';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-discounted',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './product-discounted.html',
   styleUrl: './product-discounted.css'
 })
 export class ProductDiscounted {
-  product1: any;
-  product2: any;
+  product: any;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit() {
     this.productService.getProductById(5)
       .subscribe(data => {
-        this.product1 = data;
+        this.product = data;
       });
-    this.productService.getProductById(6)
-      .subscribe(data => {
-        this.product2 = data;
-      });
+  }
+
+  goToProductDetails(id: number) {
+    this.router.navigate(['/product', id]);
   }
 }

@@ -1,1 +1,15 @@
-<p>products-featured works!</p>
+<section class="products-featured-section">
+    <div class="title-section">
+        <h1>Produtos em destaque</h1>
+    </div>
+    <div class="product-grid">
+        <a class="product-card" *ngFor="let product of featuredProducts; let i = index" href="/product/{{ product.id }}">
+            <div class="product-image"><img src="{{ product.imgUrl }}" alt="{{ product.name }}"></div>
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <div class="product-rating">★★★★★</div>
+                <p class="product-price">R$ {{ product.price | number:'1.2-2' }}</p>
+            </div>
+        </a>
+    </div>
+</section>

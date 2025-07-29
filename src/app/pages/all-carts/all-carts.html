@@ -1,0 +1,14 @@
+<div>
+  <!-- Header baseado no status de autenticação -->
+  <app-header *ngIf="!isLoggedIn"/>
+  <app-header-logged *ngIf="isLoggedIn"/>
+  
+  <!-- Conteúdo da página -->
+  <div class="all-carts-content">
+    <h1>Meus Pedidos</h1>
+    <p>all-carts works!</p>
+  </div>
+  
+  <!-- Footer -->
+  <app-footer/>
+</div>

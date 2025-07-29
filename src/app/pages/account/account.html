@@ -1,0 +1,11 @@
+<div>
+  <!-- Header baseado no status de autenticação -->
+  <app-header *ngIf="!isLoggedIn"/>
+  <app-header-logged *ngIf="isLoggedIn"/>
+  
+  <!-- Conteúdo da página -->
+  <app-account-component/>
+  
+  <!-- Footer -->
+  <app-footer/>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, timeout } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 // Interfaces baseadas no controller Spring Boot
@@ -46,6 +46,20 @@ export interface UserResponse {
   name: string;
   email: string;
   numberPhone: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+}
+
+// Interface para corresponder ao DTO Java
+export interface UserResetPasswordConfirmationRequest {
+  email: string;
+}
+
+export interface ResetPasswordResponse {
+  message: string;
+  success: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -187,5 +201,30 @@ export class UserService {
   testConnection(): Observable<any> {
     return this.http.get(`${this.apiUrl}/create`)
       .pipe(catchError(this.handleError));
+  }
+
+  // Função para redefinir senha
+  resetPassword(resetData: UserResetPasswordConfirmationRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password`, resetData, { responseType: 'text' })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Função para redefinir senha com ID do usuário
+  resetPasswordWithId(userId: string, resetData: { password: string }): Observable<any> {
+    console.log('🔧 Service: Enviando requisição para:', `${this.apiUrl}/reset-password/${userId}`);
+    console.log('🔧 Service: Dados da requisição:', resetData);
+    
+    return this.http.post(`${this.apiUrl}/reset-password/${userId}`, resetData, { responseType: 'text' })
+      .pipe(
+        tap(response => {
+          console.log('🔧 Service: Resposta recebida:', response);
+        }),
+        catchError(error => {
+          console.error('🔧 Service: Erro na requisição:', error);
+          return this.handleError(error);
+        })
+      );
   }
 }

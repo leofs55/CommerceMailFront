@@ -59,18 +59,18 @@
         <div class="cart-info">
           <div class="info-row">
             <div class="info-item">
-              <span class="info-label">📦 Produtos:</span>
+              <span class="info-label">Produtos:</span>
               <span class="info-value">{{ getUniqueProducts(cart) }}</span>
             </div>
             <div class="info-item">
-              <span class="info-label">🔢 Itens:</span>
+              <span class="info-label">Itens:</span>
               <span class="info-value">{{ getTotalItems(cart) }}</span>
             </div>
           </div>
           
           <div class="info-row">
             <div class="info-item">
-              <span class="info-label">💰 Total:</span>
+              <span class="info-label">Total:</span>
               <span class="info-value total-price">{{ formatPrice(cart.totalPrice) }}</span>
             </div>
           </div>
@@ -95,8 +95,8 @@
 
         <!-- Cart Actions -->
         <div class="cart-actions">
-          <button class="btn-details" (click)="viewCartDetails(cart.id)">
-            👁️ Ver Detalhes
+          <button class="btn-details" (click)="router.navigate(['/cart-details', cart.id])">
+            Ver Detalhes
           </button>
         </div>
       </div>

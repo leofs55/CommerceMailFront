@@ -1,0 +1,106 @@
+<div class="cart-details-container">
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Carregando detalhes do carrinho...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+    <button (click)="loadCartDetails()" class="retry-button">Tentar Novamente</button>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    <p>{{ successMessage }}</p>
+  </div>
+
+  <!-- Cart Details -->
+  <div *ngIf="cart && !loading" class="cart-content">
+    <!-- Header -->
+    <div class="cart-header">
+      <button (click)="goBack()" class="back-button">
+        ← Voltar
+      </button>
+      <h1>Detalhes do Carrinho</h1>
+      <div class="cart-status">
+        <span class="status-badge" [ngClass]="getStatusClass()">
+          {{ getStatusText() }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Cart Info -->
+    <div class="cart-info">
+      <div class="info-section">
+        <h3>Informações do Cliente</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Nome:</strong>
+            <span>{{ cart.user.name }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Email:</strong>
+            <span>{{ cart.user.email }}</span>
+          </div>
+          <div class="info-item">
+            <strong>ID do Carrinho:</strong>
+            <span>{{ cart.id }}</span>
+          </div>
+          <div class="info-item">
+            <strong>Status:</strong>
+            <span [ngClass]="getStatusClass()">{{ getStatusText() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Section -->
+      <div class="products-section">
+        <h3>Produtos do Carrinho</h3>
+        <div class="products-list">
+          <div *ngFor="let product of cart.productResponses; let i = index" class="product-item">
+            <div class="product-image">
+              <img *ngIf="product.imgUrl" [src]="product.imgUrl" [alt]="product.name" />
+              <div *ngIf="!product.imgUrl" class="no-image">
+                <span>Sem imagem</span>
+              </div>
+            </div>
+            <div class="product-details">
+              <h4>{{ product.name }}</h4>
+              <p class="product-description">{{ product.description }}</p>
+              <div class="product-info">
+                <span class="quantity">Quantidade: {{ product.quantity }}</span>
+                <span class="price">Preço: {{ formatPrice(product.price) }}</span>
+                <span class="total">Total: {{ formatPrice(product.price * product.quantity) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Section -->
+      <div class="total-section">
+        <div class="total-item">
+          <strong>Total do Carrinho:</strong>
+          <span class="total-price">{{ formatPrice(cart.totalPrice) }}</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button 
+          *ngIf="isCartOpen()" 
+          (click)="redirectToWhatsApp()" 
+          class="whatsapp-button"
+        >
+          📱 Reenviar Mensagem para Vendedor
+        </button>
+        
+        <div *ngIf="!isCartOpen()" class="closed-cart-message">
+          <p>Este carrinho está fechado e não pode ser modificado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

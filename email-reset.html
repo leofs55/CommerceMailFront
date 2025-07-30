@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Redefinição de Senha</title>
+    <style>
+        /* Reset CSS para compatibilidade com clientes de email */
+        body, table, td, p, a, li, blockquote {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+        
+        /* Estilos principais */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .welcome-text {
+            font-size: 18px;
+            color: #333333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .message-text {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .button-container {
+            margin: 40px 0;
+        }
+        
+        .confirm-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .confirm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .security-notice {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .security-notice h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin: 0 0 10px 0;
+        }
+        
+        .security-notice p {
+            color: #666666;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            background-color: #f8f9fa;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer p {
+            color: #666666;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .expiry-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .expiry-notice p {
+            color: #856404;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* Responsividade para dispositivos móveis */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+            
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .welcome-text {
+                font-size: 16px;
+            }
+            
+            .message-text {
+                font-size: 14px;
+            }
+            
+            .confirm-button {
+                padding: 14px 28px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Fallbacks para clientes de email que não suportam CSS moderno */
+        .fallback-button {
+            background-color: #667eea;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td align="center" style="background-color: #f4f4f4; padding: 20px 0;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" class="email-container">
+                    <!-- Header -->
+                    <tr>
+                        <td class="header">
+                            <div class="logo">CM</div>
+                            <h1>Redefinição de Senha</h1>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td class="content">
+                            <p class="welcome-text">
+                                Olá! Recebemos uma solicitação para redefinir sua senha.
+                            </p>
+                            
+                            <p class="message-text">
+                                Para confirmar a redefinição da sua senha, clique no botão abaixo. 
+                                Esta ação irá permitir que você defina uma nova senha para sua conta.
+                            </p>
+                            
+                            <!-- Botão de Confirmação -->
+                            <div class="button-container">
+                                <a href="LINK_AQUI" class="confirm-button fallback-button">
+                                    Confirmar Redefinição de Senha
+                                </a>
+                            </div>
+                            
+                            <!-- Aviso de Segurança -->
+                            <div class="security-notice">
+                                <h3>🔒 Informações de Segurança</h3>
+                                <p>
+                                    • Este link é válido por 24 horas<br>
+                                    • Se você não solicitou esta redefinição, ignore este email<br>
+                                    • Nunca compartilhe este link com outras pessoas<br>
+                                    • Sua senha atual permanecerá ativa até a confirmação
+                                </p>
+                            </div>
+                            
+                            <!-- Aviso de Expiração -->
+                            <div class="expiry-notice">
+                                <p>
+                                    ⏰ Este link expira em 24 horas por motivos de segurança.
+                                </p>
+                            </div>
+                            
+                            <p class="message-text">
+                                Se o botão não funcionar, copie e cole o seguinte link no seu navegador:<br>
+                                <a href="LINK_AQUI" style="color: #667eea; word-break: break-all;">LINK_AQUI</a>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td class="footer">
+                            <p>Este email foi enviado automaticamente, não responda a esta mensagem.</p>
+                            <p>Se você tiver dúvidas, entre em contato conosco através do suporte.</p>
+                            <p style="margin-top: 20px; font-size: 12px; color: #999999;">
+                                © 2024 CommerceMail. Todos os direitos reservados.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

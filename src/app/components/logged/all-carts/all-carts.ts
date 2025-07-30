@@ -118,9 +118,9 @@ export class AllCarts implements OnInit {
   }
 
   viewCartDetails(cartId: string): void {
-    // Futuramente implementar navegação para detalhes do carrinho
-    console.log('Visualizar detalhes do carrinho:', cartId);
-    // this.router.navigate(['/cart-details', cartId]);
+    console.log('Navegando para detalhes do carrinho:', cartId);
+    console.log('URL de destino:', `/cart-details/${cartId}`);
+    this.router.navigate(['/cart-details', cartId]);
   }
 
   getTotalItems(cart: CartResponse): number {

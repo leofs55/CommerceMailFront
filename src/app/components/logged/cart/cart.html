@@ -30,9 +30,8 @@
     <div class="cart-items">
       <div *ngFor="let item of cartItems" class="cart-item">
         <div class="item-image">
-          <img [src]="item.product.imageUrl || '/assets/images/placeholder.png'" 
-               [alt]="item.product.name"
-               onerror="this.src='/assets/images/placeholder.png'">
+          <img [src]="item.product.imgUrl" 
+               [alt]="item.product.name">
         </div>
         
         <div class="item-details">
@@ -113,6 +112,7 @@
           🛍️ Continuar Comprando
         </button>
         
+        <!-- Botão para salvar carrinho -->
         <button class="btn-primary" 
                 (click)="saveCartToServer()"
                 [disabled]="isLoading">

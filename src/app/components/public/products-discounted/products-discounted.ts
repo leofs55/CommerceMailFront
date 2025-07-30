@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductService } from '../../../service/product-requisition';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../../service/cart-requisition';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-discounted',
@@ -12,7 +14,11 @@ export class ProductsDiscounted {
   product1: any;
   product2: any;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.productService.getProductById(5)
@@ -23,5 +29,19 @@ export class ProductsDiscounted {
       .subscribe(data => {
         this.product2 = data;
       });
+  }
+
+  addToCart(product: any) {
+    if (product) {
+      this.cartService.addToCart(product, 1);
+      this.router.navigate(['/cart']);
+    }
+  }
+
+  buyNow(product: any) {
+    if (product) {
+      this.cartService.addToCart(product, 1);
+      this.router.navigate(['/cart']);
+    }
   }
 }

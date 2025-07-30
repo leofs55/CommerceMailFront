@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../../service/product-requisition';  
+import { Router } from '@angular/router';
+import { ProductService } from '../../../service/product-requisition';
+import { CartService } from '../../../service/cart-requisition';
 
 @Component({
   selector: 'app-product-featured',
@@ -11,12 +13,44 @@ import { ProductService } from '../../../service/product-requisition';
 export class ProductFeatured {
   product: any;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.productService.getProductById(1)
       .subscribe(data => {
+        console.log('Produto carregado:', data);
         this.product = data;
       });
+  }
+
+  addToCart() {
+    console.log('addToCart chamado');
+    if (this.product) {
+      console.log('Adicionando produto ao carrinho:', this.product);
+      this.cartService.addToCart(this.product, 1);
+      this.navigateToCart();
+    } else {
+      console.log('Produto não disponível');
+    }
+  }
+
+  buyNow() {
+    console.log('buyNow chamado');
+    if (this.product) {
+      console.log('Comprando produto:', this.product);
+      this.cartService.addToCart(this.product, 1);
+      this.navigateToCart();
+    } else {
+      console.log('Produto não disponível');
+    }
+  }
+
+  private navigateToCart() {
+    console.log('Navegando para o carrinho');
+    this.router.navigate(['/cart']);
   }
 }

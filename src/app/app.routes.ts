@@ -13,6 +13,7 @@ export const routes: Routes = [
   { path: 'login', component: Login},
   { path: 'sign-up', component: SignUp},
   { path: 'product/:id', component: ProductDetails },
+  { path: 'cart', component: Cart },
   { path: 'cart/:id', component: Cart },
   { path: 'all-carts/:id', component: AllCarts },
   { path: 'account/:id', component: Account },

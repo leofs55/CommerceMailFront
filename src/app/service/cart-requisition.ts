@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, firstValueFrom } from 'rxjs';
 
 // Interfaces para as requisições
 export interface CartCreateProductRequest {
@@ -25,7 +25,7 @@ export interface ProductResponse {
   name: string;
   description: string;
   price: number;
-  imageUrl?: string;
+  imgUrl?: string;
   quantity: number;
 }
 
@@ -77,16 +77,62 @@ export class CartService {
 
   // Métodos para gerenciar carrinho local
   addToCart(product: ProductResponse, quantity: number = 1): void {
+    console.log('addToCart chamado:', { product, quantity });
     const currentItems = this.cartItemsSubject.value;
+    console.log('Items atuais:', currentItems);
+    
     const existingItem = currentItems.find(item => item.product.id === product.id);
     
     if (existingItem) {
+      console.log('Item existente encontrado, aumentando quantidade');
       existingItem.quantity += quantity;
     } else {
+      console.log('Novo item, adicionando ao carrinho');
       currentItems.push({ product, quantity });
     }
     
+    console.log('Items após adição:', currentItems);
     this.updateCart(currentItems);
+  }
+
+  // Método para adicionar produtos verificando carrinho existente
+  async addToCartWithExistingCheck(product: ProductResponse, quantity: number = 1, userId?: number): Promise<void> {
+    console.log('addToCartWithExistingCheck chamado:', { product, quantity, userId });
+    
+    // Se não temos userId, adiciona normalmente ao carrinho local
+    if (!userId) {
+      console.log('Sem userId, adicionando ao carrinho local');
+      this.addToCart(product, quantity);
+      return;
+    }
+
+    try {
+      console.log('Verificando carrinho existente para userId:', userId);
+      // Verifica se há carrinho aberto
+      const existingCart = await firstValueFrom(this.findOpenCartByUser(userId));
+      
+      if (existingCart) {
+        console.log('Carrinho existente encontrado, adicionando ao carrinho local');
+        // Se há carrinho existente, adiciona ao carrinho local também
+        // para manter sincronização
+        this.addToCart(product, quantity);
+      } else {
+        console.log('Nenhum carrinho existente, adicionando ao carrinho local');
+        // Se não há carrinho existente, adiciona normalmente
+        this.addToCart(product, quantity);
+      }
+    } catch (error: any) {
+      console.log('Erro ao verificar carrinho existente:', error);
+      // Se erro 404 (não encontrou carrinho), adiciona normalmente
+      if (error.status === 404) {
+        console.log('Erro 404 - adicionando ao carrinho local');
+        this.addToCart(product, quantity);
+      } else {
+        // Para outros erros, adiciona normalmente também
+        console.log('Outro erro - adicionando ao carrinho local');
+        this.addToCart(product, quantity);
+      }
+    }
   }
 
   // Função para formatar carrinho em mensagem
@@ -158,8 +204,10 @@ export class CartService {
   }
 
   private updateCart(items: CartItem[]): void {
+    console.log('updateCart chamado com items:', items);
     this.cartItemsSubject.next(items);
     this.storeCart(items);
+    console.log('Carrinho atualizado e armazenado');
   }
 
   private getStoredCart(): CartItem[] {

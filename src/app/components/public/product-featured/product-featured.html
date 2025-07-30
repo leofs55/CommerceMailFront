@@ -4,8 +4,8 @@
             <h3 class="product-name">{{ product.name }}</h3>
             <p class="product-price">{{ product.description }}</p>
             <div class="product-buttons">
-                <button class="product-button">Comprar</button>
-                <button class="product-button">Adicionar ao carrinho</button>
+                <button class="product-button" (click)="buyNow()">Comprar</button>
+                <button class="product-button" (click)="addToCart()">Adicionar ao carrinho</button>
             </div>
         </div>
         <div class="product-image">

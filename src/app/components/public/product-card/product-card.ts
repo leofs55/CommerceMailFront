@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService, ProductResponse } from '../../../service/cart-requisition';
+import { UserService } from '../../../service/user-requisition';
 
 @Component({
   selector: 'app-product-card',
@@ -12,10 +13,18 @@ export class ProductCard {
   @Input() product!: ProductResponse;
   @Output() addToCartEvent = new EventEmitter<ProductResponse>();
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private userService: UserService
+  ) {}
 
-  addToCart(): void {
-    this.cartService.addToCart(this.product, 1);
+  async addToCart(): Promise<void> {
+    console.log('ProductCard addToCart chamado com produto:', this.product);
+    const currentUser = this.userService.getCurrentUser();
+    const userId = currentUser?.id;
+    console.log('Usuario atual:', currentUser, 'userId:', userId);
+    
+    await this.cartService.addToCartWithExistingCheck(this.product, 1, userId);
     this.addToCartEvent.emit(this.product);
     
     // Feedback visual (opcional)

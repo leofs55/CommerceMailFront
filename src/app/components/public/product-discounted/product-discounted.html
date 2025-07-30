@@ -2,10 +2,11 @@
   <div class="product-highlight-info">
     <h2>{{ product.name }}</h2>
     <p>{{ product.description }}</p>
-    <button class="product-highlight-buy" (click)="goToProductDetails(product.id)">Comprar</button>
+    <button class="product-highlight-buy" (click)="buyNow()">Comprar</button>
+    <button class="product-highlight-buy" (click)="addToCart()">Adicionar ao carrinho</button>
   </div>
   <div class="product-highlight-image">
-    <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
+    <img src="{{ product.imgUrl }}" alt="{{ product.name }}" (click)="goToProductDetails(product.id)" style="cursor:pointer;">
   </div>
 </div>
 

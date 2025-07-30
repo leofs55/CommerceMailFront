@@ -4,12 +4,14 @@ import { Header } from '../../components/not-logged/header/header';
 import { HeaderLogged } from '../../components/logged/header/header';
 import { Footer } from '../../components/public/footer/footer';
 import { UserService } from '../../service/user-requisition';
+import { AllCarts as AllCartsComponent } from '../../components/logged/all-carts/all-carts';
 
 @Component({
   selector: 'app-all-carts',
   imports: [
     CommonModule,
     Header,
+    AllCartsComponent,
     HeaderLogged,
     Footer
   ],

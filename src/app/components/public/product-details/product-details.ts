@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../service/product-requisition';
 import { CartService } from '../../../service/cart-requisition';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { UserService } from '../../../service/user-requisition';
 
 @Component({
   selector: 'app-product-details',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './product-details.html',
-  styleUrls: ['./product-details.css']
+  styleUrl: './product-details.css'
 })
-
 export class ProductDetails implements OnInit {
   productId: string | null = null;
   product: any = null;
@@ -23,9 +21,11 @@ export class ProductDetails implements OnInit {
   cartMessage = '';
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -77,7 +77,7 @@ export class ProductDetails implements OnInit {
   }
 
   // Adicionar ao carrinho
-  addToCart(): void {
+  async addToCart(): Promise<void> {
     if (!this.product) return;
 
     this.addingToCart = true;
@@ -89,18 +89,22 @@ export class ProductDetails implements OnInit {
       name: this.product.name,
       description: this.product.description,
       price: this.product.price,
-      imageUrl: this.product.imgUrl,
+      imgUrl: this.product.imgUrl,
       quantity: this.quantity
     };
 
-    this.cartService.addToCart(cartProduct, this.quantity);
+    const currentUser = this.userService.getCurrentUser();
+    const userId = currentUser?.id;
+
+    await this.cartService.addToCartWithExistingCheck(cartProduct, this.quantity, userId);
     
     // Feedback visual
     this.cartMessage = `✅ ${this.quantity} ${this.quantity === 1 ? 'item' : 'itens'} adicionado${this.quantity === 1 ? '' : 's'} ao carrinho!`;
     
+    // Aguarda um pouco para mostrar a mensagem e depois redireciona
     setTimeout(() => {
-      this.cartMessage = '';
-    }, 3000);
+      this.router.navigate(['/cart']);
+    }, 1000);
 
     this.addingToCart = false;
   }

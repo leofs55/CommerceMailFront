@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../../service/cart-requisition';
 import { UserService } from '../../../service/user-requisition';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-cart-component',
@@ -28,11 +26,11 @@ export class Cart implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCart();
-  }
-
-  loadCart(): void {
+    console.log('Cart ngOnInit iniciado');
+    
+    // Inscreve para mudanças no carrinho local
     this.cartService.cartItems$.subscribe(items => {
+      console.log('Cart items atualizados:', items);
       this.cartItems = items;
       this.cartTotal = this.cartService.getCartTotal();
       this.cartItemCount = this.cartService.getCartItemCount();
@@ -69,33 +67,7 @@ export class Cart implements OnInit {
 
     try {
       const cartRequest = this.cartService.createCartRequest(currentUser.id);
-      await this.cartService.createCart(cartRequest)
-        .pipe(
-          catchError((error: any) => {
-            let errorMessage = 'Erro ao salvar carrinho';
-            
-            // Tenta extrair o body da response de erro
-            if (error.error) {
-              // Se o erro tem uma propriedade error, pode conter o body da response
-              if (typeof error.error === 'string') {
-                errorMessage = error.error;
-              } else if (error.error.message) {
-                errorMessage = error.error.message;
-              } else if (error.error.error) {
-                errorMessage = error.error.error;
-              }
-            } else if (error.message) {
-              errorMessage = error.message;
-            }
-            
-            // Log do erro completo para debug
-            console.error('Erro completo:', error);
-            console.error('Body da response:', error.error);
-            
-            return throwError(() => new Error(errorMessage));
-          })
-        )
-        .toPromise();
+      await this.cartService.createCart(cartRequest).toPromise();
       
       this.successMessage = 'Carrinho salvo com sucesso!';
       this.cartService.clearCart(); // Limpa o carrinho local após salvar

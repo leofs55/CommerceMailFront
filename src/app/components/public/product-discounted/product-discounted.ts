@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../service/product-requisition';
 import { Router } from '@angular/router';
 import { CartService } from '../../../service/cart-requisition';
+import { UserService } from '../../../service/user-requisition';
 
 @Component({
   selector: 'app-product-discounted',
@@ -16,6 +17,7 @@ export class ProductDiscounted {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private userService: UserService,
     private router: Router
   ) {}
 
@@ -27,6 +29,14 @@ export class ProductDiscounted {
   }
 
   addToCart() {
+    // Verificar se o usuário está logado
+    if (!this.userService.isLoggedIn()) {
+      // Se não estiver logado, redirecionar para a página de login
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Se estiver logado, adicionar ao carrinho e redirecionar
     if (this.product) {
       this.cartService.addToCart(this.product, 1);
       this.router.navigate(['/cart']);
@@ -34,6 +44,14 @@ export class ProductDiscounted {
   }
 
   buyNow() {
+    // Verificar se o usuário está logado
+    if (!this.userService.isLoggedIn()) {
+      // Se não estiver logado, redirecionar para a página de login
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Se estiver logado, adicionar ao carrinho e redirecionar
     if (this.product) {
       this.cartService.addToCart(this.product, 1);
       this.router.navigate(['/cart']);

@@ -1,16 +1,36 @@
 .product-featured-section {
   display: flex;
   justify-content: center;
+  background: #631717 url('/assets/images/vecteezy_retro-leaves-vector-seamless-pattern-festive-merry-floral_ 1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  position: relative;
+}
+
+.product-featured-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #00000040;
+  backdrop-filter: blur(25%);
+  z-index: 1;
 }
 
 .product-featured {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: row;
   width: 100%;
   max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-  background: #f9f9f9;
+  margin: 0 auto;
+  padding: 0 0 0 0;
+  
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 
@@ -32,6 +52,23 @@
   padding-right: 24px;
 }
 
+.product-name {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 59.13px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #FFFFFF;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.product-description {
+  color: #F7B671;
+  margin: 0 0 1rem 0;
+}
+
 .product-buttons {
   display: flex;
   flex-direction: row;
@@ -42,9 +79,9 @@
 .product-button {
   padding: 8px 20px;
   font-size: 0.95rem;
-  border: none;
-  border-radius: 6px;
-  background: #121212;
+  border: 2px solid #F7B671;
+  border-radius: 0;
+  background: transparent;
   color: #fff;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
@@ -52,20 +89,23 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 .product-button:hover {
-  background: #333;
   transform: translateY(-2px) scale(1.04);
 }
 
 .product-image {
   align-items: center;
   justify-content: center;
-  padding-left: 24px 24px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .product-image img {
   max-width: 100%;
-  max-height: 350px;
-  object-fit: contain;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 8px;
 }
 

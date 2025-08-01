@@ -73,19 +73,28 @@ export class CartDetails implements OnInit {
     return this.cart?.status === 'OPEN';
   }
 
-  getStatusText(): string {
-    switch (this.cart?.status) {
-      case 'OPEN':
-        return 'Aberto';
-      case 'CLOSED':
-        return 'Fechado';
-      case 'PENDING':
-        return 'Pendente';
+  getStatusColor(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'open':
+        return '#48bb78'; // Verde
+      case 'sold':
+        return '#1c8546'; // Vermelho
       default:
-        return 'Desconhecido';
+        return '#718096'; // Cinza
     }
   }
 
+  getStatusText(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'open':
+        return 'Aberto';
+      case 'sold':
+        return 'Concluído';
+      default:
+        return status;
+    }
+  }
+  
   getStatusClass(): string {
     switch (this.cart?.status) {
       case 'OPEN':

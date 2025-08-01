@@ -1,20 +1,22 @@
 <section class="all-products-section">
     <div class="title-section">
-        <h1>Todos os produtos</h1>
+        <h1>TODOS OS PRODUTOS</h1>
     </div>
     
     <!-- Products grid -->
     <div class="product-grid" *ngIf="products && products.length > 0">
-        <a class="product-card" *ngFor="let product of products" href="/product/{{ product.id }}">
-            <div class="product-image">
-                <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
-            </div>
+        <div class="product-card" *ngFor="let product of products">
+            <a class="product-card-link" href="/product/{{ product.id }}">
+                <div class="product-image">
+                    <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
+                </div>
+            </a>
             <div class="product-info">
                 <h3 class="product-name">{{ product.name }}</h3>
-                <div class="product-rating">★★★★★</div>
                 <p class="product-price">R$ {{ product.price | number:'1.2-2' }}</p>
+                <button class="product-button" (click)="addToCart(product)">Adicionar ao carrinho</button>
             </div>
-        </a>
+        </div>
     </div>
     
     <!-- Loading state -->

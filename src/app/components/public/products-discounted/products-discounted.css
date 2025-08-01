@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    background: #FFDFCD;
   }
   
   .products-discounted-grid {
@@ -21,29 +22,50 @@
   .product-discounted {
     display: flex;
     flex-direction: row;
-    background: #f9f9f9;
-    border-radius: 12px;
+    background: #A05530;
+    border-radius: 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    padding: 32px 20px;
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 48%;
-    margin: 0 8px;
+    padding: 20px;
+    width: 470.0718994140625px;
+    height: 240.73069763183594px;
+    gap: 10px;
     align-items: center;
+    position: relative;
+    opacity: 1;
+  }
+
+  .product-discounted::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    border: 2px solid #F7B671;
+    pointer-events: none;
   }
   
   .product-info, .product-image {
+    padding: 24px;
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 0;
+    max-height: 200px;
   }
   
   .product-info {
     align-items: flex-start;
-    padding-right: 24px;
+    padding: 24px;
+    color: #FFFFFF;
+  }
+
+  .product-info h3,
+  .product-info p {
+    color: #FFFFFF;
   }
   
   .product-buttons {
@@ -56,18 +78,13 @@
   .product-button {
     padding: 6px 8px;
     font-size: 0.85rem;
-    border: none;
-    border-radius: 6px;
-    background: #121212;
-    color: #fff;
+    border: 2px solid #F7B671;
+    border-radius: 0;
+    background: transparent;
+    color: #FFFFFF;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
     margin-bottom: 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  }
-  .product-button:hover {
-    background: #333;
-    transform: translateY(-2px) scale(1.04);
+    box-shadow: none;
   }
   
   .product-image {
@@ -79,6 +96,7 @@
   .product-image img {
     max-width: 100%;
     max-height: 200px;
+    height: 200px;
     object-fit: contain;
     border-radius: 8px;
   }
@@ -112,5 +130,9 @@
   color: #666;
   font-size: 14px;
   margin: 0;
+}
+
+.product-button:hover {
+  transform: translateY(-4px);
 }
   

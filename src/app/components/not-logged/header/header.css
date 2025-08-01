@@ -1,8 +1,9 @@
 .site-header {
-    background-color: #c1c2c1;
+    background-color: #803439;
     border-bottom: 1px solid #e5e5e5;
     padding: 20px;
     font-family: 'Sora', sans-serif;
+    margin: 0 0 0 0;
 }
 
 .header-container {
@@ -11,23 +12,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .header-left { 
-    font-size: 14px;
-    color: #555555;
+    font-size: 20px;
+    color: #FFFFFF;
     text-align: left;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 0;
 }
 
 .header-right {
-    font-size: 14px;
-    color: #007BFF;
+    font-size: 20px;
+    color: #FFFFFF;
     text-align: right;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 0;
 }
 
 .header-right a {
     text-decoration: none;
-    color: #007BFF;
+    color: #FFFFFF;
 }
 
 .header-right a:hover {
@@ -43,14 +53,14 @@
     font-size: 24px;
     font-weight: bold;
     margin: 0;
-    color: #121212;
+    color: #FFFFFF;
     text-align: center;
     transition: font-size 0.3s ease;
 }
 
 .header-center:hover {
     font-size: 29px;
-    color: #121212;
+    color: #FFFFFF;
     text-decoration: none;
     cursor: default;
 }

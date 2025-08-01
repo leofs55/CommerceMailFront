@@ -1,12 +1,15 @@
 <div class="product-highlight-container" *ngIf="product">
   <div class="product-highlight-info">
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <button class="product-highlight-buy" (click)="buyNow()">Comprar</button>
-    <button class="product-highlight-buy" (click)="addToCart()">Adicionar ao carrinho</button>
+    <div class="product-highlight-info-text">
+      <div class="product-highlight-info-text-content">
+        <h2>Lorem Ipsum
+          Dolor</h2>
+        <button class="product-highlight-buy" (click)="addToCart()">Adicionar ao carrinho</button>
+      </div>
+    </div>
   </div>
   <div class="product-highlight-image">
-    <img src="{{ product.imgUrl }}" alt="{{ product.name }}" (click)="goToProductDetails(product.id)" style="cursor:pointer;">
+    <img src="assets\images\imageAboutProduct.png" alt="{{ product.name }}" (click)="goToProductDetails(product.id)" style="cursor:pointer;">
   </div>
 </div>
 

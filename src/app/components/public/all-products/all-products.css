@@ -1,13 +1,13 @@
 .all-products-section {
-max-width: 1200px;
-margin: 40px auto;
-padding: 0 20px;
+width: 100%;
+padding:40px 0 40px 0;
 font-family: "Sora", sans-serif;
+background-color: #FFDFCD;
 }
 
 .section-label {
 display: inline-block;
-background-color: #e0e0e0;
+
 color: #333;
 font-size: 12px;
 padding: 4px 8px;
@@ -15,20 +15,24 @@ border-radius: 4px;
 margin-bottom: 10px;
 }
 
-.section-title {
+.title-section {
 font-size: 28px;
+color: #803439;
 font-weight: bold;
 margin-bottom: 30px;
+text-align: center;
 }
 
 .product-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-gap: 30px;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 30px;
+  margin: 0 auto;
 }
 
 .product-card {
-background-color: #f0f0f0;
+background-color:transparent;
 padding: 10px;
 text-align: center;
 border-radius: 8px;
@@ -36,8 +40,13 @@ transition: transform 0.2s ease;
 display: flex;
 flex-direction: column;
 align-items: stretch;
+
+}
+
+.product-card-link {
 text-decoration: none;
 }
+
 
 .product-card:hover {
 transform: translateY(-4px);
@@ -47,7 +56,6 @@ transform: translateY(-4px);
 background-color: #cfcfcf;
 width: 100%;
 aspect-ratio: 1 / 1;
-border-radius: 4px;
 margin-bottom: 10px;
 max-width: 100%;
 max-height: 200px; /* ou outro valor desejado */
@@ -115,3 +123,15 @@ font-weight: bold;
   margin: 0;
 }
   
+.product-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border: 1px solid #ffffff;
+  background: #CA784F;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  width: 100%;
+}

@@ -1,47 +1,48 @@
 <div class="all-carts-container">
-  <!-- Header -->
-  <div class="header">
-    <div class="header-content">
-      <h1>📋 Meus Carrinhos</h1>
-      <p class="subtitle">
-        Histórico completo de todos os seus carrinhos
-        <span *ngIf="currentUser">para {{ currentUser.name }}</span>
-      </p>
+  <div class="all-carts-container-content">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-content">
+        <h1>Meus Carrinhos</h1>
+        <p class="subtitle">
+          Histórico completo de todos os seus carrinhos
+        </p>
+      </div>
     </div>
-  </div>
-
-  <!-- Loading State -->
-  <div *ngIf="loading" class="loading-container">
-    <div class="loading-spinner">⏳</div>
-    <p>Carregando seus carrinhos...</p>
-  </div>
-
-  <!-- Error State -->
-  <div *ngIf="error && !loading" class="error-container">
-    <div class="error-icon">❌</div>
-    <h3>Erro ao carregar carrinhos</h3>
-    <p>{{ error }}</p>
-    <button class="btn-retry" (click)="loadCarts()">
-      🔄 Tentar Novamente
-    </button>
-  </div>
-
-  <!-- Empty State -->
-  <div *ngIf="!loading && !error && carts.length === 0" class="empty-container">
-    <div class="empty-icon">🛒</div>
-    <h3>Nenhum carrinho encontrado</h3>
-    <p>Você ainda não criou nenhum carrinho.</p>
-    <button class="btn-primary" (click)="router.navigate(['/'])">
-      🛍️ Ir às Compras
-    </button>
-  </div>
-
+    
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner">⏳</div>
+      <p>Carregando seus carrinhos...</p>
+    </div>
+    
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container">
+      <div class="error-icon">❌</div>
+      <h3>Erro ao carregar carrinhos</h3>
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="loadCarts()">
+        🔄 Tentar Novamente
+      </button>
+    </div>
+    
+    <!-- Empty State -->
+    <div *ngIf="!loading && !error && carts.length === 0" class="empty-container">
+      <div class="empty-icon">🛒</div>
+      <h3>Nenhum carrinho encontrado</h3>
+      <p>Você ainda não criou nenhum carrinho.</p>
+      <button class="btn-primary" (click)="router.navigate(['/'])">
+        🛍️ Ir às Compras
+      </button>
+    </div>
+    
   <!-- Carts List -->
   <div *ngIf="!loading && !error && carts.length > 0" class="carts-content">
     <div class="carts-header">
       <h2>{{ carts.length }} {{ carts.length === 1 ? 'carrinho' : 'carrinhos' }} encontrado{{ carts.length === 1 ? '' : 's' }}</h2>
     </div>
-
+    
     <div class="carts-grid">
       <div *ngFor="let cart of carts" class="cart-card">
         <!-- Cart Header -->
@@ -54,7 +55,7 @@
             <span class="status-text">{{ getStatusText(cart.status) }}</span>
           </div>
         </div>
-
+        
         <!-- Cart Info -->
         <div class="cart-info">
           <div class="info-row">
@@ -75,24 +76,21 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Products Preview -->
         <div class="products-preview">
           <h4>Produtos:</h4>
-          <div class="products-list">
-            <div *ngFor="let product of cart.productResponses.slice(0, 3)" class="product-item">
+          <div class="products-list" [class.has-more]="cart.productResponses.length > 1">
+            <div *ngFor="let product of cart.productResponses.slice(0, 1)" class="product-item">
               <div class="product-info">
                 <span class="product-name">{{ product.name }}</span>
                 <span class="product-quantity">x{{ product.quantity }}</span>
               </div>
               <span class="product-price">{{ formatPrice(product.price) }}</span>
             </div>
-            <div *ngIf="cart.productResponses.length > 3" class="more-products">
-              <span>+{{ cart.productResponses.length - 3 }} mais produtos</span>
-            </div>
           </div>
         </div>
-
+        
         <!-- Cart Actions -->
         <div class="cart-actions">
           <button class="btn-details" (click)="router.navigate(['/cart-details', cart.id])">
@@ -101,5 +99,6 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>

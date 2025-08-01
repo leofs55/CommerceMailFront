@@ -25,12 +25,7 @@
     <div class="product-info">
       <div class="product-header">
         <h1 class="product-title">{{ product.name }}</h1>
-        <div class="product-rating">
-          <span class="stars">⭐⭐⭐⭐⭐</span>
-          <span class="rating-text">(4.8 - 127 avaliações)</span>
-        </div>
       </div>
-
       <div class="product-price">
         <span class="current-price">{{ formatPrice(product.price) }}</span>
         <span class="original-price" *ngIf="product.originalPrice">{{ formatPrice(product.originalPrice) }}</span>
@@ -98,8 +93,8 @@
         <button class="btn-primary" 
                 (click)="addToCart()"
                 [disabled]="addingToCart || !product.quantity">
-          <span *ngIf="addingToCart">⏳ Adicionando...</span>
-          <span *ngIf="!addingToCart">🛒 Adicionar ao Carrinho</span>
+          <span *ngIf="addingToCart">Adicionando...</span>
+          <span *ngIf="!addingToCart">Adicionar ao Carrinho</span>
         </button>
       </div>
 

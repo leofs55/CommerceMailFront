@@ -1,8 +1,20 @@
 .account-container {
-  max-width: 800px;
-  margin: 0 auto;
+  margin: 0 0 0 0;
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #FFDFCD;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.account-container-content {
+  background-color: #FFDFCD;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .account-header {
@@ -82,7 +94,7 @@
 
 /* User Details Card */
 .user-details {
-  background: white;
+  background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -96,9 +108,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2rem ;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #ecf0f1;
+  border-bottom: 2px solid #803439;
 }
 
 .card-header h2 {
@@ -108,50 +120,7 @@
   font-weight: 600;
 }
 
-.edit-button {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background-color 0.3s;
-}
 
-.edit-button:hover {
-  background-color: #2980b9;
-}
-
-/* Details View */
-.details-view {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.detail-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  align-items: center;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #3498db;
-}
-
-.detail-item label {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 1rem;
-}
-
-.detail-item span {
-  color: #34495e;
-  font-size: 1rem;
-}
 
 /* Edit Form */
 .edit-form {
@@ -172,10 +141,11 @@
 
 .form-input {
   padding: 0.75rem;
-  border: 2px solid #e1e8ed;
+  border: 2px solid #803439;
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -188,11 +158,41 @@
   color: #bdc3c7;
 }
 
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container .form-input {
+  width: 100%;
+  padding-right: 50px; /* Espaço para o ícone */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.password-toggle:hover {
+  background-color: #f8f9fa;
+}
+
 .form-actions {
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .save-button {
@@ -218,29 +218,6 @@
   cursor: not-allowed;
 }
 
-.cancel-button {
-  background-color: #95a5a6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background-color 0.3s;
-}
-
-.cancel-button:hover:not(:disabled) {
-  background-color: #7f8c8d;
-}
-
-.cancel-button:disabled {
-  background-color: #bdc3c7;
-  cursor: not-allowed;
-}
-
 /* No Data State */
 .no-data {
   text-align: center;
@@ -257,6 +234,7 @@
 @media (max-width: 768px) {
   .account-container {
     padding: 1rem;
+    min-height: 100vh;
   }
   
   .account-header h1 {
@@ -282,9 +260,14 @@
     flex-direction: column;
   }
   
-  .form-actions button {
+  .form-actions .save-button {
     width: 100%;
     justify-content: center;
+  }
+  
+  .password-toggle {
+    padding: 6px;
+    font-size: 1rem;
   }
 }
 

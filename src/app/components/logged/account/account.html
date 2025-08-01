@@ -1,4 +1,5 @@
 <div class="account-container">
+  <div class="account-container-content">
   <div class="account-header">
     <h1>Minha Conta</h1>
     <p>Gerencie suas informações pessoais</p>
@@ -21,35 +22,10 @@
     <div class="details-card">
       <div class="card-header">
         <h2>Informações Pessoais</h2>
-        <button 
-          *ngIf="!isEditing" 
-          (click)="startEditing()" 
-          class="edit-button">
-          <span>✏️</span> Editar
-        </button>
       </div>
 
-      <!-- View Mode -->
-      <div *ngIf="!isEditing" class="details-view">
-        <div class="detail-item">
-          <label>Nome:</label>
-          <span>{{ userDetails.name }}</span>
-        </div>
-        
-        <div class="detail-item">
-          <label>Email:</label>
-          <span>{{ userDetails.email }}</span>
-        </div>
-        
-        <div class="detail-item">
-          <label>Telefone:</label>
-          <span>{{ userDetails.numberPhone }}</span>
-        </div>
-        
-      </div>
-
-      <!-- Edit Mode -->
-      <div *ngIf="isEditing" class="edit-form">
+      <!-- Edit Form -->
+      <div class="edit-form">
         <div class="form-group">
           <label for="name">Nome:</label>
           <input 
@@ -80,6 +56,63 @@
             class="form-input">
         </div>
 
+        <div class="form-group">
+          <label for="currentPassword">Senha Atual:</label>
+          <div class="password-input-container">
+            <input 
+              type="password" 
+              id="currentPassword"
+              [(ngModel)]="editForm.currentPassword" 
+              placeholder="Digite sua senha atual"
+              class="form-input"
+              [type]="showCurrentPassword ? 'text' : 'password'">
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="togglePassword('currentPassword')">
+              {{ showCurrentPassword ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">Nova Senha:</label>
+          <div class="password-input-container">
+            <input 
+              type="password" 
+              id="newPassword"
+              [(ngModel)]="editForm.newPassword" 
+              placeholder="Digite sua nova senha"
+              class="form-input"
+              [type]="showNewPassword ? 'text' : 'password'">
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="togglePassword('newPassword')">
+              {{ showNewPassword ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar Nova Senha:</label>
+          <div class="password-input-container">
+            <input 
+              type="password" 
+              id="confirmPassword"
+              [(ngModel)]="editForm.confirmPassword" 
+              placeholder="Confirme sua nova senha"
+              class="form-input"
+              [type]="showConfirmPassword ? 'text' : 'password'">
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="togglePassword('confirmPassword')">
+              {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+        </div>
+
         <div class="form-actions">
           <button 
             (click)="onSaveClick()" 
@@ -88,13 +121,6 @@
             <span *ngIf="!isLoading">💾</span>
             <span *ngIf="isLoading">⏳</span>
             {{ isLoading ? 'Salvando...' : 'Salvar' }}
-          </button>
-          
-          <button 
-            (click)="cancelEditing()" 
-            [disabled]="isLoading"
-            class="cancel-button">
-            ❌ Cancelar
           </button>
         </div>
       </div>
@@ -105,5 +131,6 @@
   <div *ngIf="!userDetails && !isLoading && !errorMessage" class="no-data">
     <p>Nenhuma informação encontrada.</p>
     <button (click)="loadUserDetails()" class="retry-button">Carregar Dados</button>
+  </div>
   </div>
 </div>

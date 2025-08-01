@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../service/product-requisition';
 import { CartService } from '../../../service/cart-requisition';
+import { UserService } from '../../../service/user-requisition';
 
 @Component({
   selector: 'app-product-featured',
@@ -16,6 +17,7 @@ export class ProductFeatured {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private userService: UserService,
     private router: Router
   ) {}
 
@@ -29,6 +31,15 @@ export class ProductFeatured {
 
   addToCart() {
     console.log('addToCart chamado');
+    
+    // Verificar se o usuário está logado
+    if (!this.userService.isLoggedIn()) {
+      // Se não estiver logado, redirecionar para a página de login
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Se estiver logado, adicionar ao carrinho e redirecionar
     if (this.product) {
       console.log('Adicionando produto ao carrinho:', this.product);
       this.cartService.addToCart(this.product, 1);
@@ -40,6 +51,15 @@ export class ProductFeatured {
 
   buyNow() {
     console.log('buyNow chamado');
+    
+    // Verificar se o usuário está logado
+    if (!this.userService.isLoggedIn()) {
+      // Se não estiver logado, redirecionar para a página de login
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Se estiver logado, adicionar ao carrinho e redirecionar
     if (this.product) {
       console.log('Comprando produto:', this.product);
       this.cartService.addToCart(this.product, 1);

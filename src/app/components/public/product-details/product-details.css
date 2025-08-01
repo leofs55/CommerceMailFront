@@ -246,7 +246,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #803439;
   color: white;
   border-radius: 15px;
   margin: 10px 0;
@@ -307,7 +307,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #803439;
   color: white;
 }
 

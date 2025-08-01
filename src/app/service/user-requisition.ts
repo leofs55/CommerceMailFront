@@ -22,8 +22,6 @@ export interface UserCreateResponse {
 
 export interface UserLoginResponse {
   id: number;
-  name: string;
-  email: string;
   token: string;
 }
 

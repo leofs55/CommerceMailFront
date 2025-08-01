@@ -26,7 +26,7 @@
       <h1>Detalhes do Carrinho</h1>
       <div class="cart-status">
         <span class="status-badge" [ngClass]="getStatusClass()">
-          {{ getStatusText() }}
+          {{ getStatusText(cart.status) }}
         </span>
       </div>
     </div>
@@ -50,7 +50,7 @@
           </div>
           <div class="info-item">
             <strong>Status:</strong>
-            <span [ngClass]="getStatusClass()">{{ getStatusText() }}</span>
+            <span [ngClass]="getStatusClass()">{{ getStatusText(cart.status) }}</span>
           </div>
         </div>
       </div>

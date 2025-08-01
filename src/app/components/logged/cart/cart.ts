@@ -77,7 +77,7 @@ export class Cart implements OnInit {
         this.router.navigate(['/start-payment', currentUser.id]);
       }, 1500);
     } catch (error: any) {
-      this.errorMessage = error.message || 'Erro ao salvar carrinho';
+      this.errorMessage = 'Erro ao salvar carrinho';
     } finally {
       this.isLoading = false;
     }

@@ -1,11 +1,14 @@
 /* Container Principal */
 .cart-details-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  width: 100%;
   min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  font-family: 'Sora', Tahoma, Geneva, Verdana, sans-serif;
+  background: #FFDFCD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Loading State */
@@ -95,6 +98,8 @@
   overflow: hidden;
   animation: slideIn 0.6s ease-out;
   margin: 20px 0;
+  width: 100%;
+  max-width: 1200px;
 }
 
 @keyframes slideIn {
@@ -110,7 +115,7 @@
 
 /* Header */
 .cart-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #803439;
   color: white;
   padding: 40px;
   display: flex;
@@ -225,7 +230,7 @@
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #803439;
   border-radius: 2px;
 }
 
@@ -240,9 +245,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #fff;
   border-radius: 15px;
-  border-left: 5px solid #2196f3;
+  border-left: 5px solid #803439;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
@@ -285,7 +290,7 @@
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #803439;
   border-radius: 2px;
 }
 
@@ -315,7 +320,7 @@
   left: 0;
   width: 5px;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #803439;
 }
 
 .product-item:hover {
@@ -434,7 +439,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #803439;
 }
 
 .total-item {
@@ -508,7 +513,9 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .cart-details-container {
+    width: 100%;
     padding: 15px;
+    min-height: 100vh;
   }
   
   .cart-header {

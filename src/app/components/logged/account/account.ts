@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UserService, UserResponse, UserUpdateRequest } from '../../../service/user-requisition';
+import { UserService, UserResponse, UserUpdateRequest, UserLoginResponse } from '../../../service/user-requisition';
 
 @Component({
   selector: 'app-account-component',
@@ -14,15 +14,23 @@ export class Account implements OnInit {
   userId: number | null = null;
   
   userDetails: UserResponse | null = null;
+  currentUser: UserLoginResponse | null = null;
   isLoading = false;
   errorMessage = '';
-  isEditing = false;
+  
+  // Propriedades para mostrar/ocultar senhas
+  showCurrentPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
   
   // Dados para edição
   editForm = {
     name: '',
     email: '',
-    numberPhone: ''
+    numberPhone: '',
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
   };
 
   constructor(
@@ -45,12 +53,36 @@ export class Account implements OnInit {
       }
 
       this.userId = userId;
+      
+      // Obter dados do usuário logado
+      this.currentUser = this.userService.getCurrentUser();
+      
+      if (!this.currentUser) {
+        this.errorMessage = 'Usuário não está logado';
+        return;
+      }
+
+      // Verificar se o ID da URL corresponde ao usuário logado
+      if (this.currentUser.id !== userId) {
+        this.errorMessage = 'Acesso negado: ID não corresponde ao usuário logado';
+        return;
+      }
+
       this.isLoading = true;
       this.errorMessage = '';
 
       this.userService.getUserDetails(userId).subscribe({
         next: (user) => {
           this.userDetails = user;
+          // Preencher o formulário automaticamente
+          this.editForm = {
+            name: user.name,
+            email: user.email,
+            numberPhone: user.numberPhone,
+            currentPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+          };
           this.isLoading = false;
         },
         error: (error) => {
@@ -61,41 +93,42 @@ export class Account implements OnInit {
     });
   }
 
-  startEditing(): void {
-    if (this.userDetails) {
-      this.editForm = {
-        name: this.userDetails.name,
-        email: this.userDetails.email,
-        numberPhone: this.userDetails.numberPhone
-      };
-      this.isEditing = true;
-    }
-  }
-
-  cancelEditing(): void {
-    this.isEditing = false;
-    this.errorMessage = '';
-  }
-
   saveChanges(): void {
     if (!this.userDetails) return;
+
+    // Validar se a senha atual foi fornecida
+    if (!this.editForm.currentPassword) {
+      this.errorMessage = 'Digite sua senha atual para confirmar as alterações';
+      return;
+    }
 
     const updateData: UserUpdateRequest = {};
     
     // Adiciona apenas os campos que foram alterados
-    if (this.editForm.name !== this.userDetails.name) {
-      updateData.name = this.editForm.name;
-    }
-    if (this.editForm.email !== this.userDetails.email) {
-      updateData.email = this.editForm.email;
-    }
-    if (this.editForm.numberPhone !== this.userDetails.numberPhone) {
-      updateData.numberPhone = this.editForm.numberPhone;
+    updateData.name = this.editForm.name;
+    updateData.email = this.editForm.email;
+    updateData.numberPhone = this.editForm.numberPhone;
+    updateData.password = this.editForm.currentPassword;
+  
+    // Se uma nova senha foi fornecida, validar e incluir
+    if (this.editForm.newPassword) {
+      if (this.editForm.currentPassword === this.editForm.newPassword) {
+        this.errorMessage = 'A nova senha não pode ser igual à senha atual';
+        return;
+      }
+      if (this.editForm.newPassword !== this.editForm.confirmPassword) {
+        this.errorMessage = 'As senhas não coincidem';
+        return;
+      }
+      if (!this.userService.isValidPassword(this.editForm.newPassword)) {
+        this.errorMessage = 'A nova senha deve ter pelo menos 6 caracteres';
+        return;
+      }
+      updateData.password = this.editForm.newPassword;
     }
 
-    // Se não há mudanças, apenas cancela a edição
+    // Se não há mudanças, apenas retorna
     if (Object.keys(updateData).length === 0) {
-      this.cancelEditing();
       return;
     }
 
@@ -110,8 +143,12 @@ export class Account implements OnInit {
           email: updatedUser.email,
           numberPhone: updatedUser.numberPhone
         };
-        this.isEditing = false;
         this.isLoading = false;
+        
+        // Limpar senhas após sucesso
+        this.editForm.currentPassword = '';
+        this.editForm.newPassword = '';
+        this.editForm.confirmPassword = '';
       },
       error: (error) => {
         this.errorMessage = error.message || 'Erro ao atualizar dados do usuário';
@@ -135,6 +172,25 @@ export class Account implements OnInit {
       this.errorMessage = 'Telefone deve ter 10 ou 11 dígitos';
       return false;
     }
+
+    // Validar senha atual (obrigatória para qualquer alteração)
+    if (!this.editForm.currentPassword) {
+      this.errorMessage = 'Digite sua senha atual para confirmar as alterações';
+      return false;
+    }
+
+    // Validar senhas se uma nova senha foi fornecida
+    if (this.editForm.newPassword) {
+      if (!this.userService.isValidPassword(this.editForm.newPassword)) {
+        this.errorMessage = 'A nova senha deve ter pelo menos 6 caracteres';
+        return false;
+      }
+      
+      if (this.editForm.newPassword !== this.editForm.confirmPassword) {
+        this.errorMessage = 'As senhas não coincidem';
+        return false;
+      }
+    }
     
     return true;
   }
@@ -142,6 +198,20 @@ export class Account implements OnInit {
   onSaveClick(): void {
     if (this.validateForm()) {
       this.saveChanges();
+    }
+  }
+
+  togglePassword(field: string): void {
+    switch (field) {
+      case 'currentPassword':
+        this.showCurrentPassword = !this.showCurrentPassword;
+        break;
+      case 'newPassword':
+        this.showNewPassword = !this.showNewPassword;
+        break;
+      case 'confirmPassword':
+        this.showConfirmPassword = !this.showConfirmPassword;
+        break;
     }
   }
 }

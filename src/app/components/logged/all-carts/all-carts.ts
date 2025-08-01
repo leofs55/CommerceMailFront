@@ -73,12 +73,8 @@ export class AllCarts implements OnInit {
     switch (status.toLowerCase()) {
       case 'open':
         return '#48bb78'; // Verde
-      case 'closed':
-        return '#e53e3e'; // Vermelho
-      case 'pending':
-        return '#ed8936'; // Laranja
-      case 'completed':
-        return '#3182ce'; // Azul
+      case 'sold':
+        return '#1c8546'; // Vermelho
       default:
         return '#718096'; // Cinza
     }
@@ -88,11 +84,7 @@ export class AllCarts implements OnInit {
     switch (status.toLowerCase()) {
       case 'open':
         return 'Aberto';
-      case 'closed':
-        return 'Fechado';
-      case 'pending':
-        return 'Pendente';
-      case 'completed':
+      case 'sold':
         return 'Concluído';
       default:
         return status;

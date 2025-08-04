@@ -3,10 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService, CartResponse, ProductResponse } from '../../../service/cart-requisition';
 import { UserService } from '../../../service/user-requisition';
+import { FeedbackService, FeedbackResponse, FeedbackCreateRequest, FeedbackUpdateRequest } from '../../../service/feedback-requisition';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-details-component',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart-details.html',
   styleUrl: './cart-details.css'
 })
@@ -16,12 +18,21 @@ export class CartDetails implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
   cartMessage: string = '';
+  feedback: FeedbackResponse | null = null;
+  isEditing: boolean = false;
+  feeedbackForm = {
+    description: '',
+    rating: 0,
+    userId: 0,  
+    cartId: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService,
-    private userService: UserService
+    private userService: UserService,
+    private feedbackService: FeedbackService
   ) {}
 
   ngOnInit(): void {
@@ -53,9 +64,175 @@ export class CartDetails implements OnInit {
         this.loading = false;
       }
     });
+    
+    if (!this.isCartOpen()) {
+      this.feedbackService.getFeedbackById(cartId).subscribe({
+        next: (feedback: FeedbackResponse) => {
+          this.feedback = feedback;
+          this.feeedbackForm = {
+            description: feedback.description,
+            rating: feedback.rating,
+            userId: feedback.userId,
+            cartId: feedback.cartId
+          };
+        },
+      });
+    }
   }
 
-  redirectToWhatsApp(): void {
+  repeatStars(rating: number): string {
+    const estrela: string = '★';
+    return estrela.repeat(rating);
+  }
+
+  submitFeedback(): void {
+    const cartId = this.route.snapshot.paramMap.get('id');
+    const currentUser = this.userService.getCurrentUser();
+    const userId = currentUser ? currentUser.id : null;
+
+    if (!userId) {
+      this.errorMessage = 'Usuário não encontrado. Faça login novamente.';
+      return;
+    }
+
+    if (!this.feeedbackForm.description || !this.feeedbackForm.rating) {
+      this.errorMessage = 'Por favor, preencha todos os campos.';
+      return;
+    }
+
+    const feedbackRequest: FeedbackCreateRequest = {
+      description: this.feeedbackForm.description,
+      rating: this.feeedbackForm.rating,
+      cartId: cartId || '',
+      userId: userId
+    };
+
+    this.feedbackService.createFeedback(feedbackRequest).subscribe({
+      next: (response) => {
+        this.successMessage = 'Depoimento enviado com sucesso!';
+        
+        // Buscar detalhes do usuário para exibir no feedback
+        if (currentUser) {
+          this.userService.getUserDetails(currentUser.id).subscribe({
+            next: (userDetails) => {
+              this.feedback = {
+                id: response.id,
+                description: response.description,
+                rating: response.rating,
+                cartId: cartId || '',
+                userId: userId,
+                user: userDetails
+              };
+            },
+            error: (error) => {
+              console.error('Erro ao buscar detalhes do usuário:', error);
+              // Criar feedback sem detalhes completos do usuário
+              this.feedback = {
+                id: response.id,
+                description: response.description,
+                rating: response.rating,
+                cartId: cartId || '',
+                userId: userId,
+                user: {
+                  id: currentUser.id,
+                  name: 'Usuário',
+                  email: '',
+                  numberPhone: ''
+                }
+              };
+            }
+          });
+        }
+        
+        // Limpar formulário
+        this.feeedbackForm = {
+          description: '',
+          rating: 0,
+          userId: 0,
+          cartId: ''
+        };
+
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Erro ao enviar depoimento:', error);
+        this.errorMessage = 'Erro ao enviar depoimento. Tente novamente.';
+             }
+     });
+   }
+
+   startEditing(): void {
+     if (this.feedback) {
+       this.isEditing = true;
+       this.feeedbackForm = {
+         description: this.feedback.description,
+         rating: this.feedback.rating,
+         userId: this.feedback.userId,
+         cartId: this.feedback.cartId
+       };
+     }
+   }
+
+   cancelEditing(): void {
+     this.isEditing = false;
+     if (this.feedback) {
+       this.feeedbackForm = {
+         description: this.feedback.description,
+         rating: this.feedback.rating,
+         userId: this.feedback.userId,
+         cartId: this.feedback.cartId
+       };
+     }
+   }
+
+   updateFeedback(): void {
+     const cartId = this.route.snapshot.paramMap.get('id');
+     const currentUser = this.userService.getCurrentUser();
+     const userId = currentUser ? currentUser.id : null;
+
+     if (!userId || !this.feedback) {
+       this.errorMessage = 'Usuário não encontrado ou feedback não disponível.';
+       return;
+     }
+
+     if (!this.feeedbackForm.description || !this.feeedbackForm.rating) {
+       this.errorMessage = 'Por favor, preencha todos os campos.';
+       return;
+     }
+
+     const feedbackRequest: FeedbackUpdateRequest = {
+       description: this.feeedbackForm.description,
+       rating: this.feeedbackForm.rating,
+       cartId: cartId || '',
+       userId: userId
+     };
+
+     this.feedbackService.updateFeedback(feedbackRequest).subscribe({
+       next: (response) => {
+         this.successMessage = 'Avaliação atualizada com sucesso!';
+         
+         // Atualizar o feedback local
+         if (this.feedback) {
+           this.feedback.description = response.description;
+           this.feedback.rating = response.rating;
+         }
+         
+         this.isEditing = false;
+
+         setTimeout(() => {
+           this.successMessage = '';
+         }, 3000);
+       },
+       error: (error) => {
+         console.error('Erro ao atualizar depoimento:', error);
+         this.errorMessage = 'Erro ao atualizar depoimento. Tente novamente.';
+       }
+     });
+   }
+
+   redirectToWhatsApp(): void {
     if (this.cartMessage) {
       const encodedMessage = encodeURIComponent(this.cartMessage);
       const whatsappUrl = `https://wa.me/5511944636254?text=${encodedMessage}`;
@@ -117,5 +294,9 @@ export class CartDetails implements OnInit {
     console.log('Voltando para lista de carrinhos do usuário:', userId);
     console.log('URL de destino:', `/all-carts/${userId}`);
     this.router.navigate(['/all-carts', userId || '']);
+  }
+
+  clearErrorMessage(): void {
+    this.errorMessage = '';
   }
 }

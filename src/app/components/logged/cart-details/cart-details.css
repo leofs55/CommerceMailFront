@@ -4,6 +4,7 @@
   min-height: 100vh;
   margin: 0;
   padding: 20px;
+  padding-top: 80px; /* Espaço para a mensagem de erro fixa */
   font-family: 'Sora', Tahoma, Geneva, Verdana, sans-serif;
   background: #FFDFCD;
   display: flex;
@@ -51,12 +52,44 @@
   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
   color: white;
   padding: 20px;
-  border-radius: 15px;
-  margin: 20px 0;
+  border-radius: 0 0 15px 15px;
+  margin: 0;
   border: none;
   text-align: center;
   box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
   animation: slideIn 0.5s ease-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-close-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-left: 15px;
+}
+
+.error-close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 .success-message {
@@ -498,7 +531,7 @@
   box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
 }
 
-.closed-cart-message {
+.feedback-avaliation {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   color: #6c757d;
   padding: 25px;
@@ -588,4 +621,231 @@
   .products-section h3 {
     font-size: 20px;
   }
+}
+/* Seção de Avaliação (Feedback Form) */
+.feedback-avaliation {
+    /* Herda o estilo do .total-section para consistência */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 40px 0; /* Espaçamento */
+    border: 2px solid #dee2e6;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.feedback-avaliation::before {
+    /* Linha de destaque superior, seguindo o padrão */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #803439;
+}
+
+.feedback-avaliation h3 {
+    /* Título da seção */
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 25px;
+    font-style: normal; /* Remove o itálico para o título */
+    text-align: center;
+}
+
+.feedback-avaliation label {
+    /* Estilo para os rótulos dos campos */
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #495057;
+}
+
+.feedback-avaliation input[type="number"],
+.feedback-avaliation textarea {
+    /* Estilo dos campos de input e textarea */
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    background-color: white;
+    font-family: inherit;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-avaliation input[type="number"]:focus,
+.feedback-avaliation textarea:focus {
+    /* Efeito de foco */
+    outline: none;
+    border-color: #803439;
+    box-shadow: 0 0 0 4px rgba(128, 52, 57, 0.2);
+}
+
+.feedback-avaliation textarea {
+    resize: vertical; /* Permite redimensionar apenas na vertical */
+    min-height: 120px;
+}
+
+.feedback-avaliation button[type="submit"] {
+    /* Estilo do botão de envio */
+    background: linear-gradient(135deg, #2196f3 0%, #1769aa 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+    width: 100%;
+}
+
+.feedback-avaliation button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(33, 150, 243, 0.6);
+}
+
+.feedback-avaliation button[type="submit"]:disabled {
+    /* Estilo do botão desabilitado */
+    background: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Seção para exibir feedback já enviado */
+.feedback-display {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 40px 0;
+    border: 2px solid #dee2e6;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.feedback-display h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #e3f2fd;
+    text-align: left;
+    position: relative;
+}
+
+.feedback-display h3::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #803439;
+    border-radius: 2px;
+}
+
+.feedback-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.feedback-item:last-child {
+    border-bottom: none;
+}
+
+.feedback-item strong {
+    color: #495057;
+    font-weight: 700;
+}
+
+.feedback-item span {
+    color: #212529;
+    font-weight: 600;
+}
+
+/* Estilo para as estrelas */
+.feedback-item span.rating-stars {
+    color: #ffc107; /* Cor amarela para as estrelas */
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+/* Botões de Edição */
+.edit-button {
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.edit-button:hover {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.edit-buttons button {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.edit-buttons button[type="submit"] {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.edit-buttons button[type="submit"]:hover {
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.edit-buttons button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cancel-button {
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.cancel-button:hover {
+  background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
 }

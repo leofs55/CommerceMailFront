@@ -1,5 +1,6 @@
 .all-carts-container {
   margin: 0 auto;
+  min-height: 77vh;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #FFDFCD;

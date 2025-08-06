@@ -47,61 +47,62 @@
   font-weight: 500;
 }
 
-/* Messages */
+/* Error Message */
 .error-message {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-  color: white;
-  padding: 20px;
-  border-radius: 0 0 15px 15px;
-  margin: 0;
-  border: none;
-  text-align: center;
-  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
-  animation: slideIn 0.5s ease-out;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  background: #ff4444;
+  color: white;
+  padding: 15px 20px;
   z-index: 1000;
   font-weight: 600;
   font-size: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
 }
 
 .error-close-button {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: none;
   border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  margin-left: 15px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
 }
 
 .error-close-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
 }
 
+/* Success Message */
 .success-message {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #4CAF50;
   color: white;
-  padding: 20px;
-  border-radius: 15px;
-  margin: 20px 0;
-  border: none;
-  text-align: center;
-  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-  animation: slideIn 0.5s ease-out;
+  padding: 15px 20px;
+  z-index: 1000;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .retry-button {

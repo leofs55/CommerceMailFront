@@ -22,6 +22,7 @@ export interface UserCreateResponse {
 
 export interface UserLoginResponse {
   id: number;
+  userRole: string;
   token: string;
 }
 

@@ -16,6 +16,7 @@
           <div class="dropdown-menu" [class.show]="dropdownOpen">
             <a href="/account/{{user?.id}}" class="dropdown-item">Minha Conta</a>
             <a href="/all-carts/{{user?.id}}" class="dropdown-item">Meus Pedidos</a>
+            <a *ngIf="user?.role === 'ADMIN'" href="*" class="dropdown-item">Gerenciar</a>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item logout-button" (click)="logout()">Sair</button>
           </div>

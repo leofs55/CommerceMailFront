@@ -27,4 +27,8 @@ export class ProductService {
   deleteProduct(id: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl+'/'+id);
   }
+
+  getProductsByCategory(categoryId: number): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+'/category/'+categoryId);
+  }
 }

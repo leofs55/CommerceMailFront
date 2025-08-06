@@ -1,0 +1,279 @@
+/* Container Principal */
+.admin-home-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Sora', sans-serif;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+}
+
+/* Header */
+.admin-header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 40px 0;
+}
+
+.admin-header h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #803439;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(128, 52, 57, 0.1);
+}
+
+.admin-header p {
+  font-size: 18px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Menu Grid */
+.admin-menu {
+  margin-bottom: 60px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+/* Menu Items */
+.menu-item {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #803439, #CA784F);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #803439;
+}
+
+.menu-item:hover::before {
+  transform: scaleX(1);
+}
+
+/* Menu Icons */
+.menu-icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #803439, #CA784F);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 5px 15px rgba(128, 52, 57, 0.3);
+}
+
+.menu-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* Menu Content */
+.menu-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.menu-content p {
+  font-size: 14px;
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Menu Arrow */
+.menu-arrow {
+  font-size: 24px;
+  color: #803439;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover .menu-arrow {
+  transform: translateX(5px);
+}
+
+/* Estatísticas */
+.admin-stats {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stats-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.stats-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+/* Stat Cards */
+.stat-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: #803439;
+}
+
+.stat-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.stat-content h3 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #803439;
+  margin: 0 0 8px 0;
+}
+
+.stat-content p {
+  font-size: 16px;
+  color: #6c757d;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .admin-home-container {
+    padding: 20px 15px;
+  }
+
+  .admin-header h1 {
+    font-size: 36px;
+  }
+
+  .admin-header p {
+    font-size: 16px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .menu-item {
+    padding: 25px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .menu-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .menu-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .menu-content h3 {
+    font-size: 18px;
+  }
+
+  .menu-content p {
+    font-size: 13px;
+  }
+
+  .menu-arrow {
+    display: none;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .stat-card {
+    padding: 20px;
+  }
+
+  .stat-icon {
+    font-size: 36px;
+  }
+
+  .stat-content h3 {
+    font-size: 28px;
+  }
+
+  .stat-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header h1 {
+    font-size: 28px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-item {
+    padding: 20px;
+  }
+}

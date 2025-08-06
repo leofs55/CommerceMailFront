@@ -10,6 +10,12 @@ import { StartPayment } from './pages/start-payment/start-payment';
 import { ResetPassword } from './pages/reset-password/reset-password';
 import { CreateNewPassword } from './components/public/create-new-password/create-new-password';
 import { CartDetails } from './pages/cart-details/cart-details';
+import { Admin } from './pages/admin/admin';
+import { AdminCategory } from './pages/admin-category/admin-category';
+import { AdminProducts } from './pages/admin-products/admin-products';
+import { AdminUsers } from './pages/admin-users/admin-users';
+import { AdminFeedback } from './pages/admin-feedback/admin-feedback';
+import { AdminCart } from './pages/admin-cart/admin-cart';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -23,5 +29,13 @@ export const routes: Routes = [
   { path: 'start-payment/:id', component: StartPayment },
   { path: 'reset-password', component: ResetPassword },
   { path: 'reset-password/:id', component: CreateNewPassword },
-  { path: 'cart-details/:id', component: CartDetails }
+  { path: 'cart-details/:id', component: CartDetails },
+  { path: 'admin', component: Admin },
+  { path: 'admin/category', component: AdminCategory },
+  { path: 'admin/product', component: AdminProducts },
+  { path: 'admin/users', component: AdminUsers },
+  { path: 'admin/feedback', component: AdminFeedback },
+  { path: 'admin/carts', component: AdminCart }
+
+
 ];

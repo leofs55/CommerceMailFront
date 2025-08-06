@@ -1,0 +1,117 @@
+<div class="admin-home-container">
+  <div class="admin-header">
+    <h1>Painel Administrativo</h1>
+    <p>Gerencie todos os aspectos do seu e-commerce</p>
+  </div>
+
+  <div class="admin-menu">
+    <div class="menu-grid">
+      <!-- Gerenciar Categorias -->
+      <div class="menu-item" (click)="navigateTo('admin/category')">
+        <div class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <h3>Gerenciar Categorias</h3>
+          <p>Crie, edite e remova categorias de produtos</p>
+        </div>
+        <div class="menu-arrow">→</div>
+      </div>
+
+      <!-- Gerenciar Produtos -->
+      <div class="menu-item" (click)="navigateTo('admin/product')">
+        <div class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <h3>Gerenciar Produtos</h3>
+          <p>Adicione, edite e remova produtos do catálogo</p>
+        </div>
+        <div class="menu-arrow">→</div>
+      </div>
+
+      <!-- Gerenciar Usuários -->
+      <div class="menu-item" (click)="navigateTo('admin/users')">
+        <div class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01 1l-3.7 3.7c-.39.39-1.02.39-1.41 0L7.01 9C6.54 8.37 5.8 8 5 8H3.46c-.8 0-1.54.37-2.01 1L1.5 16H4v6h16z"/>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <h3>Gerenciar Usuários</h3>
+          <p>Visualize e gerencie contas de usuários</p>
+        </div>
+        <div class="menu-arrow">→</div>
+      </div>
+
+      <!-- Gerenciar Feedbacks -->
+      <div class="menu-item" (click)="navigateTo('admin/feedback')">
+        <div class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <h3>Gerenciar Feedbacks</h3>
+          <p>Visualize e responda avaliações dos clientes</p>
+        </div>
+        <div class="menu-arrow">→</div>
+      </div>
+
+      <!-- Gerenciar Carrinhos -->
+      <div class="menu-item" (click)="navigateTo('admin/carts')">
+        <div class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+        </div>
+        <div class="menu-content">
+          <h3>Gerenciar Carrinhos</h3>
+          <p>Acompanhe pedidos e status dos carrinhos</p>
+        </div>
+        <div class="menu-arrow">→</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estatísticas Rápidas -->
+  <div class="admin-stats">
+    <div class="stats-header">
+      <h2>Estatísticas Rápidas</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-content">
+          <h3>{{ totalProducts || 0 }}</h3>
+          <p>Produtos</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏷️</div>
+        <div class="stat-content">
+          <h3>{{ totalCategories || 0 }}</h3>
+          <p>Categorias</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <h3>{{ totalUsers || 0 }}</h3>
+          <p>Usuários</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-content">
+          <h3>{{ totalCarts || 0 }}</h3>
+          <p>Carrinhos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,70 @@
-<p>users works!</p>
+<div class="users-container">
+  <div class="header-section">
+    <h1 class="page-title">Gerenciamento de Usuários</h1>
+    <p class="page-description">Visualize e gerencie todos os usuários do sistema</p>
+  </div>
+
+  <div class="search-section">
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearchChange()"
+        placeholder="Buscar usuários por nome ou email..."
+        class="search-input"
+      >
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-container">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading" class="loading-row">
+            <td colspan="5" class="loading-cell">
+              <div class="loading-spinner">Carregando usuários...</div>
+            </td>
+          </tr>
+          
+          <tr *ngIf="!isLoading && filteredUsers.length === 0" class="no-data-row">
+            <td colspan="5" class="no-data-cell">
+              <div class="no-data-message">
+                <span *ngIf="searchTerm">Nenhum usuário encontrado para "{{ searchTerm }}"</span>
+                <span *ngIf="!searchTerm">Nenhum usuário cadastrado</span>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngFor="let user of filteredUsers" class="user-row">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.numberPhone }}</td>
+            <td class="actions-cell">
+              <button 
+                class="delete-btn" 
+                (click)="deleteUser(user.id)"
+                title="Deletar usuário"
+              >
+                Deletar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

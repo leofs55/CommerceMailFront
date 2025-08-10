@@ -226,4 +226,9 @@ export class UserService {
         })
       );
   }
+
+  // Função para buscar todos os usuários
+  getAllUsers(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${this.apiUrl}/all`);
+  }
 }

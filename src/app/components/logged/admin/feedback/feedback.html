@@ -1,1 +1,99 @@
-<p>feedback works!</p>
+<div class="feedback-container">
+  <div class="header-section">
+    <h1 class="page-title">Gerenciamento de Feedbacks</h1>
+    <p class="page-description">Visualize e gerencie todos os feedbacks dos usuários</p>
+  </div>
+
+  <div class="search-section">
+    <div class="search-container">
+      <label for="searchUserId" class="search-label">Buscar por ID do Usuário:</label>
+      <div class="search-input-group">
+        <input 
+          type="text" 
+          id="searchUserId" 
+          name="searchUserId"
+          [(ngModel)]="searchUserId"
+          placeholder="Digite o ID do usuário"
+          class="search-input"
+        >
+        <button 
+          type="button" 
+          (click)="searchByUserId()" 
+          class="search-button"
+        >
+          Buscar
+        </button>
+        <button 
+          type="button" 
+          (click)="clearSearch()" 
+          class="clear-button"
+        >
+          Limpar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-container">
+      <table class="feedback-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ID do Usuário</th>
+            <th>ID do Carrinho</th>
+            <th>Descrição</th>
+            <th>Avaliação</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="loading" class="loading-row">
+            <td colspan="6" class="loading-cell">
+              <div class="loading-spinner">Carregando feedbacks...</div>
+            </td>
+          </tr>
+          
+          <tr *ngIf="!loading && filteredFeedbacks.length === 0" class="no-data-row">
+            <td colspan="6" class="no-data-cell">
+              Nenhum feedback encontrado
+            </td>
+          </tr>
+          
+          <tr *ngFor="let feedback of filteredFeedbacks" class="feedback-row">
+            <td>{{ feedback.id }}</td>
+            <td>{{ feedback.userId }}</td>
+            <td>{{ feedback.cartId }}</td>
+            <td class="description-cell">
+              <div class="description-text" [title]="feedback.description">
+                {{ feedback.description.length > 50 ? (feedback.description | slice:0:50) + '...' : feedback.description }}
+              </div>
+            </td>
+            <td>
+              <div class="rating-display">
+                <span class="rating-number">{{ feedback.rating }}</span>
+                <span class="rating-stars">
+                  <span *ngFor="let star of [1,2,3,4,5]" 
+                        class="star" 
+                        [class.filled]="star <= feedback.rating">
+                    ★
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td>
+              <button 
+                type="button" 
+                (click)="deleteFeedback(feedback.id)" 
+                class="delete-button"
+                title="Deletar feedback"
+              >
+                Deletar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

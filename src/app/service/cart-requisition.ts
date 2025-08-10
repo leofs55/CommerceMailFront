@@ -259,4 +259,9 @@ export class CartService {
   findOpenCartByUser(userId: number): Observable<CartResponse> {
     return this.http.get<CartResponse>(`${this.apiUrl}/cart-open/${userId}`);
   }
+
+  // GET /api/v1/cart/all - Busca todos os carrinhos para adm
+  findAllCarts(): Observable<CartResponse[]> {
+    return this.http.get<CartResponse[]>(`${this.apiUrl}/all`);
+  }
 }

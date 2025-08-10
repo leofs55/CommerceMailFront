@@ -1,1 +1,108 @@
-<p>carts works!</p>
+<div class="carts-container">
+  <div class="carts-header">
+    <h1 class="carts-title">Gerenciamento de Carrinhos</h1>
+    <p class="carts-subtitle">Visualize e gerencie todos os carrinhos do sistema</p>
+  </div>
+
+  <!-- Campo de busca -->
+  <div class="search-section">
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchId" 
+        placeholder="Buscar carrinho por ID..."
+        class="search-input"
+        (input)="searchCartsById()"
+      >
+      <button 
+        class="search-button"
+        (click)="searchCartsById()"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+      <button 
+        class="clear-button"
+        (click)="clearSearch()"
+        *ngIf="searchId"
+      >
+        Limpar
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Carregando carrinhos...</p>
+  </div>
+
+  <!-- Tabela de carrinhos -->
+  <div class="table-container" *ngIf="!isLoading && filteredCarts.length > 0">
+    <table class="carts-table">
+      <thead>
+        <tr>
+          <th>ID do Carrinho</th>
+          <th>Usuário</th>
+          <th>Email</th>
+          <th>Produtos</th>
+          <th>Preço Total</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cart of filteredCarts" class="cart-row">
+          <td class="cart-id">{{ cart.id }}</td>
+          <td class="user-name">{{ cart.user.name }}</td>
+          <td class="user-email">{{ cart.user.email }}</td>
+          <td class="products-count">
+            {{ cart.productResponses.length }} produto(s)
+          </td>
+          <td class="total-price">
+            R$ {{ cart.totalPrice.toFixed(2) }}
+          </td>
+          <td class="status">
+            <span [class]="'status-badge ' + getStatusClass(cart.status)">
+              {{ cart.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button 
+              class="action-button edit-button"
+              (click)="editCart(cart.id)"
+              title="Editar carrinho"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button 
+              class="action-button close-button"
+              (click)="closeCart(cart.id)"
+              title="Fechar carrinho"
+            >
+              <i class="fas fa-lock"></i>
+            </button>
+            <button 
+              class="action-button delete-button"
+              (click)="deleteCart(cart.id)"
+              title="Deletar carrinho"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mensagem quando não há carrinhos -->
+  <div class="no-carts" *ngIf="!isLoading && filteredCarts.length === 0">
+    <i class="fas fa-shopping-cart"></i>
+    <p>Nenhum carrinho encontrado</p>
+    <p *ngIf="searchId">Tente ajustar os critérios de busca</p>
+  </div>
+</div>

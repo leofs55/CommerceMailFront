@@ -1,1 +1,198 @@
-<p>products works!</p>
+<div class="products-admin-container">
+  <div class="header-section">
+    <h1>Gerenciamento de Produtos</h1>
+    <button class="btn-add" (click)="openCreateModal()">
+      <i class="fas fa-plus"></i>
+      Adicionar Produto
+    </button>
+  </div>
+
+  <div class="filters-section">
+    <div class="search-box">
+      <input 
+        type="text" 
+        placeholder="Buscar produtos..." 
+        [(ngModel)]="searchTerm"
+        (input)="filterProducts()"
+        class="search-input"
+      >
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    
+    <div class="filter-options">
+      <select [(ngModel)]="selectedCategory" (change)="filterProducts()" class="filter-select">
+        <option value="">Todas as categorias</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{category.name}}
+        </option>
+      </select>
+      
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" (change)="toggleSelectAll()" [checked]="selectAll">
+          </th>
+          <th (click)="sortBy('name')" class="sortable">
+            Nome do Produto
+            <i class="fas fa-sort"></i>
+          </th>
+          <th (click)="sortBy('description')" class="sortable">
+            Descrição
+            <i class="fas fa-sort"></i>
+          </th>
+          <th (click)="sortBy('price')" class="sortable">
+            Preço
+            <i class="fas fa-sort"></i>
+          </th>
+          <th (click)="sortBy('quantity')" class="sortable">
+            Quantidade
+            <i class="fas fa-sort"></i>
+          </th>
+          <th (click)="sortBy('grams')" class="sortable">
+            Peso (gramas)
+            <i class="fas fa-sort"></i>
+          </th>
+          <th (click)="sortBy('category')" class="sortable">
+            Categoria
+            <i class="fas fa-sort"></i>
+          </th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of filteredProducts; trackBy: trackByProductId" 
+            [class.selected]="selectedProducts.includes(product.id)"
+            [class.low-stock]="product.quantity < 10">
+          <td>
+            <input 
+              type="checkbox" 
+              [checked]="selectedProducts.includes(product.id)"
+              (change)="toggleProductSelection(product.id)"
+            >
+          </td>
+          <td class="product-name">
+            <div class="product-info">
+              <img [src]="product.imgUrl || 'assets/images/default-product.png'" 
+                   [alt]="product.name" 
+                   class="product-image">
+              <div>
+                <strong>{{product.name}}</strong>
+              </div>
+            </div>
+          </td>
+          <td class="product-description">
+            <span>{{product.description | slice:0:100}}{{product.description.length > 100 ? '...' : ''}}</span>
+          </td>
+          <td>
+            <span class="price">{{product.price | currency:'BRL'}}</span>
+          </td>
+          <td>
+            <span class="quantity" [class.low]="product.quantity < 10">
+              {{product.quantity}} unidades
+            </span>
+          </td>
+          <td>
+            <span class="grams">{{product.grams}}g</span>
+          </td>
+          <td>
+            <span class="category-badge">{{product.categoryResponse.name || 'Sem categoria'}}</span>
+          </td>
+          <td class="actions">
+            <div class="action-buttons">
+              <button class="btn-view" (click)="viewProduct(product)" title="Visualizar">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn-edit" (click)="editProduct(product)" title="Editar">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-delete" (click)="deleteProduct(product)" title="Excluir">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="filteredProducts.length === 0" class="no-products">
+      <i class="fas fa-box-open"></i>
+      <p>Nenhum produto encontrado</p>
+      <button class="btn-add" (click)="openCreateModal()">Adicionar primeiro produto</button>
+    </div>
+  </div>
+
+  <div class="pagination-section" *ngIf="filteredProducts.length > 0">
+    <div class="pagination-info">
+      Mostrando {{startIndex + 1}} a {{endIndex}} de {{totalProducts}} produtos
+    </div>
+    
+    <div class="pagination-controls">
+      <button 
+        class="btn-pagination" 
+        [disabled]="currentPage === 1"
+        (click)="previousPage()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="page-numbers">
+        <button 
+          *ngFor="let page of visiblePages" 
+          class="btn-page" 
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)">
+          {{page}}
+        </button>
+      </div>
+      
+      <button 
+        class="btn-pagination" 
+        [disabled]="currentPage === totalPages"
+        (click)="nextPage()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="bulk-actions" *ngIf="selectedProducts.length > 0">
+    <div class="bulk-info">
+      {{selectedProducts.length}} produto(s) selecionado(s)
+    </div>
+    <div class="bulk-buttons">
+      <button class="btn-bulk-edit" (click)="bulkEdit()">
+        <i class="fas fa-edit"></i>
+        Editar Selecionados
+      </button>
+      <button class="btn-bulk-delete" (click)="bulkDelete()">
+        <i class="fas fa-trash"></i>
+        Excluir Selecionados
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Confirmar Exclusão</h3>
+      <button class="btn-close" (click)="closeDeleteModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja excluir o produto "{{productToDelete?.name}}"?</p>
+      <p class="warning">Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closeDeleteModal()">Cancelar</button>
+      <button class="btn-confirm-delete" (click)="confirmDelete()">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Status em Massa -->

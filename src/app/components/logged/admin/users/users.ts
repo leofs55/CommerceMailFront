@@ -1,11 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserService, UserResponse } from '../../../../service/user-requisition';
+import { UserService, UserResponse, UserUpdateRequest } from '../../../../service/user-requisition';
 
 @Component({
   selector: 'app-users',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './users.html',
   styleUrl: './users.css'
@@ -18,6 +17,17 @@ export class Users implements OnInit {
   searchTerm: string = '';
   isLoading: boolean = false;
   errorMessage: string = '';
+  
+  // Propriedades para o modal de edição
+  showEditModal: boolean = false;
+  editingUser: UserUpdateRequest = {
+    name: '',
+    email: '',
+    numberPhone: '',
+    password: ''
+  };
+  isUpdating: boolean = false;
+  currentUserId: number | null = null;
 
   ngOnInit(): void {
     this.loadUsers();
@@ -55,8 +65,69 @@ export class Users implements OnInit {
     this.filterUsers();
   }
 
-  deleteUser(userId: number): void {
-    // Função para deletar usuário será implementada posteriormente
-    console.log('Deletar usuário com ID:', userId);
+  openEditModal(user: UserResponse): void {
+    this.currentUserId = user.id;
+    this.editingUser = {
+      name: user.name,
+      email: user.email,
+      numberPhone: user.numberPhone,
+      password: '' // Senha em branco por padrão
+    };
+    this.showEditModal = true;
+    this.errorMessage = '';
+  }
+
+  closeEditModal(): void {
+    this.showEditModal = false;
+    this.resetEditingUser();
+  }
+
+  private resetEditingUser(): void {
+    this.editingUser = {
+      name: '',
+      email: '',
+      numberPhone: '',
+      password: ''
+    };
+    this.currentUserId = null;
+    this.errorMessage = '';
+    this.isUpdating = false;
+  }
+
+  updateUser(): void {
+    if (!this.currentUserId) {
+      this.errorMessage = 'ID do usuário não encontrado';
+      return;
+    }
+
+    // Verifica se os campos obrigatórios estão preenchidos
+    if (!this.editingUser.name?.trim() || !this.editingUser.email?.trim() || !this.editingUser.numberPhone?.trim()) {
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios';
+      return;
+    }
+
+    // Remove campos vazios para não enviar dados desnecessários
+    const updateData: UserUpdateRequest = {};
+    updateData.name = this.editingUser.name!.trim();
+    updateData.email = this.editingUser.email!.trim();
+    updateData.numberPhone = this.editingUser.numberPhone!.trim();
+    if (this.editingUser.password && this.editingUser.password.trim()) {
+      updateData.password = this.editingUser.password.trim();
+    }
+
+    this.isUpdating = true;
+    this.errorMessage = '';
+
+    this.userService.updateUser(this.currentUserId, updateData).subscribe({
+      next: (response) => {
+        // Atualiza a lista de usuários
+        this.loadUsers();
+        this.closeEditModal();
+      },
+      error: (error: any) => {
+        this.errorMessage = 'Erro ao atualizar usuário: ' + error.message;
+        this.isUpdating = false;
+      }
+    });
   }
 }

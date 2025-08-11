@@ -139,3 +139,4 @@ Para personalizar a funcionalidade, edite:
 **🎉 Funcionalidade implementada e testada com sucesso!**
 
 Para dúvidas ou suporte, consulte a documentação da API ou entre em contato com a equipe de desenvolvimento.
+

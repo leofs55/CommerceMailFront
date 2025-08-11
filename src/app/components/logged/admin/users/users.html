@@ -51,11 +51,11 @@
             <td>{{ user.numberPhone }}</td>
             <td class="actions-cell">
               <button 
-                class="delete-btn" 
-                (click)="deleteUser(user.id)"
-                title="Deletar usuário"
+                class="edit-btn" 
+                (click)="openEditModal(user)"
+                title="Editar usuário"
               >
-                Deletar
+                Editar
               </button>
             </td>
           </tr>
@@ -66,5 +66,74 @@
 
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
+  </div>
+</div>
+
+<!-- Modal de Edição de Usuário -->
+<div *ngIf="showEditModal" class="modal-overlay" (click)="closeEditModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Editar Usuário</h2>
+      <button class="close-btn" (click)="closeEditModal()">&times;</button>
+    </div>
+    
+    <form class="edit-form" (ngSubmit)="updateUser()">
+      <div class="form-group">
+        <label for="editName">Nome:</label>
+        <input 
+          type="text" 
+          id="editName" 
+          name="editName"
+          [(ngModel)]="editingUser.name" 
+          required
+          class="form-input"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="editEmail">Email:</label>
+        <input 
+          type="email" 
+          id="editEmail" 
+          name="editEmail"
+          [(ngModel)]="editingUser.email" 
+          required
+          class="form-input"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="editPhone">Telefone:</label>
+        <input 
+          type="text" 
+          id="editPhone" 
+          name="editPhone"
+          [(ngModel)]="editingUser.numberPhone" 
+          required
+          class="form-input"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="editPassword">Nova Senha (deixe em branco para manter a atual):</label>
+        <input 
+          type="password" 
+          id="editPassword" 
+          name="editPassword"
+          [(ngModel)]="editingUser.password" 
+          class="form-input"
+        >
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="closeEditModal()">
+          Cancelar
+        </button>
+        <button type="submit" class="save-btn" [disabled]="isUpdating || !editingUser.name || !editingUser.email || !editingUser.numberPhone">
+          <span *ngIf="!isUpdating">Salvar</span>
+          <span *ngIf="isUpdating">Salvando...</span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>

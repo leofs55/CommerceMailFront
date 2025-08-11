@@ -56,9 +56,4 @@ export class Category implements OnInit {
     // Função de editar será implementada posteriormente
     console.log('Editar categoria com ID:', categoryId);
   }
-
-  onViewCategory(categoryId: number): void {
-    // Função de visualizar será implementada posteriormente
-    console.log('Visualizar categoria com ID:', categoryId);
-  }
 }

@@ -1,7 +1,9 @@
 <div class="carts-container">
   <div class="carts-header">
-    <h1 class="carts-title">Gerenciamento de Carrinhos</h1>
-    <p class="carts-subtitle">Visualize e gerencie todos os carrinhos do sistema</p>
+    <div>
+      <h1 class="carts-title">Gerenciamento de Carrinhos</h1>
+      <p class="carts-subtitle">Visualize e gerencie todos os carrinhos do sistema</p>
+    </div>
   </div>
 
   <!-- Campo de busca -->
@@ -19,6 +21,7 @@
         (click)="searchCartsById()"
       >
         <i class="fas fa-search"></i>
+        Buscar
       </button>
       <button 
         class="clear-button"
@@ -56,22 +59,25 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cart of filteredCarts" class="cart-row">
-          <td class="cart-id">{{ cart.id }}</td>
-          <td class="user-name">{{ cart.user.name }}</td>
-          <td class="user-email">{{ cart.user.email }}</td>
-          <td class="products-count">
+        <tr *ngFor="let cart of filteredCarts" 
+            class="cart-row"
+            [class.highlight]="cart.status === 'open'"
+            [class.warning]="cart.status === 'pending'">
+          <td class="cart-id" data-label="ID do Carrinho">{{ cart.id }}</td>
+          <td class="user-name" data-label="Usuário">{{ cart.user.name }}</td>
+          <td class="user-email" data-label="Email">{{ cart.user.email }}</td>
+          <td class="products-count" data-label="Produtos">
             {{ cart.productResponses.length }} produto(s)
           </td>
-          <td class="total-price">
+          <td class="total-price" data-label="Preço Total">
             R$ {{ cart.totalPrice.toFixed(2) }}
           </td>
-          <td class="status">
+          <td class="status" data-label="Status">
             <span [class]="'status-badge ' + getStatusClass(cart.status)">
               {{ cart.status }}
             </span>
           </td>
-          <td class="actions">
+          <td class="actions" data-label="Ações">
             <button 
               class="action-button edit-button"
               (click)="editCart(cart.id)"

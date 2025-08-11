@@ -15,12 +15,10 @@
         placeholder="Buscar categorias por nome..."
         class="search-input"
       >
-      <button class="search-button">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
-        </svg>
-      </button>
+      <svg class="search-button" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
     </div>
   </div>
 
@@ -62,21 +60,10 @@
           </tr>
 
           <tr *ngFor="let category of filteredCategories" class="category-row">
-            <td class="category-id">{{ category.id }}</td>
-            <td class="category-name">{{ category.name }}</td>
-            <td class="actions-cell">
+            <td class="category-id" data-label="ID">{{ category.id }}</td>
+            <td class="category-name" data-label="Nome da Categoria">{{ category.name }}</td>
+            <td class="actions-cell" data-label="Ações">
               <div class="action-buttons">
-                <button 
-                  class="action-btn view-btn" 
-                  (click)="onViewCategory(category.id)"
-                  title="Visualizar categoria"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </button>
-                
                 <button 
                   class="action-btn edit-btn" 
                   (click)="onEditCategory(category.id)"

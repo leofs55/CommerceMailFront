@@ -19,13 +19,13 @@
 
 .header-section h1 {
   margin: 0;
-  color: #2c3e50;
+  color: #631717;
   font-size: 1.8rem;
   font-weight: 600;
 }
 
 .btn-add {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #631717;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -36,12 +36,12 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(99, 23, 23, 0.4);
 }
 
 .btn-add:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px rgba(99, 23, 23, 0.6);
 }
 
 .btn-add i {
@@ -78,8 +78,8 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #631717;
+  box-shadow: 0 0 0 3px rgba(99, 23, 23, 0.1);
 }
 
 .search-icon {
@@ -109,8 +109,8 @@
 
 .filter-select:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #631717;
+  box-shadow: 0 0 0 3px rgba(99, 23, 23, 0.1);
 }
 
 /* Container da tabela */
@@ -130,7 +130,7 @@
 }
 
 .products-table thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #631717;
   color: white;
 }
 
@@ -391,8 +391,8 @@
 }
 
 .btn-pagination:hover:not(:disabled) {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #631717;
+  color: #631717;
 }
 
 .btn-pagination:disabled {
@@ -418,13 +418,13 @@
 }
 
 .btn-page:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #631717;
+  color: #631717;
 }
 
 .btn-page.active {
-  background: #667eea;
-  border-color: #667eea;
+  background: #631717;
+  border-color: #631717;
   color: white;
 }
 
@@ -541,7 +541,7 @@
 
 .modal-header h3 {
   margin: 0;
-  color: #2c3e50;
+  color: #631717;
   font-weight: 600;
 }
 
@@ -598,7 +598,7 @@
 }
 
 .status-option:hover {
-  border-color: #667eea;
+  border-color: #631717;
   background: #f8f9fa;
 }
 
@@ -635,12 +635,12 @@
 }
 
 .btn-confirm {
-  background: #667eea;
+  background: #631717;
   color: white;
 }
 
 .btn-confirm:hover {
-  background: #5a6fd8;
+  background: #4a1111;
   transform: translateY(-1px);
 }
 

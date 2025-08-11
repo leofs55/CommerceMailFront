@@ -14,7 +14,7 @@
 
 .page-title {
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: #631717;
   margin: 0 0 0.5rem 0;
   font-weight: 600;
 }
@@ -41,7 +41,7 @@
 
 .search-label {
   font-weight: 600;
-  color: #495057;
+  color: #631717;
   font-size: 1rem;
 }
 
@@ -64,13 +64,13 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  border-color: #631717;
+  box-shadow: 0 0 0 3px rgba(99, 23, 23, 0.1);
 }
 
 .search-button {
   padding: 0.75rem 1.5rem;
-  background: #007bff;
+  background: #631717;
   color: white;
   border: none;
   border-radius: 6px;
@@ -81,7 +81,7 @@
 }
 
 .search-button:hover {
-  background: #0056b3;
+  background: #4a1111;
 }
 
 .clear-button {
@@ -118,11 +118,11 @@
 }
 
 .feedback-table th {
-  background: #f8f9fa;
+  background: #631717;
   padding: 1rem;
   text-align: left;
   font-weight: 600;
-  color: #495057;
+  color: white;
   border-bottom: 2px solid #dee2e6;
   font-size: 0.95rem;
 }
@@ -159,7 +159,7 @@
   width: 20px;
   height: 20px;
   border: 2px solid #dee2e6;
-  border-top: 2px solid #007bff;
+  border-top: 2px solid #631717;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

@@ -84,7 +84,7 @@
             <td>
               <button 
                 type="button" 
-                (click)="deleteFeedback(feedback.id)" 
+                (click)="openDeleteModal(feedback)" 
                 class="delete-button"
                 title="Deletar feedback"
               >
@@ -94,6 +94,55 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Deleção -->
+<div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Confirmar Deleção</h3>
+      <button 
+        type="button" 
+        class="close-button" 
+        (click)="closeDeleteModal()"
+        [disabled]="deleting"
+      >
+        ×
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <p>Tem certeza que deseja deletar este feedback?</p>
+      <div class="feedback-info" *ngIf="feedbackToDelete">
+        <p><strong>ID do Feedback:</strong> {{ feedbackToDelete.id }}</p>
+        <p><strong>ID do Usuário:</strong> {{ feedbackToDelete.userId }}</p>
+        <p><strong>Nome do Usuário:</strong> {{ feedbackToDelete.user.name || 'N/A' }}</p>
+        <p><strong>Avaliação:</strong> {{ feedbackToDelete.rating }}/5</p>
+        <p><strong>Descrição:</strong> {{ feedbackToDelete.description }}</p>
+      </div>
+      <p class="warning-text">Esta ação não pode ser desfeita.</p>
+    </div>
+    
+    <div class="modal-footer">
+      <button 
+        type="button" 
+        class="cancel-button" 
+        (click)="closeDeleteModal()"
+        [disabled]="deleting"
+      >
+        Cancelar
+      </button>
+      <button 
+        type="button" 
+        class="confirm-delete-button" 
+        (click)="confirmDelete()"
+        [disabled]="deleting"
+      >
+        <span *ngIf="!deleting">Deletar</span>
+        <span *ngIf="deleting">Deletando...</span>
+      </button>
     </div>
   </div>
 </div>

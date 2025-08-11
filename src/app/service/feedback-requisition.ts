@@ -63,7 +63,7 @@ export class FeedbackService {
     }
 
     deleteFeedback(id: number): Observable<FeedbackDeleteResponse> {
-        return this.http.delete<FeedbackDeleteResponse>(`${this.apiUrl}/${id}`);
+        return this.http.delete<FeedbackDeleteResponse>(`${this.apiUrl}/delete/${id}`);
     }
     
     getAllFeedbacks(): Observable<FeedbackResponse[]> {

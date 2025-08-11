@@ -264,4 +264,9 @@ export class CartService {
   findAllCarts(): Observable<CartResponse[]> {
     return this.http.get<CartResponse[]>(`${this.apiUrl}/all`);
   }
+
+  // PUT /api/v1/cart/sold/{cartId} - Atualiza carrinho para vendido
+  updateToSoldCartById(cartId: string): Observable<CartResponse> {
+    return this.http.put<CartResponse>(`${this.apiUrl}/sold/${cartId}`, {});
+  }
 }

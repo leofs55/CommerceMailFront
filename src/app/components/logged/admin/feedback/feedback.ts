@@ -5,6 +5,7 @@ import { FeedbackService, FeedbackResponse } from '../../../../service/feedback-
 
 @Component({
   selector: 'app-feedback',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './feedback.html',
   styleUrl: './feedback.css'
@@ -16,6 +17,11 @@ export class Feedback implements OnInit {
   filteredFeedbacks: FeedbackResponse[] = [];
   searchUserId: string = '';
   loading: boolean = false;
+  
+  // Variáveis para o modal de confirmação
+  showDeleteModal: boolean = false;
+  feedbackToDelete: FeedbackResponse | null = null;
+  deleting: boolean = false;
 
   ngOnInit(): void {
     this.loadFeedbacks();
@@ -57,8 +63,37 @@ export class Feedback implements OnInit {
     this.filteredFeedbacks = this.feedbacks;
   }
 
-  deleteFeedback(feedbackId: number): void {
-    // Função será implementada posteriormente
-    console.log('Deletar feedback com ID:', feedbackId);
+  // Abrir modal de confirmação
+  openDeleteModal(feedback: FeedbackResponse): void {
+    this.feedbackToDelete = feedback;
+    this.showDeleteModal = true;
+  }
+
+  // Fechar modal de confirmação
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.feedbackToDelete = null;
+    this.deleting = false;
+  }
+
+  // Confirmar e executar a deleção
+  confirmDelete(): void {
+    if (!this.feedbackToDelete) return;
+
+    this.deleting = true;
+    this.feedbackService.deleteFeedback(this.feedbackToDelete.id).subscribe({
+      next: (response) => {
+        console.log('Feedback deletado com sucesso:', response.message);
+        // Remover o feedback da lista
+        this.feedbacks = this.feedbacks.filter(f => f.id !== this.feedbackToDelete!.id);
+        this.filteredFeedbacks = this.filteredFeedbacks.filter(f => f.id !== this.feedbackToDelete!.id);
+        this.closeDeleteModal();
+      },
+      error: (error) => {
+        console.error('Erro ao deletar feedback:', error);
+        this.deleting = false;
+        // Aqui você pode adicionar uma notificação de erro para o usuário
+      }
+    });
   }
 }

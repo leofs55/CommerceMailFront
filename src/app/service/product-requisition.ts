@@ -21,11 +21,19 @@ export class ProductService {
   }
 
   updateProduct(id: number, product: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/'+id, product);
+    return this.http.put<any>(this.apiUrl+'/update/'+id, product);
   }
 
   deleteProduct(id: number): Observable<any> {
     return this.http.delete<any>(this.apiUrl+'/'+id);
+  }
+
+  uploadImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    // Endpoint para upload de imagem
+    return this.http.post<any>(this.apiUrl + '/upload-image', formData);
   }
 
   getProductsByCategory(categoryId: number): Observable<any[]> {

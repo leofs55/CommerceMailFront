@@ -3,6 +3,7 @@ import { HeaderLogged } from '../../components/logged/header/header';
 import { Category } from '../../components/logged/admin/category/category';
 @Component({
   selector: 'app-admin-category',
+  standalone: true,
   imports: [HeaderLogged, Category],
   templateUrl: './admin-category.html',
   styleUrl: './admin-category.css'

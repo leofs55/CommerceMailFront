@@ -1,4 +1,12 @@
 <div class="products-admin-container">
+  <!-- Loading Global -->
+  <div class="loading-overlay" *ngIf="loading">
+    <div class="loading-spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Processando...</p>
+    </div>
+  </div>
+
   <div class="header-section">
     <h1>Gerenciamento de Produtos</h1>
     <button class="btn-add" (click)="openCreateModal()">
@@ -104,9 +112,6 @@
           </td>
           <td class="actions">
             <div class="action-buttons">
-              <button class="btn-view" (click)="viewProduct(product)" title="Visualizar">
-                <i class="fas fa-eye"></i>
-              </button>
               <button class="btn-edit" (click)="editProduct(product)" title="Editar">
                 <i class="fas fa-edit"></i>
               </button>
@@ -189,8 +194,320 @@
       <p class="warning">Esta ação não pode ser desfeita.</p>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" (click)="closeDeleteModal()">Cancelar</button>
-      <button class="btn-confirm-delete" (click)="confirmDelete()">Excluir</button>
+      <button class="btn-cancel" (click)="closeDeleteModal()" [disabled]="loading">Cancelar</button>
+      <button class="btn-confirm-delete" (click)="confirmDelete()" [disabled]="loading">
+        <span *ngIf="!loading">Excluir</span>
+        <span *ngIf="loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          Excluindo...
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Edição de Produto -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
+  <div class="modal-content edit-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Editar Produto</h3>
+      <button class="btn-close" (click)="closeEditModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="edit-form" (ngSubmit)="confirmEdit()">
+        <div class="form-group">
+          <label for="edit-name">Nome do Produto *</label>
+          <input 
+            type="text" 
+            id="edit-name" 
+            [(ngModel)]="editForm.name" 
+            name="name" 
+            required 
+            class="form-input"
+            [disabled]="editLoading"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="edit-description">Descrição *</label>
+          <textarea 
+            id="edit-description" 
+            [(ngModel)]="editForm.description" 
+            name="description" 
+            required 
+            rows="3" 
+            class="form-textarea"
+            [disabled]="editLoading"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-price">Preço (R$) *</label>
+            <input 
+              type="number" 
+              id="edit-price" 
+              [(ngModel)]="editForm.price" 
+              name="price" 
+              required 
+              min="0" 
+              step="0.01" 
+              class="form-input"
+              [disabled]="editLoading"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="edit-quantity">Quantidade *</label>
+            <input 
+              type="number" 
+              id="edit-quantity" 
+              [(ngModel)]="editForm.quantity" 
+              name="quantity" 
+              required 
+              min="0" 
+              class="form-input"
+              [disabled]="editLoading"
+            >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-grams">Peso (gramas) *</label>
+            <input 
+              type="number" 
+              id="edit-grams" 
+              [(ngModel)]="editForm.grams" 
+              name="grams" 
+              required 
+              min="0" 
+              class="form-input"
+              [disabled]="editLoading"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="edit-category">Categoria *</label>
+            <select 
+              id="edit-category" 
+              [(ngModel)]="editForm.categoryId" 
+              name="categoryId" 
+              required 
+              class="form-select"
+              [disabled]="editLoading"
+            >
+              <option value="">Selecione uma categoria</option>
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{category.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Imagem do Produto</label>
+          <div class="image-upload-section">
+            <!-- Barra de Progresso do Upload -->
+            <div class="upload-progress" *ngIf="uploadProgress > 0 && uploadProgress < 100">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+              </div>
+              <span class="progress-text">{{uploadProgress}}%</span>
+            </div>
+            
+            <div class="current-image" *ngIf="imagePreview">
+              <img [src]="imagePreview" alt="Preview da imagem" class="image-preview">
+              <button type="button" class="btn-remove-image" (click)="removeImage()" [disabled]="editLoading">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            
+            <div class="upload-area" *ngIf="!imagePreview">
+              <input 
+                type="file" 
+                id="edit-image" 
+                (change)="onImageSelected($event)" 
+                accept="image/*" 
+                class="file-input"
+                [disabled]="editLoading"
+              >
+              <label for="edit-image" class="upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Clique para selecionar uma imagem</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" (click)="closeEditModal()" [disabled]="editLoading">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-confirm-edit" [disabled]="editLoading">
+            <span *ngIf="!editLoading">Salvar Alterações</span>
+            <span *ngIf="editLoading">
+              <i class="fas fa-spinner fa-spin"></i>
+              Salvando...
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Criação de Produto -->
+<div class="modal-overlay" *ngIf="showCreateModal" (click)="closeCreateModal()">
+  <div class="modal-content edit-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Criar Novo Produto</h3>
+      <button class="btn-close" (click)="closeCreateModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="edit-form" (ngSubmit)="confirmCreate()">
+        <div class="form-group">
+          <label for="create-name">Nome do Produto *</label>
+          <input 
+            type="text" 
+            id="create-name" 
+            [(ngModel)]="createForm.name" 
+            name="name" 
+            required 
+            class="form-input"
+            [disabled]="createLoading"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="create-description">Descrição *</label>
+          <textarea 
+            id="create-description" 
+            [(ngModel)]="createForm.description" 
+            name="description" 
+            required 
+            rows="3" 
+            class="form-textarea"
+            [disabled]="createLoading"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="create-price">Preço (R$) *</label>
+            <input 
+              type="number" 
+              id="create-price" 
+              [(ngModel)]="createForm.price" 
+              name="price" 
+              required 
+              min="0" 
+              step="0.01" 
+              class="form-input"
+              [disabled]="createLoading"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="create-quantity">Quantidade *</label>
+            <input 
+              type="number" 
+              id="create-quantity" 
+              [(ngModel)]="createForm.quantity" 
+              name="quantity" 
+              required 
+              min="0" 
+              class="form-input"
+              [disabled]="createLoading"
+            >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="create-grams">Peso (gramas) *</label>
+            <input 
+              type="number" 
+              id="create-grams" 
+              [(ngModel)]="createForm.grams" 
+              name="grams" 
+              required 
+              min="0" 
+              class="form-input"
+              [disabled]="createLoading"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="create-category">Categoria *</label>
+            <select 
+              id="create-category" 
+              [(ngModel)]="createForm.categoryId" 
+              name="categoryId" 
+              required 
+              class="form-select"
+              [disabled]="createLoading"
+            >
+              <option value="">Selecione uma categoria</option>
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{category.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Imagem do Produto</label>
+          <div class="image-upload-section">
+            <!-- Barra de Progresso do Upload -->
+            <div class="upload-progress" *ngIf="uploadProgress > 0 && uploadProgress < 100">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+              </div>
+              <span class="progress-text">{{uploadProgress}}%</span>
+            </div>
+            
+            <div class="current-image" *ngIf="createImagePreview">
+              <img [src]="createImagePreview" alt="Preview da imagem" class="image-preview">
+              <button type="button" class="btn-remove-image" (click)="removeCreateImage()" [disabled]="createLoading">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            
+            <div class="upload-area" *ngIf="!createImagePreview">
+              <input 
+                type="file" 
+                id="create-image" 
+                (change)="onCreateImageSelected($event)" 
+                accept="image/*" 
+                class="file-input"
+                [disabled]="createLoading"
+              >
+              <label for="create-image" class="upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Clique para selecionar uma imagem</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" (click)="closeCreateModal()" [disabled]="createLoading">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-confirm-edit" [disabled]="createLoading">
+            <span *ngIf="!createLoading">Criar Produto</span>
+            <span *ngIf="createLoading">
+              <i class="fas fa-spinner fa-spin"></i>
+              Criando...
+            </span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

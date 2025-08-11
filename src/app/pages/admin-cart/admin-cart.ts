@@ -4,6 +4,7 @@ import { Carts } from '../../components/logged/admin/carts/carts';
 
 @Component({
   selector: 'app-admin-cart',
+  standalone: true,
   imports: [HeaderLogged, Carts],
   templateUrl: './admin-cart.html',
   styleUrl: './admin-cart.css'

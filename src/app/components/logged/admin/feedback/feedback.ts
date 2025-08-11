@@ -5,7 +5,6 @@ import { FeedbackService, FeedbackResponse } from '../../../../service/feedback-
 
 @Component({
   selector: 'app-feedback',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './feedback.html',
   styleUrl: './feedback.css'

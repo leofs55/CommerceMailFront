@@ -289,7 +289,7 @@
   justify-content: center;
 }
 
-.btn-view, .btn-edit, .btn-delete {
+.btn-edit, .btn-delete {
   width: 35px;
   height: 35px;
   border: none;
@@ -300,17 +300,6 @@
   justify-content: center;
   transition: all 0.3s ease;
   font-size: 0.8rem;
-}
-
-.btn-view {
-  background: #e3f2fd;
-  color: #1976d2;
-}
-
-.btn-view:hover {
-  background: #1976d2;
-  color: white;
-  transform: scale(1.1);
 }
 
 .btn-edit {
@@ -699,11 +688,6 @@
     gap: 0.25rem;
   }
   
-  .btn-view, .btn-edit, .btn-delete {
-    width: 30px;
-    height: 30px;
-    font-size: 0.7rem;
-  }
   
   .pagination-section {
     flex-direction: column;
@@ -767,5 +751,262 @@
     content: attr(data-label) ": ";
     font-weight: 600;
     color: #6c757d;
+  }
+}
+
+/* Loading Overlay Global */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.loading-spinner i {
+  font-size: 2rem;
+  color: #631717;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner p {
+  margin: 0;
+  color: #631717;
+  font-weight: 500;
+}
+
+/* Botões desabilitados durante loading */
+.btn-cancel:disabled,
+.btn-confirm-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-confirm-delete:disabled:hover {
+  background: #dc3545;
+  transform: none;
+}
+
+/* Modal de Edição */
+.edit-modal {
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  padding: 0.75rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #631717;
+  box-shadow: 0 0 0 3px rgba(99, 23, 23, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-input:disabled,
+.form-textarea:disabled,
+.form-select:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Seção de Upload de Imagem */
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Barra de Progresso do Upload */
+.upload-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e1e5e9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #631717;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: #631717;
+  text-align: center;
+  font-weight: 500;
+}
+
+.current-image {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 2px solid #e1e5e9;
+}
+
+.btn-remove-image {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-image:hover {
+  background: #c82333;
+}
+
+.upload-area {
+  border: 2px dashed #e1e5e9;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #631717;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.upload-label i {
+  font-size: 2rem;
+  color: #631717;
+}
+
+.upload-label span {
+  font-size: 0.9rem;
+}
+
+/* Botão de confirmação de edição */
+.btn-confirm-edit {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirm-edit:hover:not(:disabled) {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-confirm-edit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-confirm-edit:disabled:hover {
+  background: #28a745;
+  transform: none;
+}
+
+/* Responsividade para o modal de edição */
+@media (max-width: 768px) {
+  .edit-modal {
+    max-width: 95vw;
+    margin: 1rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .image-preview {
+    max-width: 150px;
+    max-height: 150px;
   }
 }

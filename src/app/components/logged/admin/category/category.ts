@@ -5,7 +5,6 @@ import { CategoryService, CategoryResponse } from '../../../../service/category-
 
 @Component({
   selector: 'app-category',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './category.html',
   styleUrl: './category.css'
@@ -17,6 +16,11 @@ export class Category implements OnInit {
   filteredCategories: CategoryResponse[] = [];
   searchTerm: string = '';
   isLoading: boolean = false;
+  
+  // Propriedades para o modal de delete
+  showDeleteModal: boolean = false;
+  categoryToDelete: CategoryResponse | null = null;
+  deleteLoading: boolean = false;
 
   ngOnInit(): void {
     this.loadCategories();
@@ -47,9 +51,35 @@ export class Category implements OnInit {
     }
   }
 
-  onDeleteCategory(categoryId: number): void {
-    // Função de deletar será implementada posteriormente
-    console.log('Deletar categoria com ID:', categoryId);
+  onDeleteCategory(category: CategoryResponse): void {
+    this.categoryToDelete = category;
+    this.showDeleteModal = true;
+  }
+
+  confirmDelete(): void {
+    if (this.categoryToDelete) {
+      this.deleteLoading = true;
+      this.categoryService.deleteCategory(this.categoryToDelete.id).subscribe({
+        next: (response) => {
+          console.log('Categoria deletada com sucesso:', response.message);
+          // Remove a categoria da lista local
+          this.categories = this.categories.filter(c => c.id !== this.categoryToDelete!.id);
+          this.filterCategories();
+          this.closeDeleteModal();
+          this.deleteLoading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao deletar categoria:', error);
+          this.deleteLoading = false;
+          alert('Erro ao deletar categoria. Tente novamente.');
+        }
+      });
+    }
+  }
+
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.categoryToDelete = null;
   }
 
   onEditCategory(categoryId: number): void {

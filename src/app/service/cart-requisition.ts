@@ -139,6 +139,7 @@ export class CartService {
   formatCartMessage(cart: CartResponse): string {
     let message = `*Novo Pedido - Detalhes do Carrinho*\n\n`;
 
+    message += `*Carrinho ID:* ${cart.id}\n`;
     message += `*Cliente:* ${cart.user.name}\n`;
     message += `*Email:* ${cart.user.email}\n\n`;
 
@@ -267,6 +268,6 @@ export class CartService {
 
   // PUT /api/v1/cart/sold/{cartId} - Atualiza carrinho para vendido
   updateToSoldCartById(cartId: string): Observable<CartResponse> {
-    return this.http.put<CartResponse>(`${this.apiUrl}/sold/${cartId}`, {});
+    return this.http.get<CartResponse>(`${this.apiUrl}/sold/${cartId}`);
   }
 }

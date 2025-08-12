@@ -31,11 +31,12 @@
 
 .search-container {
   display: flex;
-  max-width: 500px;
+  max-width: 1136px;
   margin: 0 auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   overflow: hidden;
+  justify-content: space-between;
 }
 
 .search-input {
@@ -63,6 +64,42 @@
 
 .search-button:hover {
   background: #4a1111;
+}
+
+/* Botão de criação de categoria - estilo simples */
+.btn-create {
+  background: #631717;
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 12px;
+}
+
+.btn-create:hover {
+  background: #4a1111;
+}
+
+.btn-create:active {
+  background: #3d0f0f;
+}
+
+.btn-create:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 23, 23, 0.3);
+}
+
+/* Ícone do botão */
+.btn-create svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Container da tabela */
@@ -286,7 +323,8 @@
   }
   
   .search-input,
-  .search-button {
+  .search-button,
+  .btn-create {
     border-radius: 0;
   }
   
@@ -294,8 +332,12 @@
     border-radius: 12px 12px 0 0;
   }
   
-  .search-button {
+  .btn-create {
     border-radius: 0 0 12px 12px;
+  }
+  
+  .search-button {
+    display: none; /* Ocultar botão de busca em mobile se não for necessário */
   }
 }
 
@@ -386,6 +428,34 @@
   padding: 1rem;
   border-radius: 8px;
   margin-top: 1rem;
+}
+
+/* Estilos para o formulário do modal */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #631717;
+  box-shadow: 0 0 0 2px rgba(99, 23, 23, 0.1);
 }
 
 .modal-footer {

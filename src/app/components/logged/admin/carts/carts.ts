@@ -69,7 +69,14 @@ export class Carts implements OnInit {
 
   closeCart(cartId: string): void {
     console.log('Fechar carrinho:', cartId);
-    // TODO: Implementar lógica de fechar
+    this.cartService.updateToSoldCartById(cartId).subscribe({
+      next: (cart) => {
+        this.loadAllCarts();
+      },
+      error: (error) => {
+        console.error('Erro ao fechar carrinho:', error);
+      }
+    });
   }
 
   getStatusClass(status: string): string {

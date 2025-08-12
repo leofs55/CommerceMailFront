@@ -32,7 +32,9 @@ export class Feedback implements OnInit {
     this.feedbackService.getAllFeedbacks().subscribe({
       next: (data) => {
         this.feedbacks = data;
+        console.log(this.feedbacks);
         this.filteredFeedbacks = data;
+        console.log(this.filteredFeedbacks);
         this.loading = false;
       },
       error: (error) => {
@@ -51,7 +53,7 @@ export class Feedback implements OnInit {
     const userId = parseInt(this.searchUserId);
     if (!isNaN(userId)) {
       this.filteredFeedbacks = this.feedbacks.filter(
-        feedback => feedback.user.id === userId
+        feedback => feedback.userResponse.id === userId
       );
     } else {
       this.filteredFeedbacks = [];

@@ -121,7 +121,7 @@ export class CartDetails implements OnInit {
                 rating: response.rating,
                 cartId: cartId || '',
                 userId: userId,
-                user: userDetails
+                userResponse: userDetails
               };
             },
             error: (error) => {
@@ -133,7 +133,7 @@ export class CartDetails implements OnInit {
                 rating: response.rating,
                 cartId: cartId || '',
                 userId: userId,
-                user: {
+                userResponse: {
                   id: currentUser.id,
                   name: 'Usuário',
                   email: '',

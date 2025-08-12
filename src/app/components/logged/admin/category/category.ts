@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CategoryService, CategoryResponse } from '../../../../service/category-requisition';
+import { CategoryService, CategoryResponse, CategoryCreateRequest } from '../../../../service/category-requisition';
 
 @Component({
   selector: 'app-category',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './category.html',
   styleUrl: './category.css'
@@ -19,8 +20,14 @@ export class Category implements OnInit {
   
   // Propriedades para o modal de delete
   showDeleteModal: boolean = false;
+  showCreateModal: boolean = false;
   categoryToDelete: CategoryResponse | null = null;
   deleteLoading: boolean = false;
+  createLoading: boolean = false;
+
+  newCategory: CategoryCreateRequest = {
+    name: ''
+  };
 
   ngOnInit(): void {
     this.loadCategories();
@@ -56,6 +63,10 @@ export class Category implements OnInit {
     this.showDeleteModal = true;
   }
 
+  openCreateModal(): void {
+    this.showCreateModal = true;
+  }
+
   confirmDelete(): void {
     if (this.categoryToDelete) {
       this.deleteLoading = true;
@@ -77,9 +88,29 @@ export class Category implements OnInit {
     }
   }
 
+  createCategory(): void {
+    if (this.newCategory.name) {
+      this.categoryService.createCategory(this.newCategory).subscribe({
+        next: (response) => {
+          console.log('Categoria criada com sucesso:', response);
+          this.closeCreateModal();
+          this.loadCategories();
+        },
+        error: (error) => {
+          console.error('Erro ao criar categoria:', error);
+          alert('Erro ao criar categoria. Tente novamente.');
+        }
+      });
+    }
+  }
+
   closeDeleteModal(): void {
     this.showDeleteModal = false;
     this.categoryToDelete = null;
+  }
+
+  closeCreateModal(): void {
+    this.showCreateModal = false;
   }
 
   onEditCategory(categoryId: number): void {

@@ -35,7 +35,7 @@ export interface FeedbackResponse {
     rating: number;
     cartId: string;
     userId: number;
-    user: UserResponse;
+    userResponse: UserResponse;
 }
 
 export interface FeedbackDeleteResponse {

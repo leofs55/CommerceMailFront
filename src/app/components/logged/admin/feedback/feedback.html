@@ -40,7 +40,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>ID do Usuário</th>
+            <th>Nome do Usuário</th>
             <th>ID do Carrinho</th>
             <th>Descrição</th>
             <th>Avaliação</th>
@@ -62,7 +62,7 @@
           
           <tr *ngFor="let feedback of filteredFeedbacks" class="feedback-row">
             <td>{{ feedback.id }}</td>
-            <td>{{ feedback.userId }}</td>
+            <td>{{ feedback.userResponse.name }}</td>
             <td>{{ feedback.cartId }}</td>
             <td class="description-cell">
               <div class="description-text" [title]="feedback.description">
@@ -118,7 +118,7 @@
       <div class="feedback-info" *ngIf="feedbackToDelete">
         <p><strong>ID do Feedback:</strong> {{ feedbackToDelete.id }}</p>
         <p><strong>ID do Usuário:</strong> {{ feedbackToDelete.userId }}</p>
-        <p><strong>Nome do Usuário:</strong> {{ feedbackToDelete.user.name || 'N/A' }}</p>
+        <p><strong>Nome do Usuário:</strong> {{ feedbackToDelete.userResponse.name || 'N/A' }}</p>
         <p><strong>Avaliação:</strong> {{ feedbackToDelete.rating }}/5</p>
         <p><strong>Descrição:</strong> {{ feedbackToDelete.description }}</p>
       </div>

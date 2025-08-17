@@ -5,7 +5,6 @@ import { CartService, CartResponse } from '../../../../service/cart-requisition'
 
 @Component({
   selector: 'app-carts',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './carts.html',
   styleUrl: './carts.css'

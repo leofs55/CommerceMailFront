@@ -29,6 +29,25 @@
         </button>
     </div>
 
+    <!-- Campo de busca -->
+    <div class="search-container">
+        <div class="search-box">
+            <input 
+                type="text" 
+                placeholder="Buscar produtos..." 
+                [(ngModel)]="searchTerm"
+                (input)="onSearchChange()"
+                class="search-input">
+            <button class="search-button" (click)="performSearch()">
+                <i class="search-icon">🔍</i>
+            </button>
+        </div>
+        <div class="search-info" *ngIf="searchTerm">
+            <span class="results-count">{{ filteredProducts.length }} produto(s) encontrado(s)</span>
+            <button class="clear-search" (click)="clearSearch()">Limpar busca</button>
+        </div>
+    </div>
+
     <div class="content-container">
         <main class="main-content">
             <div class="loading-container" *ngIf="loading">
@@ -36,11 +55,14 @@
                 <p>Carregando produtos...</p>
             </div>
             
-            <div class="product-grid" *ngIf="!loading">
-                <div class="product-card" *ngFor="let product of products">
+            <div class="product-grid" *ngIf="!loading && filteredProducts && filteredProducts.length > 0">
+                <div class="product-card" *ngFor="let product of filteredProducts">
                     <a [routerLink]="['/product-details', product.id]" class="product-card-link">
                         <div class="product-image">
-                            <img src="{{ product.imgUrl }}" alt="{{ product.name }}">
+                            <img [src]="getProductImage(product)" 
+                            [alt]="product.name" 
+                            class="product-image"
+                            (error)="onImageError($event, product)">
                         </div>
                     </a>
                     <div class="product-info">
@@ -52,9 +74,9 @@
             </div>
             
             <!-- Loading state -->
-            <div class="loading-container" *ngIf="!products || products.length === 0">
-                <div class="loading-spinner"></div>
-                <p>Carregando produtos...</p>
+            <div class="loading-container" *ngIf="!loading && (!filteredProducts || filteredProducts.length === 0)">
+                <p *ngIf="searchTerm">Nenhum produto encontrado para "{{ searchTerm }}"</p>
+                <p *ngIf="!searchTerm">Nenhum produto disponível</p>
             </div>
         </main>
     </div>

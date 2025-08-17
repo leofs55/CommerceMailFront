@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CartService, CartItem } from '../../../service/cart-requisition';
+import { CartService, CartItem, ProductResponse } from '../../../service/cart-requisition';
 import { UserService } from '../../../service/user-requisition';
+import { ProductService } from '../../../service/product-requisition';
 
 @Component({
   selector: 'app-cart-component',
@@ -22,7 +23,8 @@ export class Cart implements OnInit {
   constructor(
     private cartService: CartService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,9 @@ export class Cart implements OnInit {
       this.cartItems = items;
       this.cartTotal = this.cartService.getCartTotal();
       this.cartItemCount = this.cartService.getCartItemCount();
+      
+      // Carregar imagens dos produtos no carrinho
+      this.loadAllProductImages();
     });
   }
 
@@ -96,5 +101,63 @@ export class Cart implements OnInit {
 
   getProductPrice(product: any): number {
     return product.price;
+  }
+
+  // Método para carregar imagem de um produto
+  loadProductImage(product: ProductResponse) {
+    if (!product.imgUrl) return;
+    
+    this.productService.getImage(product.imgUrl).subscribe({
+      next: (imageBlob: Blob) => {
+        // Criar URL da imagem a partir do blob retornado
+        const imageUrl = URL.createObjectURL(imageBlob);
+        
+        // Atualizar o produto com a URL da imagem no carrinho
+        if (this.cartItems) {
+          const cartItem = this.cartItems.find(item => item.product.id === product.id);
+          if (cartItem) {
+            cartItem.product = {
+              ...cartItem.product,
+              imgUrl: imageUrl
+            };
+          }
+        }
+      },
+      error: (error: any) => {
+        console.error(`Erro ao carregar imagem do produto ${product.name}:`, error);
+        // Em caso de erro, manter a imgUrl original ou usar imagem padrão
+      }
+    });
+  }
+
+  // Método para carregar imagens de todos os produtos no carrinho
+  loadAllProductImages() {
+    if (!this.cartItems || this.cartItems.length === 0) return;
+    
+    this.cartItems.forEach(cartItem => {
+      if (cartItem.product && cartItem.product.imgUrl) {
+        this.loadProductImage(cartItem.product);
+      }
+    });
+  }
+
+  // Método para obter a URL da imagem de um produto
+  getProductImage(product: ProductResponse): string {
+    if (product.imgUrl && (product.imgUrl.startsWith('blob:') || product.imgUrl.startsWith('data:image'))) {
+      // Se já é uma URL de blob ou dados (base64), usar diretamente
+      return product.imgUrl;
+    } else if (product.imgUrl) {
+      // Se é apenas o nome do arquivo, retornar imagem padrão até carregar
+      return 'public/assets/images/imageFeatured.png';
+    } else {
+      // Se não há imagem, usar imagem padrão
+      return 'public/assets/images/imageFeatured.png';
+    }
+  }
+
+  // Método para tratar erro de carregamento de imagem
+  onImageError(event: any, product: ProductResponse) {
+    console.log(`Erro ao carregar imagem do produto ${product.name}, usando imagem padrão`);
+    event.target.src = 'public/assets/images/imageFeatured.png';
   }
 }

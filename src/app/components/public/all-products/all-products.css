@@ -246,6 +246,94 @@ font-weight: bold;
   cursor: not-allowed;
 }
 
+/* Campo de busca */
+.search-container {
+  max-width: 1400px;
+  margin: 0 auto 30px auto;
+  padding: 0 20px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+  box-shadow: 0 4px 20px rgba(202, 120, 79, 0.3);
+  transform: translateY(-2px);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 15px 20px;
+  font-size: 16px;
+  outline: none;
+  background: transparent;
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-button {
+  background: #CA784F;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background: #803439;
+}
+
+.search-icon {
+  font-size: 18px;
+  color: white;
+}
+
+.search-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 500px;
+  margin: 15px auto 0 auto;
+  padding: 0 20px;
+}
+
+.results-count {
+  color: #666;
+  font-size: 14px;
+}
+
+.clear-search {
+  background: none;
+  border: 1px solid #CA784F;
+  color: #CA784F;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.clear-search:hover {
+  background: #CA784F;
+  color: white;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .content-container {
@@ -277,6 +365,31 @@ font-weight: bold;
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
+  }
+
+  /* Campo de busca responsivo */
+  .search-container {
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+  
+  .search-box {
+    max-width: 100%;
+  }
+  
+  .search-input {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  
+  .search-button {
+    padding: 12px 16px;
+  }
+  
+  .search-info {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
   }
 }
 

@@ -5,6 +5,7 @@ import { CartService, CartResponse, ProductResponse } from '../../../service/car
 import { UserService } from '../../../service/user-requisition';
 import { FeedbackService, FeedbackResponse, FeedbackCreateRequest, FeedbackUpdateRequest } from '../../../service/feedback-requisition';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../../../service/product-requisition';
 
 @Component({
   selector: 'app-cart-details-component',
@@ -32,7 +33,8 @@ export class CartDetails implements OnInit {
     private router: Router,
     private cartService: CartService,
     private userService: UserService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,9 @@ export class CartDetails implements OnInit {
         this.cartMessage = this.cartService.formatCartMessage(cart);
         this.loading = false;
         this.errorMessage = '';
+        
+        // Carregar imagens de todos os produtos após carregar o carrinho
+        this.loadAllProductImages();
       },
       error: (error: any) => {
         console.error('Erro ao carregar detalhes do carrinho:', error);
@@ -298,5 +303,63 @@ export class CartDetails implements OnInit {
 
   clearErrorMessage(): void {
     this.errorMessage = '';
+  }
+
+
+  loadProductImage(product: ProductResponse) {
+    if (!product.imgUrl) return;
+    
+    this.productService.getImage(product.imgUrl).subscribe({
+      next: (imageBlob: Blob) => {
+        // Criar URL da imagem a partir do blob retornado
+        const imageUrl = URL.createObjectURL(imageBlob);
+        
+        // Atualizar o produto com a URL da imagem
+        if (this.cart?.productResponses) {
+          const index = this.cart.productResponses.findIndex(p => p.id === product.id);
+          if (index !== -1) {
+            this.cart.productResponses[index] = {
+              ...this.cart.productResponses[index],
+              imgUrl: imageUrl
+            };
+          }
+        }
+      },
+      error: (error: any) => {
+        console.error(`Erro ao carregar imagem do produto ${product.name}:`, error);
+        // Em caso de erro, manter a imgUrl original ou usar imagem padrão
+      }
+    });
+  }
+
+  // Método para carregar imagens de todos os produtos do carrinho
+  loadAllProductImages() {
+    if (!this.cart?.productResponses) return;
+    
+    this.cart.productResponses.forEach(product => {
+      if (product.imgUrl) {
+        this.loadProductImage(product);
+      }
+    });
+  }
+
+  // Método para obter a URL da imagem de um produto
+  getProductImage(product: ProductResponse): string {
+    if (product.imgUrl && (product.imgUrl.startsWith('blob:') || product.imgUrl.startsWith('data:image'))) {
+      // Se já é uma URL de blob ou dados (base64), usar diretamente
+      return product.imgUrl;
+    } else if (product.imgUrl) {
+      // Se é apenas o nome do arquivo, retornar imagem padrão até carregar
+      return 'assets/images/default-product.png';
+    } else {
+      // Se não há imagem, usar imagem padrão
+      return 'assets/images/default-product.png';
+    }
+  }
+
+  // Método para tratar erro de carregamento de imagem
+  onImageError(event: any, product: ProductResponse) {
+    console.log(`Erro ao carregar imagem do produto ${product.name}, usando imagem padrão`);
+    event.target.src = 'assets/images/default-product.png';
   }
 }

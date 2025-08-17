@@ -30,10 +30,26 @@ export class ProductService {
 
   uploadImage(file: File): Observable<any> {
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('productImg', file);
     
-    // Endpoint para upload de imagem
-    return this.http.post<any>(this.apiUrl + '/upload-image', formData);
+    // Endpoint para upload de imagem com ID do produto
+    // A API retorna uma string simples, não JSON
+    return this.http.post(`http://localhost:8080/api/v1/upload/create`, formData, { responseType: 'text' });
+  }
+
+  uploadUpdateImage(file: File, imgName: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('productImg', file);
+    formData.append('imgName', imgName);
+    
+    // Endpoint para upload de imagem com ID do produto
+    // A API retorna uma string simples, não JSON
+    return this.http.post(`http://localhost:8080/api/v1/upload/create`, formData, { responseType: 'text' });
+  }
+
+  getImage(imgName: string): Observable<any> {
+    // A API retorna a imagem como base64 ou blob
+    return this.http.get(`http://localhost:8080/api/v1/image/product/${imgName}`, { responseType: 'blob' });
   }
 
   getProductsByCategory(categoryId: number): Observable<any[]> {

@@ -1,0 +1,357 @@
+/* Modal de Atualização de Produto */
+
+/* Overlay do Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+/* Modal de Edição (classe específica) */
+.edit-modal {
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Animação de entrada do modal */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cabeçalho do Modal */
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e1e8ed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #631717;
+  font-weight: 600;
+}
+
+/* Botão de fechar */
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-close:hover {
+  background: #f8f9fa;
+  color: #2c3e50;
+}
+
+/* Corpo do Modal */
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* Formulário de Edição */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Grupos de campos */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Labels dos campos */
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Campos de entrada */
+.form-input,
+.form-textarea,
+.form-select {
+  padding: 0.75rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #631717;
+  box-shadow: 0 0 0 3px rgba(99, 23, 23, 0.1);
+}
+
+/* Textarea específico */
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Campos desabilitados */
+.form-input:disabled,
+.form-textarea:disabled,
+.form-select:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Seção de Upload de Imagem */
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Barra de Progresso do Upload */
+.upload-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e1e5e9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #631717;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: #631717;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Imagem atual/preview */
+.current-image {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 2px solid #e1e5e9;
+}
+
+/* Botão de remover imagem */
+.btn-remove-image {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-image:hover {
+  background: #c82333;
+}
+
+/* Área de upload */
+.upload-area {
+  border: 2px dashed #e1e5e9;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #631717;
+}
+
+/* Input de arquivo oculto */
+.file-input {
+  display: none;
+}
+
+/* Label de upload */
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.upload-label i {
+  font-size: 2rem;
+  color: #631717;
+}
+
+.upload-label span {
+  font-size: 0.9rem;
+}
+
+/* Rodapé do Modal */
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #e1e8ed;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* Botões do modal */
+.btn-cancel, .btn-confirm-edit {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Botão cancelar */
+.btn-cancel {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 2px solid #e1e8ed;
+}
+
+.btn-cancel:hover {
+  background: #e9ecef;
+  color: #495057;
+}
+
+/* Botão de confirmação de edição */
+.btn-confirm-edit {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirm-edit:hover:not(:disabled) {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-confirm-edit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-confirm-edit:disabled:hover {
+  background: #28a745;
+  transform: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .edit-modal {
+    max-width: 95vw;
+    margin: 1rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .image-preview {
+    max-width: 150px;
+    max-height: 150px;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    margin: 0.5rem;
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

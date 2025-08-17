@@ -23,6 +23,8 @@ export interface UserCreateResponse {
 export interface UserLoginResponse {
   id: number;
   userRole: string;
+  loggoutAtTime: string;
+  loggedAtTime: string;
   token: string;
 }
 
@@ -119,7 +121,104 @@ export class UserService {
 
   // Função para verificar se o usuário está logado
   isLoggedIn(): boolean {
-    return !!this.getStoredToken();
+    const hasToken = !!this.getStoredToken();
+    console.log('🔍 isLoggedIn - Token existe:', hasToken);
+    
+    if (!hasToken) return false;
+    
+    // Verificar se o token não expirou baseado no loggoutAtTime
+    const isExpired = this.isTokenExpired();
+    console.log('🔍 isLoggedIn - Token expirado:', isExpired);
+    
+    if (isExpired) {
+      // Se o token expirou, limpar automaticamente os dados
+      console.log('🔍 isLoggedIn - Limpando sessão expirada');
+      this.clearExpiredSession();
+      return false;
+    }
+    
+    console.log('🔍 isLoggedIn - Usuário logado e token válido');
+    return true;
+  }
+
+  // Função para verificar se o token expirou
+  private isTokenExpired(): boolean {
+    const user = this.getStoredUser();
+    console.log('🔍 isTokenExpired - Usuário encontrado:', !!user);
+    
+    if (!user) return true;
+    
+    console.log('🔍 isTokenExpired - loggoutAtTime:', user.loggoutAtTime);
+    
+    // Se não há loggoutAtTime, considerar token como válido (não expirado)
+    if (!user.loggoutAtTime) {
+      console.log('🔍 isTokenExpired - Sem loggoutAtTime, token válido');
+      return false;
+    }
+    
+    try {
+      const logoutTime = new Date(user.loggoutAtTime);
+      const currentTime = new Date();
+      
+      console.log('🔍 isTokenExpired - Tempo atual:', currentTime.toISOString());
+      console.log('🔍 isTokenExpired - Tempo de logout:', logoutTime.toISOString());
+      
+      // Se o tempo atual é maior que o loggoutAtTime, o token expirou
+      const isExpired = currentTime > logoutTime;
+      console.log('🔍 isTokenExpired - Token expirado:', isExpired);
+      
+      return isExpired;
+    } catch (error) {
+      console.error('Erro ao verificar expiração do token:', error);
+      return false; // Em caso de erro, considerar como válido para não bloquear usuário
+    }
+  }
+
+  // Função pública para verificar se o token expirou
+  checkTokenExpiration(): boolean {
+    return this.isTokenExpired();
+  }
+
+  // Função para limpar sessão expirada
+  private clearExpiredSession(): void {
+    console.log('Token expirado, limpando sessão...');
+    this.logout();
+  }
+
+  // Função para obter o tempo restante do token em milissegundos
+  getTokenTimeRemaining(): number {
+    const user = this.getStoredUser();
+    if (!user) return 0;
+    
+    // Se não há loggoutAtTime, retornar valor alto para indicar que não expira
+    if (!user.loggoutAtTime) return Number.MAX_SAFE_INTEGER;
+    
+    try {
+      const logoutTime = new Date(user.loggoutAtTime);
+      const currentTime = new Date();
+      const timeRemaining = logoutTime.getTime() - currentTime.getTime();
+      
+      return Math.max(0, timeRemaining); // Retorna 0 se já expirou
+    } catch (error) {
+      console.error('Erro ao calcular tempo restante do token:', error);
+      return Number.MAX_SAFE_INTEGER; // Em caso de erro, considerar como não expira
+    }
+  }
+
+  // Função para obter o tempo restante do token em formato legível
+  getTokenTimeRemainingFormatted(): string {
+    const timeRemaining = this.getTokenTimeRemaining();
+    if (timeRemaining === 0) return 'Expirado';
+    if (timeRemaining === Number.MAX_SAFE_INTEGER) return 'Não expira';
+    
+    const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    
+    if (hours > 0) {
+      return `${hours}h ${minutes}m restantes`;
+    } else {
+      return `${minutes}m restantes`;
+    }
   }
 
   // Função para obter o token armazenado

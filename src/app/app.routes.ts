@@ -23,7 +23,6 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUp},
   { path: 'product/:id', component: ProductDetails },
   { path: 'cart', component: Cart },
-  { path: 'cart/:id', component: Cart },
   { path: 'all-carts/:id', component: AllCarts },
   { path: 'account/:id', component: Account },
   { path: 'start-payment/:id', component: StartPayment },

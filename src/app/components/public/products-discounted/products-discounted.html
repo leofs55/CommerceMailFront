@@ -9,7 +9,9 @@
             </div>
             <div class="product-image">
                 <a href="/product/{{ product1.id }}">
-                    <img src="{{ product1.imgUrl }}" alt="{{ product1.name }}">
+                    <img [src]="getProductImage(product1)" 
+                         [alt]="product1.name"
+                         (error)="onImageError($event, product1)">
                 </a>
             </div>
         </div>
@@ -22,7 +24,9 @@
             </div>
             <div class="product-image">
                 <a href="/product/{{ product2.id }}">
-                    <img src="{{ product2.imgUrl }}" alt="{{ product2.name }}">
+                    <img [src]="getProductImage(product2)" 
+                         [alt]="product2.name"
+                         (error)="onImageError($event, product2)">
                 </a>
             </div>
         </div>

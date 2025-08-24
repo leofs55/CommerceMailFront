@@ -38,7 +38,7 @@ ng version
 
 1. **Clone o repositório:**
    ```bash
-   git clone [URL_DO_SEU_REPOSITORIO]
+   git clone https://github.com/leofs55/CommerceMailFront.git
    cd CommerceMail
    ```
 

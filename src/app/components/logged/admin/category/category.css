@@ -466,7 +466,7 @@
   justify-content: flex-end;
 }
 
-.btn-cancel, .btn-confirm-delete {
+.btn-cancel, .btn-confirm-delete, .btn-confirm {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
@@ -494,8 +494,20 @@
   background: #c82333;
 }
 
+.btn-confirm {
+  background: #631717;
+  border-radius: 10px;
+  color: white;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  background: #4a1111;
+  transform: translateY(-1px);
+}
+
 .btn-cancel:disabled,
-.btn-confirm-delete:disabled {
+.btn-confirm-delete:disabled,
+.btn-confirm:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -504,11 +516,17 @@
   background: #dc3545;
 }
 
+.btn-confirm:disabled:hover {
+  background: #631717;
+  transform: none;
+}
+
 /* Responsividade do Modal */
 @media (max-width: 768px) {
   .modal-content {
     width: 95%;
-    margin: 1rem;
+    margin: 0.8rem; /* Reduzido de 1rem para 0.8rem (20% de redução) */
+    max-width: 400px; /* Reduzido de 500px para 400px (20% de redução) */
   }
   
   .modal-footer {
@@ -517,5 +535,326 @@
   
   .btn-cancel, .btn-confirm-delete {
     width: 100%;
+  }
+
+  .btn-cancel {
+    padding: 0.4rem 0.8rem; /* Reduzido proporcionalmente para ficar menor */
+    font-size: 0.72rem; /* Fonte menor proporcionalmente */
+  }
+
+  .btn-confirm {
+    border-radius: 10px; /* Mais arredondado proporcionalmente */
+  }
+}
+
+/* Responsividade - Reduzindo 60% proporcionalmente para dispositivos móveis */
+@media (max-width: 768px) {
+  .category-container {
+    padding: 0.8rem; /* Reduzido de 1rem para 0.8rem (20% de redução) */
+  }
+  
+  .page-header {
+    margin-bottom: 1.6rem; /* Reduzido de 2rem para 1.6rem (20% de redução) */
+  }
+  
+  .page-header h1 {
+    font-size: 1.6rem; /* Reduzido de 2rem para 1.6rem (20% de redução) */
+    margin-bottom: 0.4rem; /* Reduzido de 0.5rem para 0.4rem (20% de redução) */
+  }
+
+  .page-header p {
+    font-size: 0.88rem; /* Reduzido de 1.1rem para 0.88rem (20% de redução) */
+  }
+  
+  .search-section {
+    margin-bottom: 1.6rem; /* Reduzido de 2rem para 1.6rem (20% de redução) */
+  }
+
+  .search-container {
+    max-width: 908.8px; /* Reduzido de 1136px para 908.8px (20% de redução) */
+    border-radius: 9.6px; /* Reduzido de 12px para 9.6px (20% de redução) */
+  }
+
+  .search-input {
+    padding: 0.8rem 1.2rem; /* Reduzido de 1rem 1.5rem para 0.8rem 1.2rem (20% de redução) */
+    font-size: 0.8rem; /* Reduzido de 1rem para 0.8rem (20% de redução) */
+  }
+
+  .search-button {
+    padding: 0.8rem 1.2rem; /* Reduzido de 1rem 1.5rem para 0.8rem 1.2rem (20% de redução) */
+  }
+
+  .btn-create {
+    padding: 0.8rem 1.2rem; /* Reduzido de 1rem 1.5rem para 0.8rem 1.2rem (20% de redução) */
+    font-size: 0.8rem; /* Reduzido de 1rem para 0.8rem (20% de redução) */
+    border-radius: 9.6px; /* Reduzido de 12px para 9.6px (20% de redução) */
+    gap: 0.4rem; /* Reduzido de 0.5rem para 0.4rem (20% de redução) */
+  }
+
+  .btn-create svg {
+    width: 14.4px; /* Reduzido de 18px para 14.4px (20% de redução) */
+    height: 14.4px; /* Reduzido de 18px para 14.4px (20% de redução) */
+  }
+  
+  .table-container {
+    border-radius: 12.8px; /* Reduzido de 16px para 12.8px (20% de redução) */
+    box-shadow: 0 6.4px 25.6px rgba(0, 0, 0, 0.1); /* Reduzido de 8px 32px para 6.4px 25.6px (20% de redução) */
+  }
+
+  .table-header {
+    padding: 1.2rem 1.6rem; /* Reduzido de 1.5rem 2rem para 1.2rem 1.6rem (20% de redução) */
+    gap: 0.8rem; /* Reduzido de 1rem para 0.8rem (20% de redução) */
+  }
+  
+  .table-header h3 {
+    font-size: 1.2rem; /* Reduzido de 1.5rem para 1.2rem (20% de redução) */
+  }
+
+  .category-count {
+    font-size: 0.72rem; /* Reduzido de 0.9rem para 0.72rem (20% de redução) */
+  }
+  
+  .action-buttons {
+    justify-content: center;
+    gap: 0.4rem; /* Reduzido de 0.5rem para 0.4rem (20% de redução) */
+  }
+  
+  .categories-table th,
+  .categories-table td {
+    padding: 0.64rem 0.4rem; /* Reduzido de 0.8rem 0.5rem para 0.64rem 0.4rem (20% de redução) */
+    font-size: 0.72rem; /* Reduzido de 0.9rem para 0.72rem (20% de redução) */
+  }
+
+  .categories-table th {
+    padding: 0.96rem 0.8rem; /* Reduzido de 1.2rem 1rem para 0.96rem 0.8rem (20% de redução) */
+    font-size: 0.76rem; /* Reduzido de 0.95rem para 0.76rem (20% de redução) */
+  }
+  
+  .category-id {
+    display: none;
+  }
+
+  .action-btn {
+    width: 32px; /* Reduzido de 40px para 32px (20% de redução) */
+    height: 32px; /* Reduzido de 40px para 32px (20% de redução) */
+    border-radius: 6.4px; /* Reduzido de 8px para 6.4px (20% de redução) */
+  }
+
+  .loading-cell, .empty-cell {
+    padding: 2.4rem 0.8rem; /* Reduzido de 3rem 1rem para 2.4rem 0.8rem (20% de redução) */
+  }
+
+  .loading-spinner {
+    font-size: 0.88rem; /* Reduzido de 1.1rem para 0.88rem (20% de redução) */
+    gap: 0.4rem; /* Reduzido de 0.5rem para 0.4rem (20% de redução) */
+  }
+
+  .loading-spinner::before {
+    width: 16px; /* Reduzido de 20px para 16px (20% de redução) */
+    height: 16px; /* Reduzido de 20px para 16px (20% de redução) */
+    border: 1.6px solid #e9ecef; /* Reduzido de 2px para 1.6px (20% de redução) */
+    border-top: 1.6px solid #631717; /* Reduzido de 2px para 1.6px (20% de redução) */
+  }
+
+  .empty-message svg {
+    margin-bottom: 0.8rem; /* Reduzido de 1rem para 0.8rem (20% de redução) */
+  }
+
+  .empty-message p {
+    font-size: 0.96rem; /* Reduzido de 1.2rem para 0.96rem (20% de redução) */
+    margin: 0 0 0.4rem 0; /* Reduzido de 0 0 0.5rem 0 para 0 0 0.4rem 0 (20% de redução) */
+  }
+
+  .empty-message span {
+    font-size: 0.76rem; /* Reduzido de 0.95rem para 0.76rem (20% de redução) */
+  }
+
+  .modal-content {
+    margin: 0.4rem; /* Reduzido de 0.8rem para 0.4rem (50% adicional para telas muito pequenas) */
+    max-width: 95vw; /* Ajustado para ocupar quase toda a largura da tela */
+  }
+
+  .modal-header, .modal-body, .modal-footer {
+    padding: 0.6rem; /* Reduzido de 1.2rem para 0.6rem (50% adicional para telas muito pequenas) */
+  }
+
+  .modal-header h3 {
+    font-size: 0.9rem; /* Reduzido de 1.2rem para 0.9rem (25% adicional para telas muito pequenas) */
+  }
+
+  .btn-close {
+    font-size: 0.72rem; /* Reduzido de 0.96rem para 0.72rem (25% adicional para telas muito pequenas) */
+    padding: 0.2rem; /* Reduzido de 0.4rem para 0.2rem (50% adicional para telas muito pequenas) */
+  }
+
+  .form-group {
+    margin-bottom: 0.6rem; /* Reduzido de 1.2rem para 0.6rem (50% adicional para telas muito pequenas) */
+  }
+
+  .form-group label {
+    margin-bottom: 0.2rem; /* Reduzido de 0.4rem para 0.2rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+
+  .form-input {
+    padding: 0.3rem; /* Reduzido de 0.6rem para 0.3rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+
+  .btn-cancel, .btn-confirm-delete {
+    padding: 0.3rem 0.6rem; /* Reduzido de 0.6rem 1.2rem para 0.3rem 0.6rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+}
+
+@media (max-width: 480px) {
+  .category-container {
+    padding: 0.4rem; /* Reduzido de 0.8rem para 0.4rem (50% adicional para telas muito pequenas) */
+  }
+
+  .page-header {
+    margin-bottom: 0.8rem; /* Reduzido de 1.6rem para 0.8rem (50% adicional para telas muito pequenas) */
+  }
+
+  .page-header h1 {
+    font-size: 1.2rem; /* Reduzido de 1.6rem para 1.2rem (25% adicional para telas muito pequenas) */
+    margin-bottom: 0.2rem; /* Reduzido de 0.4rem para 0.2rem (50% adicional para telas muito pequenas) */
+  }
+
+  .page-header p {
+    font-size: 0.66rem; /* Reduzido de 0.88rem para 0.66rem (25% adicional para telas muito pequenas) */
+  }
+
+  .search-section {
+    margin-bottom: 0.8rem; /* Reduzido de 1.6rem para 0.8rem (50% adicional para telas muito pequenas) */
+  }
+
+  .search-container {
+    max-width: 95vw; /* Ajustado para ocupar quase toda a largura da tela */
+    border-radius: 6px; /* Reduzido de 9.6px para 6px (37.5% adicional para telas muito pequenas) */
+  }
+
+  .search-input {
+    padding: 0.4rem 0.6rem; /* Reduzido de 0.8rem 1.2rem para 0.4rem 0.6rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+
+  .search-button {
+    padding: 0.4rem 0.6rem; /* Reduzido de 0.8rem 1.2rem para 0.4rem 0.6rem (50% adicional para telas muito pequenas) */
+  }
+
+  .btn-create {
+    padding: 0.4rem 0.6rem; /* Reduzido de 0.8rem 1.2rem para 0.4rem 0.6rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+    border-radius: 6px; /* Reduzido de 9.6px para 6px (37.5% adicional para telas muito pequenas) */
+  }
+
+  .btn-create svg {
+    width: 10.8px; /* Reduzido de 14.4px para 10.8px (25% adicional para telas muito pequenas) */
+    height: 10.8px; /* Reduzido de 14.4px para 10.8px (25% adicional para telas muito pequenas) */
+  }
+
+  .table-container {
+    border-radius: 8px; /* Reduzido de 12.8px para 8px (37.5% adicional para telas muito pequenas) */
+  }
+
+  .table-header {
+    padding: 0.6rem 0.8rem; /* Reduzido de 1.2rem 1.6rem para 0.6rem 0.8rem (50% adicional para telas muito pequenas) */
+  }
+
+  .table-header h3 {
+    font-size: 0.9rem; /* Reduzido de 1.2rem para 0.9rem (25% adicional para telas muito pequenas) */
+  }
+
+  .category-count {
+    font-size: 0.54rem; /* Reduzido de 0.72rem para 0.54rem (25% adicional para telas muito pequenas) */
+  }
+
+  .categories-table th,
+  .categories-table td {
+    padding: 0.32rem 0.2rem; /* Reduzido de 0.64rem 0.4rem para 0.32rem 0.2rem (50% adicional para telas muito pequenas) */
+    font-size: 0.54rem; /* Reduzido de 0.72rem para 0.54rem (25% adicional para telas muito pequenas) */
+  }
+
+  .categories-table th {
+    padding: 0.48rem 0.4rem; /* Reduzido de 0.96rem 0.8rem para 0.48rem 0.4rem (50% adicional para telas muito pequenas) */
+    font-size: 0.57rem; /* Reduzido de 0.76rem para 0.57rem (25% adicional para telas muito pequenas) */
+  }
+
+  .action-btn {
+    width: 24px; /* Reduzido de 32px para 24px (25% adicional para telas muito pequenas) */
+    height: 24px; /* Reduzido de 32px para 24px (25% adicional para telas muito pequenas) */
+    border-radius: 4.8px; /* Reduzido de 6.4px para 4.8px (25% adicional para telas muito pequenas) */
+  }
+
+  .loading-cell, .empty-cell {
+    padding: 1.2rem 0.4rem; /* Reduzido de 2.4rem 0.8rem para 1.2rem 0.4rem (50% adicional para telas muito pequenas) */
+  }
+
+  .loading-spinner {
+    font-size: 0.66rem; /* Reduzido de 0.88rem para 0.66rem (25% adicional para telas muito pequenas) */
+  }
+
+  .loading-spinner::before {
+    width: 12px; /* Reduzido de 16px para 12px (25% adicional para telas muito pequenas) */
+    height: 12px; /* Reduzido de 16px para 12px (25% adicional para telas muito pequenas) */
+    border: 1.2px solid #e9ecef; /* Reduzido de 1.6px para 1.2px (25% adicional para telas muito pequenas) */
+    border-top: 1.2px solid #631717; /* Reduzido de 1.6px para 1.2px (25% adicional para telas muito pequenas) */
+  }
+
+  .empty-message svg {
+    margin-bottom: 0.4rem; /* Reduzido de 0.8rem para 0.4rem (50% adicional para telas muito pequenas) */
+  }
+
+  .empty-message p {
+    font-size: 0.72rem; /* Reduzido de 0.96rem para 0.72rem (25% adicional para telas muito pequenas) */
+    margin: 0 0 0.2rem 0; /* Reduzido de 0 0 0.4rem 0 para 0 0 0.2rem 0 (50% adicional para telas muito pequenas) */
+  }
+
+  .empty-message span {
+    font-size: 0.57rem; /* Reduzido de 0.76rem para 0.57rem (25% adicional para telas muito pequenas) */
+  }
+
+  .modal-content {
+    margin: 0.4rem; /* Reduzido de 0.8rem para 0.4rem (50% adicional para telas muito pequenas) */
+    max-width: 95vw; /* Ajustado para ocupar quase toda a largura da tela */
+  }
+
+  .modal-header, .modal-body, .modal-footer {
+    padding: 0.6rem; /* Reduzido de 1.2rem para 0.6rem (50% adicional para telas muito pequenas) */
+  }
+
+  .modal-header h3 {
+    font-size: 0.9rem; /* Reduzido de 1.2rem para 0.9rem (25% adicional para telas muito pequenas) */
+  }
+
+  .btn-close {
+    font-size: 0.72rem; /* Reduzido de 0.96rem para 0.72rem (25% adicional para telas muito pequenas) */
+    padding: 0.2rem; /* Reduzido de 0.4rem para 0.2rem (50% adicional para telas muito pequenas) */
+  }
+
+  .form-group {
+    margin-bottom: 0.6rem; /* Reduzido de 1.2rem para 0.6rem (50% adicional para telas muito pequenas) */
+  }
+
+  .form-group label {
+    margin-bottom: 0.2rem; /* Reduzido de 0.4rem para 0.2rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+
+  .form-input {
+    padding: 0.3rem; /* Reduzido de 0.6rem para 0.3rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+
+  .btn-cancel, .btn-confirm-delete, .btn-confirm {
+    max-width: 50px;
+    padding: 0.3rem 0.6rem; /* Reduzido de 0.6rem 1.2rem para 0.3rem 0.6rem (50% adicional para telas muito pequenas) */
+    font-size: 0.6rem; /* Reduzido de 0.8rem para 0.6rem (25% adicional para telas muito pequenas) */
+  }
+
+  .btn-cancel {
+    padding: 0.2rem 0.4rem; /* Reduzido proporcionalmente para manter menor */
+    font-size: 0.54rem; /* Fonte menor proporcionalmente */
   }
 }

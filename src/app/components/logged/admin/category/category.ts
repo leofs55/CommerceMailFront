@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CategoryService, CategoryResponse, CategoryCreateRequest } from '../../../../service/category-requisition';
+import { UserService } from '../../../../service/user-requisition';
 
 @Component({
   selector: 'app-category',
@@ -12,6 +13,7 @@ import { CategoryService, CategoryResponse, CategoryCreateRequest } from '../../
 })
 export class Category implements OnInit {
   private categoryService = inject(CategoryService);
+  private userService = inject(UserService);
   
   categories: CategoryResponse[] = [];
   filteredCategories: CategoryResponse[] = [];
@@ -21,15 +23,27 @@ export class Category implements OnInit {
   // Propriedades para o modal de delete
   showDeleteModal: boolean = false;
   showCreateModal: boolean = false;
+  showEditModal: boolean = false;
   categoryToDelete: CategoryResponse | null = null;
+  categoryToEdit: CategoryResponse | null = null;
   deleteLoading: boolean = false;
   createLoading: boolean = false;
+  editLoading: boolean = false;
 
   newCategory: CategoryCreateRequest = {
     name: ''
   };
 
+  editCategory: CategoryCreateRequest = {
+    name: ''
+  };
+
   ngOnInit(): void {
+    // Validar se o usuário é admin antes de carregar a página
+    if (!this.userService.checkAdminRoleAndRedirect('/')) {
+      return;
+    }
+    
     this.loadCategories();
   }
 
@@ -63,8 +77,15 @@ export class Category implements OnInit {
     this.showDeleteModal = true;
   }
 
+  onEditCategory(category: CategoryResponse): void {
+    this.categoryToEdit = category;
+    this.editCategory.name = category.name;
+    this.showEditModal = true;
+  }
+
   openCreateModal(): void {
     this.showCreateModal = true;
+    this.newCategory.name = '';
   }
 
   confirmDelete(): void {
@@ -89,16 +110,43 @@ export class Category implements OnInit {
   }
 
   createCategory(): void {
-    if (this.newCategory.name) {
+    if (this.newCategory.name.trim()) {
+      this.createLoading = true;
       this.categoryService.createCategory(this.newCategory).subscribe({
         next: (response) => {
           console.log('Categoria criada com sucesso:', response);
           this.closeCreateModal();
           this.loadCategories();
+          this.createLoading = false;
         },
         error: (error) => {
           console.error('Erro ao criar categoria:', error);
+          this.createLoading = false;
           alert('Erro ao criar categoria. Tente novamente.');
+        }
+      });
+    }
+  }
+
+  updateCategory(): void {
+    if (this.categoryToEdit && this.editCategory.name.trim()) {
+      this.editLoading = true;
+      this.categoryService.updateCategory(this.categoryToEdit.id, this.editCategory).subscribe({
+        next: (response) => {
+          console.log('Categoria atualizada com sucesso:', response);
+          // Atualiza a categoria na lista local
+          const index = this.categories.findIndex(c => c.id === this.categoryToEdit!.id);
+          if (index !== -1) {
+            this.categories[index] = { ...this.categories[index], name: this.editCategory.name };
+            this.filterCategories();
+          }
+          this.closeEditModal();
+          this.editLoading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao atualizar categoria:', error);
+          this.editLoading = false;
+          alert('Erro ao atualizar categoria. Tente novamente.');
         }
       });
     }
@@ -111,10 +159,12 @@ export class Category implements OnInit {
 
   closeCreateModal(): void {
     this.showCreateModal = false;
+    this.newCategory.name = '';
   }
 
-  onEditCategory(categoryId: number): void {
-    // Função de editar será implementada posteriormente
-    console.log('Editar categoria com ID:', categoryId);
+  closeEditModal(): void {
+    this.showEditModal = false;
+    this.categoryToEdit = null;
+    this.editCategory.name = '';
   }
 }

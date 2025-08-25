@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService, CartResponse } from '../../../../service/cart-requisition';
+import { UserService } from '../../../../service/user-requisition';
 
 @Component({
   selector: 'app-carts',
@@ -16,9 +17,17 @@ export class Carts implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
+    // Validar se o usuário é admin antes de carregar a página
+    if (!this.userService.checkAdminRoleAndRedirect('/')) {
+      return;
+    }
+    
     this.loadAllCarts();
   }
 

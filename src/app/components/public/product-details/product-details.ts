@@ -40,6 +40,10 @@ export class ProductDetails implements OnInit {
         this.productService.getProductById(Number(id)).subscribe({
           next: (produto) => {
             this.product = produto;
+            // Carregar a imagem do produto após obter os dados
+            if (this.product && this.product.imgUrl) {
+              this.loadProductImage(this.product);
+            }
             this.loading = false;
           },
           error: (error) => {
@@ -50,6 +54,48 @@ export class ProductDetails implements OnInit {
       } else {
         this.error = true;
         this.loading = false;
+      }
+    });
+  }
+
+  // Função para obter a imagem do produto
+  getProductImage(product: any): string {
+    if (product.imgUrl && (product.imgUrl.startsWith('blob:') || product.imgUrl.startsWith('data:image'))) {
+      // Se já é uma URL de blob ou dados (base64), usar diretamente
+      return product.imgUrl;
+    } else if (product.imgUrl) {
+      // Se é apenas o nome do arquivo, retornar imagem padrão até carregar
+      return 'assets/images/default-product.png';
+    } else {
+      // Se não há imagem, usar imagem padrão
+      return 'assets/images/default-product.png';
+    }
+  }
+
+  // Função para tratar erro de carregamento de imagem
+  onImageError(event: any, product: any) {
+    console.log(`Erro ao carregar imagem do produto ${product.name}, usando imagem padrão`);
+    event.target.src = 'assets/images/default-product.png';
+  }
+
+  // Função para carregar a imagem do produto
+  loadProductImage(product: any) {
+    if (!product.imgUrl) return;
+    
+    this.productService.getImage(product.imgUrl).subscribe({
+      next: (imageBlob: Blob) => {
+        // Criar URL da imagem a partir do blob retornado
+        const imageUrl = URL.createObjectURL(imageBlob);
+        
+        // Atualizar o produto com a URL da imagem
+        this.product = {
+          ...this.product,
+          imgUrl: imageUrl
+        };
+      },
+      error: (error: any) => {
+        console.error(`Erro ao carregar imagem do produto ${product.name}:`, error);
+        // Em caso de erro, manter a imgUrl original ou usar imagem padrão
       }
     });
   }

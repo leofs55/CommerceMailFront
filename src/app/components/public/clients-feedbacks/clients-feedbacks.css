@@ -158,30 +158,130 @@
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
   .clients-feedbacks-container {
-    padding: 40px 15px;
+    padding: 24px 12px;
+    min-height: 300px;
+  }
+  
+  .clients-feedbacks-title {
+    margin-bottom: 30px;
   }
   
   .clients-feedbacks-title h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   
   .clients-feedbacks-content-item {
     width: calc(100% - 20px);
-    padding: 25px;
+    padding: 18px;
     margin: 0 10px;
+    max-width: 90px;
+  }
+  
+  .star-feedback {
+    font-size: 1.2rem;
+    margin-bottom: 9px;
+  }
+  
+  .clients-feedbacks-content-item h5 {
+    font-size: 0.78rem;
+    margin: 0 0 6px 0;
+  }
+  
+  .clients-feedbacks-content-item h6 {
+    font-size: 0.6rem;
+    margin: 0 0 9px 0;
+  }
+  
+  .clients-feedbacks-content-item p {
+    font-size: 0.57rem;
   }
   
   .nav-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
   }
   
   .nav-arrow.prev {
-    left: 10px;
+    left: 8px;
   }
   
   .nav-arrow.next {
-    right: 10px;
+    right: 8px;
+  }
+  
+  .pagination-dots {
+    margin-top: 18px;
+    gap: 6px;
+  }
+  
+  .dot {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-feedbacks-container {
+    padding: 16px 8px;
+    min-height: 200px;
+  }
+  
+  .clients-feedbacks-title {
+    margin-bottom: 20px;
+  }
+  
+  .clients-feedbacks-title h1 {
+    font-size: 1rem;
+  }
+  
+  .clients-feedbacks-content-item {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin: 0 10px;
+    max-width: 90px;
+  }
+  
+  .star-feedback {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  
+  .clients-feedbacks-content-item h5 {
+    font-size: 0.52rem;
+    margin: 0 0 4px 0;
+  }
+  
+  .clients-feedbacks-content-item h6 {
+    font-size: 0.4rem;
+    margin: 0 0 6px 0;
+  }
+  
+  .clients-feedbacks-content-item p {
+    font-size: 0.38rem;
+  }
+  
+  .nav-arrow {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+  
+  .nav-arrow.prev {
+    left: 5px;
+  }
+  
+  .nav-arrow.next {
+    right: 5px;
+  }
+  
+  .pagination-dots {
+    margin-top: 12px;
+    gap: 4px;
+  }
+  
+  .dot {
+    width: 5px;
+    height: 5px;
   }
 }

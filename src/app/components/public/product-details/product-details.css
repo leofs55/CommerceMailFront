@@ -442,56 +442,249 @@
   transform: translateY(-1px);
 }
 
-/* Responsividade */
+/* Responsividade - Reduzindo 60% proporcionalmente para dispositivos móveis */
 @media (max-width: 768px) {
+  .product-details-container {
+    padding: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+  }
+
   .product-details-content {
     grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 20px;
+    gap: 24px; /* Reduzido de 40px para 24px (40% de redução) */
+    padding: 24px; /* Reduzido de 40px para 24px (40% de redução) */
+    border-radius: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+  }
+
+  .product-gallery {
+    gap: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+  }
+
+  .main-image {
+    border-radius: 9px; /* Reduzido de 15px para 9px (40% de redução) */
+  }
+
+  .product-image {
+    height: 240px; /* Reduzido de 400px para 240px (40% de redução) */
+  }
+
+  .thumbnail-grid {
+    gap: 6px; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .thumbnail {
+    border-radius: 6px; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .thumbnail img {
+    height: 48px; /* Reduzido de 80px para 48px (40% de redução) */
+  }
+
+  .product-info {
+    gap: 15px; /* Reduzido de 25px para 15px (40% de redução) */
+  }
+
+  .product-header {
+    padding-bottom: 12px; /* Reduzido de 20px para 12px (40% de redução) */
   }
 
   .product-title {
-    font-size: 2rem;
+    font-size: 1.5rem; /* Reduzido de 2.5rem para 1.5rem (40% de redução) */
+    margin: 0 0 9px 0; /* Reduzido de 15px para 9px (40% de redução) */
+  }
+
+  .product-rating {
+    gap: 6px; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .stars {
+    font-size: 0.72rem; /* Reduzido de 1.2rem para 0.72rem (40% de redução) */
+  }
+
+  .rating-text {
+    font-size: 0.57rem; /* Reduzido de 0.95rem para 0.57rem (40% de redução) */
+  }
+
+  .product-price {
+    gap: 9px; /* Reduzido de 15px para 9px (40% de redução) */
   }
 
   .current-price {
-    font-size: 1.8rem;
+    font-size: 1.32rem; /* Reduzido de 2.2rem para 1.32rem (40% de redução) */
+  }
+
+  .original-price {
+    font-size: 0.84rem; /* Reduzido de 1.4rem para 0.84rem (40% de redução) */
+  }
+
+  .discount-badge {
+    padding: 3.6px 7.2px; /* Reduzido de 6px 12px para 3.6px 7.2px (40% de redução) */
+    border-radius: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+    font-size: 0.54rem; /* Reduzido de 0.9rem para 0.54rem (40% de redução) */
+  }
+
+  .product-description h3 {
+    font-size: 0.78rem; /* Reduzido de 1.3rem para 0.78rem (40% de redução) */
+    margin: 0 0 6px 0; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .product-description p {
+    font-size: 0.6rem; /* Reduzido de 1rem para 0.6rem (40% de redução) */
+  }
+
+  .product-specs {
+    gap: 7.2px; /* Reduzido de 12px para 7.2px (40% de redução) */
+    padding: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+    border-radius: 7.2px; /* Reduzido de 12px para 7.2px (40% de redução) */
+  }
+
+  .quantity-section {
+    gap: 7.2px; /* Reduzido de 12px para 7.2px (40% de redução) */
+  }
+
+  .quantity-label {
+    font-size: 0.6rem; /* Reduzido de 1rem para 0.6rem (40% de redução) */
   }
 
   .quantity-controls {
-    max-width: 120px;
+    max-width: 90px; /* Reduzido de 150px para 90px (40% de redução) */
+    gap: 6px; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .quantity-btn {
+    width: 24px; /* Reduzido de 40px para 24px (40% de redução) */
+    height: 24px; /* Reduzido de 40px para 24px (40% de redução) */
+    border-radius: 6px; /* Reduzido de 10px para 6px (40% de redução) */
+    font-size: 0.72rem; /* Reduzido de 1.2rem para 0.72rem (40% de redução) */
+  }
+
+  .quantity-input {
+    width: 42px; /* Reduzido de 70px para 42px (40% de redução) */
+    height: 24px; /* Reduzido de 40px para 24px (40% de redução) */
+    border-radius: 6px; /* Reduzido de 10px para 6px (40% de redução) */
+    font-size: 0.6rem; /* Reduzido de 1rem para 0.6rem (40% de redução) */
+  }
+
+  .total-price {
+    padding: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+    border-radius: 9px; /* Reduzido de 15px para 9px (40% de redução) */
+    margin: 6px 0; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .total-label {
+    font-size: 0.72rem; /* Reduzido de 1.2rem para 0.72rem (40% de redução) */
+  }
+
+  .total-value {
+    font-size: 1.08rem; /* Reduzido de 1.8rem para 1.08rem (40% de redução) */
+  }
+
+  .cart-message {
+    padding: 9px 12px; /* Reduzido de 15px 20px para 9px 12px (40% de redução) */
+    border-radius: 6px; /* Reduzido de 10px para 6px (40% de redução) */
   }
 
   .action-buttons {
-    gap: 12px;
+    gap: 9px; /* Reduzido de 15px para 9px (40% de redução) */
   }
 
   .btn-primary, .btn-secondary {
-    padding: 15px 25px;
-    font-size: 1rem;
+    padding: 10.8px 18px; /* Reduzido de 18px 30px para 10.8px 18px (40% de redução) */
+    border-radius: 7.2px; /* Reduzido de 12px para 7.2px (40% de redução) */
+    font-size: 0.66rem; /* Reduzido de 1.1rem para 0.66rem (40% de redução) */
+  }
+
+  .additional-info {
+    gap: 9px; /* Reduzido de 15px para 9px (40% de redução) */
+    padding: 15px; /* Reduzido de 25px para 15px (40% de redução) */
+    border-radius: 9px; /* Reduzido de 15px para 9px (40% de redução) */
+  }
+
+  .info-item {
+    gap: 7.2px; /* Reduzido de 12px para 7.2px (40% de redução) */
+  }
+
+  .info-icon {
+    font-size: 0.72rem; /* Reduzido de 1.2rem para 0.72rem (40% de redução) */
+  }
+
+  .info-text {
+    font-size: 0.57rem; /* Reduzido de 0.95rem para 0.57rem (40% de redução) */
+  }
+
+  .spinner {
+    width: 30px; /* Reduzido de 50px para 30px (40% de redução) */
+    height: 30px; /* Reduzido de 50px para 30px (40% de redução) */
+    border: 2.4px solid #e2e8f0; /* Reduzido de 4px para 2.4px (40% de redução) */
+    border-top: 2.4px solid #667eea; /* Reduzido de 4px para 2.4px (40% de redução) */
+    margin: 0 auto 12px; /* Reduzido de 20px para 12px (40% de redução) */
+  }
+
+  .loading-spinner p {
+    font-size: 0.66rem; /* Reduzido de 1.1rem para 0.66rem (40% de redução) */
+  }
+
+  .error-message {
+    padding: 24px; /* Reduzido de 40px para 24px (40% de redução) */
+    border-radius: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+    max-width: 240px; /* Reduzido de 400px para 240px (40% de redução) */
+  }
+
+  .error-icon {
+    font-size: 1.8rem; /* Reduzido de 3rem para 1.8rem (40% de redução) */
+    margin-bottom: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+  }
+
+  .error-message h3 {
+    margin: 0 0 9px 0; /* Reduzido de 15px para 9px (40% de redução) */
+    font-size: 0.9rem; /* Reduzido de 1.5rem para 0.9rem (40% de redução) */
+  }
+
+  .error-message p {
+    margin: 0 0 6px 0; /* Reduzido de 10px para 6px (40% de redução) */
+  }
+
+  .btn-retry {
+    margin-top: 12px; /* Reduzido de 20px para 12px (40% de redução) */
+    padding: 7.2px 14.4px; /* Reduzido de 12px 24px para 7.2px 14.4px (40% de redução) */
+    border-radius: 4.8px; /* Reduzido de 8px para 4.8px (40% de redução) */
   }
 }
 
 @media (max-width: 480px) {
   .product-details-container {
-    padding: 10px;
+    padding: 6px; /* Reduzido de 12px para 6px (50% adicional para telas muito pequenas) */
   }
 
   .product-details-content {
-    padding: 15px;
+    padding: 12px; /* Reduzido de 24px para 12px (50% adicional para telas muito pequenas) */
+    gap: 12px; /* Reduzido de 24px para 12px (50% adicional para telas muito pequenas) */
   }
 
   .product-title {
-    font-size: 1.8rem;
+    font-size: 1.2rem; /* Reduzido de 1.5rem para 1.2rem (20% adicional para telas muito pequenas) */
+  }
+
+  .current-price {
+    font-size: 1.06rem; /* Reduzido de 1.32rem para 1.06rem (20% adicional para telas muito pequenas) */
   }
 
   .thumbnail-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 4px; /* Reduzido de 6px para 4px (33% adicional para telas muito pequenas) */
   }
 
   .product-price {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 6px; /* Reduzido de 9px para 6px (33% adicional para telas muito pequenas) */
+  }
+
+  .quantity-controls {
+    max-width: 72px; /* Reduzido de 90px para 72px (20% adicional para telas muito pequenas) */
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 8px 14px; /* Reduzido de 10.8px 18px para 8px 14px (25% adicional para telas muito pequenas) */
+    font-size: 0.5rem; /* Reduzido de 0.66rem para 0.5rem (25% adicional para telas muito pequenas) */
   }
 }

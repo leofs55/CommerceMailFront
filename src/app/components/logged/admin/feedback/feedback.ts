@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FeedbackService, FeedbackResponse } from '../../../../service/feedback-requisition';
+import { UserService } from '../../../../service/user-requisition';
 
 @Component({
   selector: 'app-feedback',
@@ -12,6 +13,7 @@ import { FeedbackService, FeedbackResponse } from '../../../../service/feedback-
 })
 export class Feedback implements OnInit {
   private feedbackService = inject(FeedbackService);
+  private userService = inject(UserService);
   
   feedbacks: FeedbackResponse[] = [];
   filteredFeedbacks: FeedbackResponse[] = [];
@@ -24,6 +26,11 @@ export class Feedback implements OnInit {
   deleting: boolean = false;
 
   ngOnInit(): void {
+    // Validar se o usuário é admin antes de carregar a página
+    if (!this.userService.checkAdminRoleAndRedirect('/')) {
+      return;
+    }
+    
     this.loadFeedbacks();
   }
 

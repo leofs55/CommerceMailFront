@@ -3,21 +3,10 @@
     <!-- Galeria de Imagens -->
     <div class="product-gallery">
       <div class="main-image">
-        <img [src]="product.imgUrl" [alt]="product.name" class="product-image">
-      </div>
-      <div class="thumbnail-grid">
-        <div class="thumbnail active">
-          <img [src]="product.imgUrl" [alt]="product.name">
-        </div>
-        <div class="thumbnail">
-          <img [src]="product.imgUrl" [alt]="product.name">
-        </div>
-        <div class="thumbnail">
-          <img [src]="product.imgUrl" [alt]="product.name">
-        </div>
-        <div class="thumbnail">
-          <img [src]="product.imgUrl" [alt]="product.name">
-        </div>
+        <img [src]="getProductImage(product)" 
+             [alt]="product.name" 
+             class="product-image"
+             (error)="onImageError($event, product)">
       </div>
     </div>
 

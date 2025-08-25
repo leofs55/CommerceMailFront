@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { ProductService } from '../../../../service/product-requisition';
 import { CategoryService, CategoryResponse } from '../../../../service/category-requisition';
+import { UserService } from '../../../../service/user-requisition';
 import { CreateProductModal } from './create-product-modal/create-product-modal';
 import { UpdateProductModal } from './update-product-modal/update-product-modal';
 
@@ -53,10 +54,16 @@ export class Products implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
+    // Validar se o usuário é admin antes de carregar a página
+    if (!this.userService.checkAdminRoleAndRedirect('/')) {
+      return;
+    }
+    
     this.loadCategories();
     this.loadProducts();
   }

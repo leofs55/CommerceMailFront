@@ -36,7 +36,6 @@
       <table class="categories-table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Nome da Categoria</th>
             <th>Ações</th>
           </tr>
@@ -63,13 +62,12 @@
           </tr>
 
           <tr *ngFor="let category of filteredCategories" class="category-row">
-            <td class="category-id" data-label="ID">{{ category.id }}</td>
             <td class="category-name" data-label="Nome da Categoria">{{ category.name }}</td>
             <td class="actions-cell" data-label="Ações">
               <div class="action-buttons">
                 <button 
                   class="action-btn edit-btn" 
-                  (click)="onEditCategory(category.id)"
+                  (click)="onEditCategory(category)"
                   title="Editar categoria"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -147,7 +145,40 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn-cancel" (click)="closeCreateModal()">Cancelar</button>
-          <button type="submit" class="btn-create">Criar</button>
+          <button type="submit" class="btn-create" [disabled]="createLoading">
+            <span *ngIf="!createLoading">Criar</span>
+            <span *ngIf="createLoading">Criando...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Edição de Categoria -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Editar Categoria</h3>
+      <button class="btn-close" (click)="closeEditModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="updateCategory()">
+        <div class="form-group">
+          <label for="edit-name">Nome da Categoria</label>
+          <input type="text" id="edit-name" name="edit-name" [(ngModel)]="editCategory.name" required class="form-input">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
+          <button type="submit" class="btn-confirm" [disabled]="editLoading">
+            <span *ngIf="!editLoading">Salvar</span>
+            <span *ngIf="editLoading">Salvando...</span>
+          </button>
         </div>
       </form>
     </div>

@@ -22,7 +22,8 @@ export interface UserCreateResponse {
 
 export interface UserLoginResponse {
   id: number;
-  userRole: string;
+  userRole?: string; // Campo original
+  role?: string;     // Campo alternativo da API
   loggoutAtTime: string;
   loggedAtTime: string;
   token: string;
@@ -126,7 +127,7 @@ export class UserService {
     
     if (!hasToken) return false;
     
-    // Verificar se o token não expirou baseado no loggoutAtTime
+    // Verificar se o token não expirou baseado no logoutExpirationTime
     const isExpired = this.isTokenExpired();
     console.log('🔍 isLoggedIn - Token expirado:', isExpired);
     
@@ -148,23 +149,25 @@ export class UserService {
     
     if (!user) return true;
     
-    console.log('🔍 isTokenExpired - loggoutAtTime:', user.loggoutAtTime);
+    // Usar logoutExpirationTime em vez de loggoutAtTime
+    const expirationTime = (user as any).logoutExpirationTime || user.loggoutAtTime;
+    console.log('🔍 isTokenExpired - logoutExpirationTime:', expirationTime);
     
-    // Se não há loggoutAtTime, considerar token como válido (não expirado)
-    if (!user.loggoutAtTime) {
-      console.log('🔍 isTokenExpired - Sem loggoutAtTime, token válido');
+    // Se não há logoutExpirationTime, considerar token como válido (não expira)
+    if (!expirationTime) {
+      console.log('🔍 isTokenExpired - Sem logoutExpirationTime, token válido');
       return false;
     }
     
     try {
-      const logoutTime = new Date(user.loggoutAtTime);
+      const expirationDate = new Date(expirationTime);
       const currentTime = new Date();
       
       console.log('🔍 isTokenExpired - Tempo atual:', currentTime.toISOString());
-      console.log('🔍 isTokenExpired - Tempo de logout:', logoutTime.toISOString());
+      console.log('🔍 isTokenExpired - Tempo de expiração:', expirationDate.toISOString());
       
-      // Se o tempo atual é maior que o loggoutAtTime, o token expirou
-      const isExpired = currentTime > logoutTime;
+      // Se o tempo atual é maior que o logoutExpirationTime, o token expirou
+      const isExpired = currentTime > expirationDate;
       console.log('🔍 isTokenExpired - Token expirado:', isExpired);
       
       return isExpired;
@@ -190,13 +193,16 @@ export class UserService {
     const user = this.getStoredUser();
     if (!user) return 0;
     
-    // Se não há loggoutAtTime, retornar valor alto para indicar que não expira
-    if (!user.loggoutAtTime) return Number.MAX_SAFE_INTEGER;
+    // Usar logoutExpirationTime em vez de loggoutAtTime
+    const expirationTime = (user as any).logoutExpirationTime || user.loggoutAtTime;
+    
+    // Se não há logoutExpirationTime, retornar valor alto para indicar que não expira
+    if (!expirationTime) return Number.MAX_SAFE_INTEGER;
     
     try {
-      const logoutTime = new Date(user.loggoutAtTime);
+      const expirationDate = new Date(expirationTime);
       const currentTime = new Date();
-      const timeRemaining = logoutTime.getTime() - currentTime.getTime();
+      const timeRemaining = expirationDate.getTime() - currentTime.getTime();
       
       return Math.max(0, timeRemaining); // Retorna 0 se já expirou
     } catch (error) {
@@ -329,5 +335,56 @@ export class UserService {
   // Função para buscar todos os usuários
   getAllUsers(): Observable<UserResponse[]> {
     return this.http.get<UserResponse[]>(`${this.apiUrl}/all`);
+  }
+
+  // Função para verificar se o usuário é ADMIN e redirecionar se necessário
+  checkAdminRoleAndRedirect(redirectUrl: string): boolean {
+    const currentUser = this.getCurrentUser();
+    
+    if (!currentUser) {
+      console.log('🔍 checkAdminRoleAndRedirect - Usuário não logado, redirecionando para:', redirectUrl);
+      this.redirectTo(redirectUrl);
+      return false;
+    }
+    
+    // Verificar se o token não expirou antes de verificar a role
+    if (this.isTokenExpired()) {
+      console.log('🔍 checkAdminRoleAndRedirect - Token expirado, redirecionando para:', redirectUrl);
+      this.clearExpiredSession();
+      this.redirectTo(redirectUrl);
+      return false;
+    }
+    
+    // Verificar tanto 'userRole' quanto 'role' para compatibilidade
+    const userRole = currentUser.userRole || (currentUser as any).role;
+    const isAdmin = userRole === 'ADMIN';
+    
+    console.log('🔍 checkAdminRoleAndRedirect - Role do usuário:', userRole);
+    console.log('🔍 checkAdminRoleAndRedirect - É admin?', isAdmin);
+    
+    if (!isAdmin) {
+      console.log('🔍 checkAdminRoleAndRedirect - Usuário não é ADMIN, redirecionando para:', redirectUrl);
+      this.redirectTo(redirectUrl);
+      return false;
+    }
+    
+    console.log('🔍 checkAdminRoleAndRedirect - Usuário é ADMIN, acesso permitido');
+    return true;
+  }
+
+  // Função para verificar se o usuário é ADMIN (sem redirecionamento)
+  isUserAdmin(): boolean {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) return false;
+    
+    // Verificar tanto 'userRole' quanto 'role' para compatibilidade
+    const userRole = currentUser.userRole || (currentUser as any).role;
+    return userRole === 'ADMIN';
+  }
+
+  // Função para redirecionar o usuário
+  private redirectTo(url: string): void {
+    // Usar window.location.href para redirecionamento completo
+    window.location.href = url;
   }
 }

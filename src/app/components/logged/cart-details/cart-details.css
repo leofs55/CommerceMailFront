@@ -269,21 +269,22 @@
 }
 
 .info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+  grid-template-columns: 1fr; /* Já está correto */
+  gap: 15px; /* Já está correto */
+  max-width: 100%; /* Adicionar esta linha */
 }
 
 .info-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 18px; /* Reduzido de 20px para 18px */
   background: #fff;
-  border-radius: 15px;
-  border-left: 5px solid #803439;
+  border-radius: 12px; /* Reduzido de 15px para 12px */
+  border-left: 4px solid #803439; /* Reduzido de 5px para 4px */
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Reduzido de 5px para 4px */
+  max-width: 100%; /* Adicionado para garantir que não ultrapasse */
 }
 
 .info-item:hover {
@@ -550,77 +551,431 @@
     width: 100%;
     padding: 15px;
     min-height: 100vh;
+    padding-top: 70px;
+  }
+  
+  .cart-content {
+    margin: 15px 0;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 100%;
   }
   
   .cart-header {
-    padding: 30px 20px;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .cart-header h1 {
-    font-size: 28px;
-  }
-  
-  .cart-info {
     padding: 25px 20px;
-  }
-  
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .product-item {
     flex-direction: column;
     text-align: center;
-    padding: 20px;
-  }
-  
-  .product-image {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 15px;
-  }
-  
-  .product-info {
-    justify-content: center;
     gap: 15px;
-  }
-  
-  .total-item {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-  
-  .whatsapp-button {
-    width: 100%;
-    padding: 15px 30px;
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cart-header {
-    padding: 25px 15px;
   }
   
   .cart-header h1 {
     font-size: 24px;
   }
   
+  .back-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+  
+  .status-badge {
+    padding: 8px 16px;
+    font-size: 12px;
+    border-radius: 20px;
+  }
+  
+  .cart-info {
+    padding: 25px 20px;
+  }
+  
+  .info-section {
+    margin-bottom: 30px;
+  }
+  
+  .info-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .info-section h3::after {
+    width: 50px;
+    height: 2px;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 100%; /* Adicionar esta linha */
+  }
+  
+  .info-item {
+    padding: 15px;
+    border-radius: 12px;
+    border-left-width: 4px;
+  }
+  
+  .info-item strong {
+    font-size: 14px;
+  }
+  
+  .info-item span {
+    font-size: 14px;
+  }
+  
+  .products-section {
+    margin-bottom: 30px;
+  }
+  
+  .products-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .products-section h3::after {
+    width: 50px;
+    height: 2px;
+  }
+  
+  .products-list {
+    gap: 20px;
+  }
+  
+  .product-item {
+    gap: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    flex-direction: row;
+  }
+  
+  .product-item::before {
+    width: 4px;
+  }
+  
+  .product-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  
+  .product-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .product-details h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .product-description {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+  
+  .product-info {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .product-info span {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  
+  .total-section {
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .total-section::before {
+    height: 2px;
+  }
+  
+  .total-item {
+    font-size: 18px;
+  }
+  
+  .total-price {
+    font-size: 22px;
+  }
+  
+  .action-buttons {
+    padding: 15px 0;
+  }
+  
+  .whatsapp-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 25px;
+  }
+  
+  .feedback-avaliation {
+    padding: 20px;
+    border-radius: 15px;
+    margin: 25px 0;
+  }
+  
+  .feedback-avaliation h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .feedback-avaliation label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .feedback-avaliation input[type="number"],
+  .feedback-avaliation textarea {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .feedback-avaliation textarea {
+    min-height: 100px;
+  }
+  
+  .feedback-avaliation button[type="submit"] {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 25px;
+  }
+  
+  .feedback-display {
+    padding: 20px;
+    border-radius: 15px;
+    margin: 25px 0;
+  }
+  
+  .feedback-display h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .feedback-display h3::after {
+    width: 50px;
+    height: 2px;
+  }
+  
+  .feedback-item {
+    padding: 12px 0;
+    font-size: 14px;
+  }
+  
+  .feedback-item span.rating-stars {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  
+  .edit-button {
+    padding: 10px 20px;
+    font-size: 12px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+  
+  .edit-buttons {
+    gap: 12px;
+    margin-top: 15px;
+  }
+  
+  .edit-buttons button {
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+  
+  .error-message {
+    padding: 12px 15px;
+    font-size: 14px;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .error-close-button {
+    font-size: 18px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .success-message {
+    padding: 12px 15px;
+    font-size: 14px;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .retry-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+  
+  .loading-container {
+    min-height: 300px;
+    margin: 15px 0;
+    border-radius: 15px;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border-width: 3px;
+    margin-bottom: 15px;
+  }
+  
+  .loading-container p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-details-container {
+    padding: 10px;
+    padding-top: 60px;
+  }
+  
+  .cart-content {
+    margin: 10px 0;
+    border-radius: 15px;
+  }
+  
+  .cart-header {
+    padding: 20px 15px;
+  }
+  
+  .cart-header h1 {
+    font-size: 20px;
+  }
+  
   .cart-info {
     padding: 20px 15px;
   }
   
+  .info-section h3 {
+    font-size: 16px;
+  }
+  
+  .products-section h3 {
+    font-size: 16px;
+  }
+  
+  .product-item {
+    flex-direction: row;
+    text-align: left;
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .product-image {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  
+  .product-details {
+    flex: 1;
+    text-align: left;
+  }
+  
   .product-info {
-    flex-direction: column;
+    justify-content: flex-start;
     gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .total-item {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .whatsapp-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .feedback-avaliation {
+    padding: 15px;
+  }
+  
+  .feedback-avaliation h3 {
+    font-size: 16px;
+  }
+  
+  .feedback-display {
+    padding: 15px;
+  }
+  
+  .feedback-display h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cart-details-container {
+    padding: 8px;
+    padding-top: 55px;
+  }
+  
+  .cart-content {
+    margin: 8px 0;
+    border-radius: 12px;
+  }
+  
+  .cart-header {
+    padding: 15px 12px;
+  }
+  
+  .cart-header h1 {
+    font-size: 18px;
+  }
+  
+  .cart-info {
+    padding: 15px 12px;
   }
   
   .info-section h3,
   .products-section h3 {
-    font-size: 20px;
+    font-size: 14px;
+  }
+  
+  .product-info {
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .product-item {
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .product-image {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+  }
+  
+  .product-details {
+    flex: 1;
+  }
+  
+  .whatsapp-button {
+    padding: 10px 18px;
+    font-size: 13px;
   }
 }
 /* Seção de Avaliação (Feedback Form) */

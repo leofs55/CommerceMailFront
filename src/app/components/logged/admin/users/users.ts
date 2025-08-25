@@ -20,6 +20,11 @@ export class Users implements OnInit {
   errorMessage: string = '';
 
   ngOnInit(): void {
+    // Validar se o usuário é admin antes de carregar a página
+    if (!this.userService.checkAdminRoleAndRedirect('/')) {
+      return;
+    }
+    
     this.loadUsers();
   }
 

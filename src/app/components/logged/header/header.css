@@ -1,7 +1,11 @@
 .site-header {
   background-color: #803439;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 0;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  font-family: 'Sora', sans-serif;
 }
 
 .header-container {
@@ -10,9 +14,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0;
   height: 100%;
-  font-family: 'Sora', sans-serif;
+  width: 100%;
 }
 
 .header-left {
@@ -26,14 +30,23 @@
 
 .header-center {
   color: #FFFFFF;
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: bold;
   margin: 0;
   text-decoration: none;
+  transition: font-size 0.3s ease;
+}
+
+.header-center:hover {
+  font-size: 29px;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: default;
 }
 
 .link-header-center {
   text-decoration: none;
+  cursor: default;
 }
 
 /* Header Right Container */
@@ -156,4 +169,140 @@
 .logout-button:hover {
   background-color: #f8d7da !important;
   color: #721c24 !important;
+}
+
+/* Media queries para dispositivos móveis */
+@media screen and (max-width: 768px) {
+  .site-header {
+    padding: 15px 10px;
+    width: 100%;
+    margin: 0 0 0 0;
+  }
+  
+  .header-container {
+    max-width: 100%;
+    padding: 0 5px;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .header-left {
+    font-size: 18px;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .header-center {
+    font-size: 22px;
+    flex: 2;
+    text-align: center;
+    order: -1;
+    width: 100%;
+  }
+  
+  .header-center:hover {
+    font-size: 26px;
+  }
+  
+  .header-right {
+    font-size: 18px;
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+    justify-content: flex-end;
+  }
+  
+  .cart-button, .account-button {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .cart-button i, .account-button i {
+    font-size: 1rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 96px; /* Aumentado de 80px para 96px (20% maior) */
+    border-radius: 7.2px; /* Aumentado de 6px para 7.2px (20% maior) */
+    box-shadow: 0 2.4px 9.6px rgba(0, 0, 0, 0.15); /* Aumentado de 2px 8px para 2.4px 9.6px (20% maior) */
+  }
+  
+  .dropdown-item {
+    padding: 0.54rem 0.72rem; /* Aumentado de 0.45rem 0.6rem para 0.54rem 0.72rem (20% maior) */
+    font-size: 0.72rem; /* Aumentado de 0.6rem para 0.72rem (20% maior) */
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .dropdown-divider {
+    margin: 0.36rem 0; /* Aumentado de 0.3rem para 0.36rem (20% maior) */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .site-header {
+    padding: 10px 5px;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .header-container {
+    padding: 0 2px;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .header-left {
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+  }
+  
+  .header-center {
+    font-size: 16px;
+    flex: 2;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .header-center:hover {
+    font-size: 18px;
+  }
+  
+  .header-right {
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+    justify-content: center;
+  }
+  
+  .cart-button, .account-button {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .cart-button i, .account-button i {
+    font-size: 0.8rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 72px; /* Aumentado de 60px para 72px (20% maior) */
+    border-radius: 4.8px; /* Aumentado de 4px para 4.8px (20% maior) */
+    box-shadow: 0 1.2px 7.2px rgba(0, 0, 0, 0.15); /* Aumentado de 1px 6px para 1.2px 7.2px (20% maior) */
+  }
+  
+  .dropdown-item {
+    padding: 0.36rem 0.48rem; /* Aumentado de 0.3rem 0.4rem para 0.36rem 0.48rem (20% maior) */
+    font-size: 0.48rem; /* Aumentado de 0.4rem para 0.48rem (20% maior) */
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .dropdown-divider {
+    margin: 0.24rem 0; /* Aumentado de 0.2rem para 0.24rem (20% maior) */
+  }
 }

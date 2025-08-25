@@ -98,7 +98,6 @@
     max-height: 200px;
     height: 200px;
     object-fit: contain;
-    border-radius: 8px;
   }
 
 /* Loading styles */
@@ -134,5 +133,150 @@
 
 .product-button:hover {
   transform: translateY(-4px);
+}
+
+/* Media queries para dispositivos móveis */
+@media screen and (max-width: 768px) {
+  .products-discounted-section {
+    max-height: 154px;
+    height: 154px;
+    padding: 0 15px;
+  }
+  
+  .products-discounted-grid {
+    gap: 14px;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .product-discounted {
+    width: 100%;
+    max-width: 245px;
+    height: 98px;
+    padding: 6px;
+    gap: 2px;
+  }
+  
+  .product-discounted::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    border: 1px solid #F7B671;
+    pointer-events: none;
+  }
+  
+  .product-info, .product-image {
+    padding: 6px;
+    max-height: 77px;
+  }
+  
+  .product-info {
+    padding: 6px;
+  }
+  
+  .product-info h3 {
+    font-size: 0.6rem;
+    margin-bottom: 0.15rem;
+  }
+  
+  .product-info p {
+    font-size: 0.5rem;
+    margin-bottom: 0.15rem;
+  }
+  
+  .product-buttons {
+    gap: 3px;
+    margin-top: 4px;
+  }
+  
+  .product-button {
+    padding: 1px 2px;
+    font-size: 0.5rem;
+  }
+  
+  .product-image {
+    padding-left: 6px;
+  }
+  
+  .product-image img {
+    max-height: 77px;
+    height: 77px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .products-discounted-section {
+    max-height: 126px;
+    height: 126px;
+    padding: 0 10px;
+  }
+  
+  .products-discounted-grid {
+    gap: 10px;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .product-discounted {
+    width: 100%;
+    max-width: 145px;
+    height: 84px;
+    padding: 4px;
+    gap: 2px;
+  }
+  
+  .product-discounted::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    border: 1px solid #F7B671;
+    pointer-events: none;
+  }
+  
+  .product-info, .product-image {
+    padding: 4px;
+    max-height: 63px;
+  }
+  
+  .product-info {
+    padding: 4px;
+  }
+  
+  .product-info h3 {
+    font-size: 0.5rem;
+    margin-bottom: 0.1rem;
+  }
+  
+  .product-info p {
+    font-size: 0.4rem;
+    margin-bottom: 0.1rem;
+  }
+  
+  .product-buttons {
+    gap: 2px;
+    margin-top: 3px;
+  }
+  
+  .product-button {
+    padding: 1px 2px;
+    font-size: 0.4rem;
+  }
+  
+  .product-image {
+    padding-left: 4px;
+  }
+  
+  .product-image img {
+    max-height: 63px;
+    height: 63px;
+  }
 }
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../../../service/user-requisition';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,17 @@ export class Home implements OnInit {
   totalUsers: number = 0;
   totalCarts: number = 0;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    // Validar se o usuário é admin antes de carregar a página
+    if (!this.userService.checkAdminRoleAndRedirect('/')) {
+      return;
+    }
+    
     this.loadStatistics();
   }
 

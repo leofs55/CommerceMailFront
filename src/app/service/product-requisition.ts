@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private apiUrl = 'http://localhost:8080/api/v1/product'; // ajuste a URL conforme necessário
-
+  private apiUrl = 'http://ec2-18-117-12-169.us-east-2.compute.amazonaws.com:8080/api/v1/product'; // ajuste a URL conforme necessário
+  private apiUrlImage = 'http://ec2-18-117-12-169.us-east-2.compute.amazonaws.com:8080/api/v1/upload'; // ajuste a URL conforme necessário
+  
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<any[]> {
@@ -34,7 +35,7 @@ export class ProductService {
     
     // Endpoint para upload de imagem com ID do produto
     // A API retorna uma string simples, não JSON
-    return this.http.post(`http://localhost:8080/api/v1/upload/create`, formData, { responseType: 'text' });
+    return this.http.post(`${this.apiUrlImage}/create`, formData, { responseType: 'text' });
   }
 
   uploadUpdateImage(file: File, imgName: string): Observable<any> {
@@ -44,12 +45,12 @@ export class ProductService {
     
     // Endpoint para upload de imagem com ID do produto
     // A API retorna uma string simples, não JSON
-    return this.http.post(`http://localhost:8080/api/v1/upload/create`, formData, { responseType: 'text' });
+    return this.http.post(`${this.apiUrlImage}/create`, formData, { responseType: 'text' });
   }
 
   getImage(imgName: string): Observable<any> {
     // A API retorna a imagem como base64 ou blob
-    return this.http.get(`http://localhost:8080/api/v1/image/product/${imgName}`, { responseType: 'blob' });
+    return this.http.get(`http://ec2-18-117-12-169.us-east-2.compute.amazonaws.com:8080/api/v1/image/product/${imgName}`, { responseType: 'blob' });
   }
 
   getProductsByCategory(categoryId: number): Observable<any[]> {

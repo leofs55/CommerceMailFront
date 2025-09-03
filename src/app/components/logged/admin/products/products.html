@@ -1,16 +1,16 @@
 <div class="products-admin-container">
   <!-- Loading Global -->
-  <div class="loading-overlay" *ngIf="loading">
-    <div class="loading-spinner">
-      <i class="fas fa-spinner fa-spin"></i>
-      <p>Processando...</p>
+  <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;" *ngIf="loading">
+    <div style="background: white; padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);">
+      <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #631717; margin-bottom: 1rem;"></i>
+      <p style="margin: 0; color: #631717; font-weight: 500;">Processando...</p>
     </div>
   </div>
 
   <div class="header-section">
     <h1>Gerenciamento de Produtos</h1>
-    <button class="btn-add" (click)="openCreateModal()">
-      <i class="fas fa-plus"></i>
+    <button style="background: #631717; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(99, 23, 23, 0.4);" (click)="openCreateModal()">
+      <i class="fas fa-plus" style="font-size: 0.9rem;"></i>
       Adicionar Produto
     </button>
   </div>
@@ -84,29 +84,29 @@
               </div>
             </div>
           </td>
-          <td class="product-description">
+          <td style="max-width: 200px; color: #6c757d; font-size: 0.9rem; line-height: 1.4;">
             <span>{{product.description | slice:0:100}}{{product.description.length > 100 ? '...' : ''}}</span>
           </td>
           <td>
-            <span class="price">{{product.price | currency:'BRL'}}</span>
+            <span style="font-weight: 600; color: #2c3e50; font-size: 1rem;">{{product.price | currency:'BRL'}}</span>
           </td>
           <td>
-            <span class="quantity" [class.low]="product.quantity < 10">
+            <span style="font-weight: 500; color: #2c3e50;" [style.color]="product.quantity < 10 ? '#ff9800' : '#2c3e50'" [style.fontWeight]="product.quantity < 10 ? '600' : '500'">
               {{product.quantity}} unidades
             </span>
           </td>
           <td>
-            <span class="grams">{{product.grams}}g</span>
+            <span style="font-weight: 500; color: #2c3e50; font-size: 0.9rem;">{{product.grams}}g</span>
           </td>
           <td>
-            <span class="category-badge">{{product.categoryResponse.name || 'Sem categoria'}}</span>
+            <span style="background: #e3f2fd; color: #1976d2; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">{{product.categoryResponse.name || 'Sem categoria'}}</span>
           </td>
           <td class="actions">
-            <div class="action-buttons">
-              <button class="btn-edit" (click)="editProduct(product)" title="Editar">
+            <div style="display: flex; gap: 0.5rem; justify-content: center;">
+              <button style="width: 35px; height: 35px; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; font-size: 0.8rem; background: #fff3e0; color: #ff9800;" (click)="editProduct(product)" title="Editar">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn-delete" (click)="deleteProduct(product)" title="Excluir">
+              <button style="width: 35px; height: 35px; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; font-size: 0.8rem; background: #ffebee; color: #f44336;" (click)="deleteProduct(product)" title="Excluir">
                 <i class="fas fa-trash"></i>
               </button>
             </div>
@@ -115,25 +115,25 @@
       </tbody>
     </table>
 
-    <div *ngIf="filteredProducts.length === 0" class="no-products">
-      <i class="fas fa-box-open"></i>
-      <p>Nenhum produto encontrado</p>
-      <button class="btn-add" (click)="openCreateModal()">Adicionar primeiro produto</button>
+    <div *ngIf="filteredProducts.length === 0" style="text-align: center; padding: 3rem 2rem; color: #6c757d;">
+      <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+      <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Nenhum produto encontrado</p>
+      <button style="background: #631717; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(99, 23, 23, 0.4);" (click)="openCreateModal()">Adicionar primeiro produto</button>
     </div>
   </div>
 
   <!-- Seção de paginação removida - todos os produtos são exibidos -->
 
-  <div class="bulk-actions" *ngIf="selectedProducts.length > 0">
-    <div class="bulk-info">
+  <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;" *ngIf="selectedProducts.length > 0">
+    <div style="color: #6c757d; font-weight: 500;">
       {{selectedProducts.length}} produto(s) selecionado(s)
     </div>
-    <div class="bulk-buttons">
-      <button class="btn-bulk-edit" (click)="bulkEdit()">
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <button style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; background: #fff3e0; color: #ff9800;" (click)="bulkEdit()">
         <i class="fas fa-edit"></i>
         Editar Selecionados
       </button>
-      <button class="btn-bulk-delete" (click)="bulkDelete()">
+      <button style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; background: #ffebee; color: #f44336;" (click)="bulkDelete()">
         <i class="fas fa-trash"></i>
         Excluir Selecionados
       </button>
@@ -142,21 +142,21 @@
 </div>
 
 <!-- Modal de Confirmação de Exclusão -->
-<div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h3>Confirmar Exclusão</h3>
-      <button class="btn-close" (click)="closeDeleteModal()">
+<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px);" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+  <div style="background: white; border-radius: 12px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); animation: modalSlideIn 0.3s ease;" (click)="$event.stopPropagation()">
+    <div style="padding: 1.5rem; border-bottom: 1px solid #e1e8ed; display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0; color: #631717; font-weight: 600;">Confirmar Exclusão</h3>
+      <button style="background: none; border: none; font-size: 1.2rem; color: #6c757d; cursor: pointer; padding: 0.5rem; border-radius: 6px; transition: all 0.3s ease;" (click)="closeDeleteModal()">
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="modal-body">
-      <p>Tem certeza que deseja excluir o produto "{{productToDelete?.name}}"?</p>
-      <p class="warning">Esta ação não pode ser desfeita.</p>
+    <div style="padding: 1.5rem;">
+      <p style="margin: 0 0 1rem 0; color: #2c3e50; line-height: 1.6;">Tem certeza que deseja excluir o produto "{{productToDelete?.name}}"?</p>
+      <p style="color: #f44336; font-weight: 500; background: #ffebee; padding: 1rem; border-radius: 8px; margin-top: 1rem;">Esta ação não pode ser desfeita.</p>
     </div>
-    <div class="modal-footer">
-      <button class="btn-cancel" (click)="closeDeleteModal()" [disabled]="loading">Cancelar</button>
-      <button class="btn-confirm-delete" (click)="confirmDelete()" [disabled]="loading">
+    <div style="padding: 1.5rem; border-top: 1px solid #e1e8ed; display: flex; gap: 1rem; justify-content: flex-end;">
+      <button style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; background: #f8f9fa; color: #6c757d; border: 2px solid #e1e8ed;" (click)="closeDeleteModal()" [disabled]="loading">Cancelar</button>
+      <button style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; background: #f44336; color: white;" (click)="confirmDelete()" [disabled]="loading">
         <span *ngIf="!loading">Excluir</span>
         <span *ngIf="loading">
           <i class="fas fa-spinner fa-spin"></i>

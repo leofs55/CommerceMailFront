@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Aplicação Angular CommerceMail
+  commerce-mail-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: commerce-mail-app
+    ports:
+      - "80:80"
+    volumes:
+      # Volume para logs do nginx
+      - nginx-logs:/var/log/nginx
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - commerce-mail-network
+
+  # Serviço de desenvolvimento (opcional - para desenvolvimento local)
+  commerce-mail-dev:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    container_name: commerce-mail-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    profiles:
+      - dev
+    networks:
+      - commerce-mail-network
+
+volumes:
+  nginx-logs:
+    driver: local
+
+networks:
+  commerce-mail-network:
+    driver: bridge
+    name: commerce-mail-network

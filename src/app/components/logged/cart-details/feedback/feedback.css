@@ -1,0 +1,229 @@
+/* Feedback Sections */
+.feedback-avaliation,
+.feedback-display {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 20px;
+  margin: 40px 0;
+  border: 2px solid #dee2e6;
+  position: relative;
+}
+
+.feedback-avaliation h3 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.feedback-display h3 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #e3f2fd;
+  text-align: left;
+}
+
+.feedback-avaliation label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #495057;
+}
+
+.feedback-avaliation input[type="number"],
+.feedback-avaliation textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 2px solid #dee2e6;
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  color: #333;
+}
+
+.feedback-avaliation input[type="number"]:focus,
+.feedback-avaliation textarea:focus {
+  outline: 0;
+  border-color: #803439;
+}
+
+.feedback-avaliation textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.character-limit {
+  display: block;
+  color: #6c757d;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.feedback-avaliation button[type="submit"] {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+}
+
+.feedback-avaliation button[type="submit"]:disabled {
+  background: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.feedback-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.feedback-item:last-child {
+  border-bottom: none;
+}
+
+.feedback-item strong {
+  color: #495057;
+  font-weight: 700;
+}
+
+.feedback-item span {
+  color: #212529;
+  font-weight: 600;
+}
+
+.feedback-item span.rating-stars {
+  color: #ffc107;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+/* Edit Buttons */
+.edit-button {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.edit-buttons button {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-buttons button[type="submit"] {
+  background: #4caf50;
+  color: #fff;
+}
+
+.edit-buttons button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background: #f44336;
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .feedback-avaliation,
+  .feedback-display {
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px 0;
+  }
+  
+  .feedback-avaliation h3,
+  .feedback-display h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-avaliation label {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .feedback-avaliation input[type="number"],
+  .feedback-avaliation textarea {
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  
+  .feedback-avaliation textarea {
+    min-height: 80px;
+  }
+  
+  .character-limit {
+    font-size: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-avaliation button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+  
+  .feedback-item {
+    padding: 10px 0;
+    font-size: 12px;
+  }
+  
+  .feedback-item span.rating-stars {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  
+  .edit-button {
+    padding: 8px 16px;
+    font-size: 11px;
+    border-radius: 15px;
+    margin-top: 8px;
+  }
+  
+  .edit-buttons {
+    gap: 10px;
+    margin-top: 12px;
+  }
+  
+  .edit-buttons button {
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,90 @@
+<!-- Feedback Display Section -->
+@if (cart && cart.feedback) {
+  <div class="feedback-display">
+    <h3>Avaliação do Carrinho</h3>
+    <div class="feedback-item">
+      <strong>Descrição:</strong>
+      <span>{{ cart.feedback.description }}</span>
+    </div>
+    <div class="feedback-item">
+      <strong>Nota:</strong>
+      <span class="rating-stars">{{ getRatingStars(cart.feedback.rating) }}</span>
+    </div>
+    @if (cart.status === 'SOLD') {
+      <button class="edit-button" (click)="startEditing()">Editar Avaliação</button>
+    }
+  </div>
+}
+
+<!-- Feedback Avaliation Form -->
+@if (cart && cart.status === 'SOLD' && !cart.feedback) {
+  <form
+    class="feedback-avaliation"
+    (ngSubmit)="submitFeedback()"
+    #form="ngForm">
+    <h3>Avaliar Carrinho</h3>
+    <div>
+      <label for="feedback-description">Descrição:</label>
+      <textarea
+        id="feedback-description"
+        name="description"
+        [(ngModel)]="feedbackForm.description"
+        rows="4"
+        minlength="10"
+        maxlength="500"
+        required
+      ></textarea>
+      <small class="character-limit">O depoimento deve ter entre 10 e 500 caracteres</small>
+    </div>
+    <div>
+      <label for="feedback-rating">Nota:</label>
+      <input
+        type="number"
+        id="feedback-rating"
+        name="rating"
+        min="1"
+        max="5"
+        [(ngModel)]="feedbackForm.rating"
+        required/>
+    </div>
+    <button type="submit" [disabled]="!form.form.valid">Enviar Avaliação</button>
+  </form>
+}
+
+<!-- Feedback Edit Form -->
+@if (cart && cart.status === 'SOLD' && isEditing) {
+  <form
+    class="feedback-avaliation"
+    (ngSubmit)="updateFeedback()"
+    #form="ngForm">
+    <h3>Editar Avaliação do Carrinho</h3>
+    <div>
+      <label for="feedback-description">Descrição:</label>
+      <textarea
+        id="feedback-description"
+        name="description"
+        [(ngModel)]="feedbackForm.description"
+        rows="4"
+        minlength="10"
+        maxlength="500"
+        required
+      ></textarea>
+      <small class="character-limit">O depoimento deve ter entre 10 e 500 caracteres</small>
+    </div>
+    <div>
+      <label for="feedback-rating">Nota:</label>
+      <input
+        type="number"
+        id="feedback-rating"
+        name="rating"
+        min="1"
+        max="5"
+        [(ngModel)]="feedbackForm.rating"
+        required/>
+    </div>
+    <div class="edit-buttons">
+      <button type="submit" [disabled]="!form.form.valid">Atualizar Avaliação</button>
+      <button type="button" (click)="cancelEditing()" class="cancel-button">Cancelar</button>
+    </div>
+  </form>
+}

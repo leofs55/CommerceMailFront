@@ -33,8 +33,7 @@
       <div *ngFor="let item of cartItems" class="cart-item">
         <div class="item-image">
           <img [src]="getProductImage(item.product)" 
-               [alt]="item.product.name"
-               (error)="onImageError($event, item.product)">
+               [alt]="item.product.name">
         </div>
         
         <div class="item-details">
@@ -42,9 +41,6 @@
           <p class="item-description">{{ item.product.description }}</p>
           
           <div class="item-price">
-            <span *ngIf="item.product.price" class="original-price">
-              {{ formatPrice(item.product.price) }}
-            </span>
             <span class="current-price">
               {{ formatPrice(getProductPrice(item.product)) }}
             </span>

@@ -111,89 +111,15 @@
               📱 Reenviar Mensagem para Vendedor
             </button>
           }
-          
-          @if (cart && cart.status === 'SOLD' && !feedback) {
-            <form
-              class="feedback-avaliation"
-              (ngSubmit)="submitFeedback()"
-              #feedbackForm="ngForm"
-            >
-              <h3>Avaliação do Carrinho</h3>
-              <div>
-                <label for="feedback-description">Descrição:</label>
-                <textarea
-                  id="feedback-description"
-                  name="description"
-                  [(ngModel)]="feeedbackForm.description"
-                  rows="4"
-                  required
-                ></textarea>
-              </div>
-              <div>
-                <label for="feedback-rating">Nota:</label>
-                <input
-                  type="number"
-                  id="feedback-rating"
-                  name="rating"
-                  min="1"
-                  max="5"
-                  [(ngModel)]="feeedbackForm.rating"
-                  required
-                />
-              </div>
-              <button type="submit" [disabled]="!feedbackForm.form.valid">Enviar Avaliação</button>
-            </form>
-          }
-
-          @if (feedback && !isEditing) {
-            <div class="feedback-display">
-              <h3>Sua Avaliação</h3>
-              <div class="feedback-item">
-                <strong>Descrição:</strong>
-                <span>{{ feedback.description }}</span>
-              </div>
-              <div class="feedback-item">
-                <strong>Nota:</strong>
-                <span>{{ repeatStars(feedback.rating) }}</span>
-              </div>
-              <button (click)="startEditing()" class="edit-button">✏️ Editar Avaliação</button>
-            </div>
-          }
-
-          @if (cart && cart.status === 'SOLD' && isEditing) {
-            <form
-              class="feedback-avaliation"
-              (ngSubmit)="updateFeedback()"
-              #feedbackForm="ngForm">
-              <h3>Editar Avaliação do Carrinho</h3>
-              <div>
-                <label for="feedback-description">Descrição:</label>
-                <textarea
-                  id="feedback-description"
-                  name="description"
-                  [(ngModel)]="feeedbackForm.description"
-                  rows="4"
-                  required
-                ></textarea>
-              </div>
-              <div>
-                <label for="feedback-rating">Nota:</label>
-                <input
-                  type="number"
-                  id="feedback-rating"
-                  name="rating"
-                  min="1"
-                  max="5"
-                  [(ngModel)]="feeedbackForm.rating"
-                  required/>
-              </div>
-              <div class="edit-buttons">
-                <button type="submit" [disabled]="!feedbackForm.form.valid">Atualizar Avaliação</button>
-                <button type="button" (click)="cancelEditing()" class="cancel-button">Cancelar</button>
-              </div>
-            </form>
-          }
         </div>
+
+        <!-- Feedback Component -->
+        <app-feedback 
+          [cart]="cart"
+          (feedbackSubmitted)="onFeedbackSubmitted($event)"
+          (feedbackUpdated)="onFeedbackUpdated($event)"
+          (feedbackCancelled)="onFeedbackCancelled()"
+        ></app-feedback>
       </div>
     </div>
   }

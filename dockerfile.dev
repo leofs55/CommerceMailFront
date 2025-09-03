@@ -1,0 +1,24 @@
+# Dockerfile de desenvolvimento para aplicação Angular CommerceMail
+FROM node:18-alpine
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Instala o Angular CLI globalmente
+RUN npm install -g @angular/cli
+
+# Copia os arquivos de dependências
+COPY package*.json ./
+
+# Instala todas as dependências (incluindo devDependencies)
+RUN npm install
+
+# Copia o código fonte
+COPY . .
+
+# Expõe a porta 4200 (padrão do Angular)
+EXPOSE 4200
+
+# Comando para iniciar o servidor de desenvolvimento
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
+

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { SignUp } from './pages/sign-up/sign-up';
@@ -8,7 +8,7 @@ import { AllCarts } from './pages/all-carts/all-carts';
 import { Account } from './pages/account/account';
 import { StartPayment } from './pages/start-payment/start-payment';
 import { ResetPassword } from './pages/reset-password/reset-password';
-import { CreateNewPassword } from './components/public/create-new-password/create-new-password';
+import { CreateNewPassword } from './pages/create-new-password/create-new-password';
 import { CartDetails } from './pages/cart-details/cart-details';
 import { Admin } from './pages/admin/admin';
 import { AdminCategory } from './pages/admin-category/admin-category';
@@ -16,6 +16,7 @@ import { AdminProducts } from './pages/admin-products/admin-products';
 import { AdminUsers } from './pages/admin-users/admin-users';
 import { AdminFeedback } from './pages/admin-feedback/admin-feedback';
 import { AdminCart } from './pages/admin-cart/admin-cart';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -35,6 +36,12 @@ export const routes: Routes = [
   { path: 'admin/users', component: AdminUsers },
   { path: 'admin/feedback', component: AdminFeedback },
   { path: 'admin/carts', component: AdminCart }
-
-
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+

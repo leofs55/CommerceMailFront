@@ -40,6 +40,7 @@ export class Cart implements OnInit {
       // Carregar imagens dos produtos no carrinho
       this.loadAllProductImages();
     });
+    
   }
 
   updateQuantity(productId: number, quantity: number): void {
@@ -106,7 +107,7 @@ export class Cart implements OnInit {
   // Método para carregar imagem de um produto
   loadProductImage(product: ProductResponse) {
     if (!product.imgUrl) return;
-    
+    console.log(product.imgUrl);
     this.productService.getImage(product.imgUrl).subscribe({
       next: (imageBlob: Blob) => {
         // Criar URL da imagem a partir do blob retornado

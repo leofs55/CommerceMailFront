@@ -1,132 +1,274 @@
-# CommerceMail
+# 🛒 CommerceMail
 
-Uma aplicação de e-commerce desenvolvida em Angular para gerenciamento de produtos, carrinhos de compra e sistema de usuários.
+> **Sua plataforma de e-commerce completa e intuitiva para gerenciar produtos, carrinhos e vendas online.**
 
-## 📋 Pré-requisitos
+## 📋 Descrição do Projeto
 
-Antes de começar, certifique-se de ter instalado:
+O **CommerceMail** é uma aplicação web moderna e responsiva desenvolvida em Angular, que oferece uma solução completa para e-commerce. O projeto foi desenvolvido com foco na experiência do usuário, proporcionando uma interface intuitiva tanto para clientes quanto para administradores.
 
-- **Node.js** (versão 18.0.0 ou superior)
-- **npm** (gerenciador de pacotes do Node.js)
+### 🎯 Principais Objetivos
 
-### Como instalar o Node.js:
+- **Para Clientes**: Navegação fácil por produtos, carrinho de compras intuitivo e processo de pagamento simplificado
+- **Para Administradores**: Painel completo de gerenciamento de produtos, categorias, usuários e feedbacks
+- **Sistema Robusto**: Autenticação segura, gerenciamento de estado eficiente e arquitetura escalável
 
-1. Acesse [nodejs.org](https://nodejs.org/)
-2. Baixe a versão LTS (Long Term Support)
-3. Execute o instalador e siga as instruções
-4. Verifique a instalação executando no terminal:
-   ```bash
-   node --version
-   npm --version
-   ```
+### 🔧 Problemas Resolvidos
 
-## 🚀 Instalação do Angular CLI
+- Simplificação do processo de compra online
+- Centralização do gerenciamento de produtos e vendas
+- Interface responsiva para todos os dispositivos
+- Sistema de autenticação seguro e confiável
 
-Para instalar o Angular CLI globalmente, execute:
+## 🚀 Status do Projeto
 
-```bash
-npm install -g @angular/cli
-```
+**Em Desenvolvimento** 🚧
 
-Verifique se a instalação foi bem-sucedida:
-
-```bash
-ng version
-```
-
-## 📥 Instalação do Projeto
-
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/leofs55/CommerceMailFront.git
-   cd CommerceMail
-   ```
-
-2. **Instale as dependências:**
-   ```bash
-   npm install
-   ```
-
-## 🏃‍♂️ Executando a Aplicação
-
-Para iniciar a aplicação em modo de desenvolvimento:
-
-```bash
-npm run start
-```
-
-A aplicação estará disponível em: `http://localhost:4200/`
-
-### Outros comandos úteis:
-
-- **Build para produção:**
-  ```bash
-  npm run build
-  ```
-
-- **Executar testes:**
-  ```bash
-  npm run test
-  ```
-
-- **Lint do código:**
-  ```bash
-  npm run lint
-  ```
-
-## 🏗️ Estrutura do Projeto
-
-```
-CommerceMail/
-├── src/
-│   ├── app/
-│   │   ├── components/          # Componentes reutilizáveis
-│   │   │   ├── logged/         # Componentes para usuários logados
-│   │   │   ├── not-logged/     # Componentes para usuários não logados
-│   │   │   └── public/         # Componentes públicos
-│   │   ├── pages/              # Páginas da aplicação
-│   │   └── service/            # Serviços e interceptors
-│   ├── assets/                 # Imagens, ícones e recursos estáticos
-│   └── styles.css              # Estilos globais
-├── angular.json                # Configuração do Angular
-└── package.json                # Dependências do projeto
-```
+O projeto está em fase ativa de desenvolvimento, com funcionalidades principais implementadas e melhorias contínuas sendo adicionadas.
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Angular** - Framework principal
-- **TypeScript** - Linguagem de programação
-- **CSS** - Estilização
-- **HTML** - Estrutura das páginas
+### **Tecnologias Principais**
+- **Angular 20.1.0** - Framework principal para desenvolvimento frontend
+- **TypeScript 5.8.2** - Linguagem de programação tipada
+- **RxJS 7.8.0** - Biblioteca para programação reativa
+- **Zone.js 0.15.0** - Gerenciamento de mudanças e detecção de eventos
 
-## 📱 Funcionalidades
+### **Ferramentas de Desenvolvimento**
+- **Angular CLI 20.1.1** - Interface de linha de comando do Angular
+- **Angular Build 20.1.1** - Sistema de build otimizado
+- **Karma 6.4.0** - Framework de testes
+- **Jasmine 5.8.0** - Framework de testes unitários
+- **Prettier** - Formatador de código
 
-- ✅ Sistema de autenticação (login/registro)
-- ✅ Gerenciamento de produtos
-- ✅ Carrinho de compras
-- ✅ Sistema de categorias
-- ✅ Painel administrativo
-- ✅ Sistema de feedback
-- ✅ Gerenciamento de usuários
+### **Arquitetura e Padrões**
+- **Standalone Components** - Componentes independentes sem NgModules
+- **Signal-based Change Detection** - Detecção de mudanças otimizada
+- **HTTP Interceptors** - Interceptação e manipulação de requisições HTTP
+- **Reactive Forms** - Formulários reativos para melhor UX
 
-## 🔧 Desenvolvimento
+## ✨ Funcionalidades Principais
 
-Para contribuir com o projeto:
+### 🏠 **Página Inicial**
+- Exibição de produtos em destaque
+- Produtos com desconto
+- Diferenciais da empresa
+- Feedbacks de clientes
+- Navegação responsiva
 
-1. Faça um fork do repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
+### 🔐 **Sistema de Autenticação**
+- Login de usuários
+- Cadastro de novos usuários
+- Recuperação de senha
+- Interceptor HTTP para tokens JWT
+- Gerenciamento de sessão
 
-## 📞 Suporte
+### 🛍️ **Gerenciamento de Produtos**
+- Visualização detalhada de produtos
+- Listagem de todos os produtos
+- Produtos em destaque
+- Produtos com desconto
+- Busca e filtros
 
-Se você encontrar algum problema ou tiver dúvidas:
+### 🛒 **Sistema de Carrinhos**
+- Adição de produtos ao carrinho
+- Visualização do carrinho atual
+- Histórico de carrinhos
+- Detalhes de carrinhos específicos
 
-1. Verifique se todas as dependências estão instaladas
-2. Certifique-se de estar usando a versão correta do Node.js
-3. Execute `npm cache clean --force` se houver problemas de dependências
-4. Abra uma issue no repositório
--
+### 💳 **Processo de Pagamento**
+- Início do processo de pagamento
+- Redirecionamento para whatsapp
+- Confirmação aguardo de confirmaçao de pagamento do vendedor
 
-**Desenvolvido com ❤️ usando Angular**
+### 👨‍💼 **Painel Administrativo**
+- **Gerenciamento de Usuários**: CRUD completo de usuários
+- **Gerenciamento de Produtos**: Adição, edição e remoção de produtos
+- **Gerenciamento de Categorias**: Organização hierárquica de produtos
+- **Gerenciamento de Feedbacks**: Moderação de comentários de clientes
+- **Gerenciamento de Carrinhos**: Acompanhamento de vendas e pedidos
+
+### 👤 **Área do Usuário**
+- Perfil personalizado
+- Histórico de compras
+- Configurações da conta
+- Gerenciamento de dados pessoais
+
+## 📋 Pré-requisitos para Execução Local
+
+### **Sistema Operacional**
+- Windows 10/11, macOS 10.15+ ou Linux (Ubuntu 18.04+)
+
+### **Software Necessário**
+- **Node.js 18.0.0** ou superior
+- **npm 9.0.0** ou superior (ou **yarn 1.22.0**+)
+- **Git** para clonagem do repositório
+
+### **Navegadores Suportados**
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## 🚀 Como Rodar o Projeto
+
+### **1. Clone o Repositório**
+```bash
+git clone https://github.com/seu-usuario/commerce-mail.git
+cd commerce-mail
+```
+
+### **2. Instale as Dependências**
+```bash
+npm install
+# ou
+yarn install
+```
+
+### **3. Execute o Projeto em Modo de Desenvolvimento**
+```bash
+npm start
+# ou
+ng serve
+```
+
+### **4. Acesse a Aplicação**
+Abra seu navegador e acesse: `http://localhost:4200`
+
+### **5. Build para Produção**
+```bash
+npm run build
+# ou
+ng build
+```
+
+## ⚙️ Configuração
+
+### **Configuração do Angular**
+O projeto utiliza as seguintes configurações padrão:
+- **Porta**: 4200 (configurável via `ng serve --port 4201`)
+- **Host**: localhost (configurável via `ng serve --host 0.0.0.0`)
+- **Open**: false (não abre automaticamente o navegador)
+
+## 🔗 Estrutura da Aplicação
+
+### **Rotas Principais**
+```
+/                           → Página inicial
+/login                      → Autenticação de usuário
+/sign-up                    → Cadastro de novo usuário
+/product/:id                → Detalhes do produto
+/cart                       → Carrinho de compras
+/all-carts/:id             → Histórico de carrinhos
+/account/:id                → Área do usuário
+/start-payment/:id          → Início do pagamento
+/reset-password             → Recuperação de senha
+/admin                      → Painel administrativo
+```
+
+### **Componentes Principais**
+- **Header**: Navegação principal e autenticação
+- **Footer**: Informações da empresa e links úteis
+- **Product Components**: Exibição e gerenciamento de produtos
+- **Cart Components**: Sistema de carrinhos de compra
+- **Admin Components**: Painel administrativo completo
+- **Auth Components**: Sistema de autenticação
+
+## 📱 Responsividade
+
+O projeto é totalmente responsivo e otimizado para:
+- **Desktop**: 1200px+
+- **Tablet**: 768px - 1199px
+- **Mobile**: 320px - 767px
+
+## 🔒 Segurança
+
+- **Interceptors HTTP**: Autenticação automática via tokens JWT
+- **Validação de Formulários**: Validação client-side e server-side
+- **Sanitização de Dados**: Prevenção contra XSS e injeção de código
+- **Gerenciamento de Sessão**: Controle seguro de autenticação
+
+## 📊 Performance
+
+- **Lazy Loading**: Carregamento sob demanda de módulos
+- **Change Detection**: Detecção de mudanças otimizada
+- **Bundle Optimization**: Build otimizado para produção
+- **Image Optimization**: Compressão e otimização de imagens
+
+## 🤝 Como Contribuir
+
+### **1. Fork do Projeto**
+Faça um fork do projeto para sua conta GitHub.
+
+### **2. Clone do Fork**
+```bash
+git clone https://github.com/seu-usuario/commerce-mail.git
+cd commerce-mail
+```
+
+### **3. Crie uma Branch**
+```bash
+git checkout -b feature/nova-funcionalidade
+# ou
+git checkout -b fix/correcao-bug
+```
+
+### **4. Faça as Alterações**
+- Implemente suas funcionalidades
+- Adicione testes quando apropriado
+- Mantenha o código limpo e bem documentado
+
+### **5. Commit das Alterações**
+```bash
+git add .
+git commit -m "feat: Adiciona nova funcionalidade de busca avançada"
+```
+
+### **6. Push para o Fork**
+```bash
+git push origin feature/nova-funcionalidade
+```
+
+### **7. Abra um Pull Request**
+- Vá para o repositório original
+- Clique em "New Pull Request"
+- Selecione sua branch
+- Descreva as alterações realizadas
+
+### **Padrões de Commit**
+Utilizamos o padrão [Conventional Commits](https://www.conventionalcommits.org/):
+- `feat:` para novas funcionalidades
+- `fix:` para correções de bugs
+- `docs:` para documentação
+- `style:` para formatação de código
+- `refactor:` para refatoração
+- `test:` para testes
+- `chore:` para tarefas de manutenção
+
+## 🐛 Reportando Bugs
+
+Para reportar bugs ou solicitar novas funcionalidades:
+
+1. **Verifique se já existe uma issue** relacionada
+2. **Crie uma nova issue** com:
+   - Descrição clara do problema
+   - Passos para reproduzir
+   - Comportamento esperado vs. atual
+   - Screenshots (se aplicável)
+   - Informações do ambiente (navegador, OS, versão)
+
+## 📚 Documentação Adicional
+
+- **Angular Documentation**: [angular.io](https://angular.io/docs)
+- **TypeScript Handbook**: [typescriptlang.org](https://www.typescriptlang.org/docs)
+- **RxJS Documentation**: [rxjs.dev](https://rxjs.dev/guide/overview)
+
+## 👨‍💻 Autor
+
+**Leo** 🚀
+
+- **GitHub**: [@seu-usuario](https://github.com/seu-usuario)
+- **LinkedIn**: [Seu Nome](https://linkedin.com/in/seu-perfil)
+- **Email**: seu-email@exemplo.com
+
+
+**⭐ Se este projeto foi útil para você, considere dar uma estrela no repositório!**

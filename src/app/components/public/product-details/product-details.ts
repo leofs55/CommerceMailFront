@@ -86,12 +86,13 @@ export class ProductDetails implements OnInit {
       next: (imageBlob: Blob) => {
         // Criar URL da imagem a partir do blob retornado
         const imageUrl = URL.createObjectURL(imageBlob);
-        
+        console.log(imageUrl);
         // Atualizar o produto com a URL da imagem
         this.product = {
           ...this.product,
           imgUrl: imageUrl
         };
+        console.log(this.product);
       },
       error: (error: any) => {
         console.error(`Erro ao carregar imagem do produto ${product.name}:`, error);
@@ -124,6 +125,13 @@ export class ProductDetails implements OnInit {
 
   // Adicionar ao carrinho
   async addToCart(): Promise<void> {
+
+    if (!this.userService.isLoggedIn()) {
+      // Se não estiver logado, redirecionar para a página de login
+      this.router.navigate(['/login']);
+      return;
+    }
+
     if (!this.product) return;
 
     this.addingToCart = true;

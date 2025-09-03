@@ -6,10 +6,11 @@ import { UserService } from '../../../service/user-requisition';
 import { FeedbackService, FeedbackResponse, FeedbackCreateRequest, FeedbackUpdateRequest } from '../../../service/feedback-requisition';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../../service/product-requisition';
+import { FeedbackComponent } from './feedback/feedback';
 
 @Component({
   selector: 'app-cart-details-component',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FeedbackComponent],
   templateUrl: './cart-details.html',
   styleUrl: './cart-details.css'
 })
@@ -57,7 +58,30 @@ export class CartDetails implements OnInit {
       next: (cart: CartResponse) => {
         this.cart = cart;
         this.cartMessage = this.cartService.formatCartMessage(cart);
-        this.loading = false;
+        
+        // Carregar feedback se o carrinho não estiver aberto
+        if (!this.isCartOpen()) {
+          this.feedbackService.getFeedbackById(cartId).subscribe({
+            next: (feedback: FeedbackResponse) => {
+              this.feedback = feedback;
+              // Adicionar feedback ao carrinho para o componente de feedback
+              if (this.cart) {
+                this.cart.feedback = {
+                  description: feedback.description,
+                  rating: feedback.rating
+                };
+              }
+              this.loading = false;
+            },
+            error: (error) => {
+              console.log('Nenhum feedback encontrado para este carrinho');
+              this.loading = false;
+            }
+          });
+        } else {
+          this.loading = false;
+        }
+        
         this.errorMessage = '';
         
         // Carregar imagens de todos os produtos após carregar o carrinho
@@ -69,20 +93,6 @@ export class CartDetails implements OnInit {
         this.loading = false;
       }
     });
-    
-    if (!this.isCartOpen()) {
-      this.feedbackService.getFeedbackById(cartId).subscribe({
-        next: (feedback: FeedbackResponse) => {
-          this.feedback = feedback;
-          this.feeedbackForm = {
-            description: feedback.description,
-            rating: feedback.rating,
-            userId: feedback.userId,
-            cartId: feedback.cartId
-          };
-        },
-      });
-    }
   }
 
   repeatStars(rating: number): string {
@@ -237,14 +247,143 @@ export class CartDetails implements OnInit {
      });
    }
 
-   redirectToWhatsApp(): void {
+  onFeedbackSubmitted(feedbackData: any): void {
+    const cartId = this.route.snapshot.paramMap.get('id');
+    const currentUser = this.userService.getCurrentUser();
+    const userId = currentUser ? currentUser.id : null;
+
+    if (!userId) {
+      this.errorMessage = 'Usuário não encontrado. Faça login novamente.';
+      return;
+    }
+
+    const feedbackRequest: FeedbackCreateRequest = {
+      description: feedbackData.description,
+      rating: feedbackData.rating,
+      cartId: cartId || '',
+      userId: userId
+    };
+
+    this.feedbackService.createFeedback(feedbackRequest).subscribe({
+      next: (response) => {
+        this.successMessage = 'Depoimento enviado com sucesso!';
+        
+        // Buscar detalhes do usuário para exibir no feedback
+        if (currentUser) {
+          this.userService.getUserDetails(currentUser.id).subscribe({
+            next: (userDetails) => {
+              this.feedback = {
+                id: response.id,
+                description: response.description,
+                rating: response.rating,
+                cartId: cartId || '',
+                userId: userId,
+                userResponse: userDetails
+              };
+              
+              // Atualizar o carrinho com o feedback
+              if (this.cart) {
+                this.cart.feedback = {
+                  description: response.description,
+                  rating: response.rating
+                };
+              }
+            },
+            error: (error) => {
+              console.error('Erro ao buscar detalhes do usuário:', error);
+              this.feedback = {
+                id: response.id,
+                description: response.description,
+                rating: response.rating,
+                cartId: cartId || '',
+                userId: userId,
+                userResponse: {
+                  id: currentUser.id,
+                  name: 'Usuário',
+                  email: '',
+                  numberPhone: ''
+                }
+              };
+              
+              // Atualizar o carrinho com o feedback
+              if (this.cart) {
+                this.cart.feedback = {
+                  description: response.description,
+                  rating: response.rating
+                };
+              }
+            }
+          });
+        }
+
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Erro ao enviar depoimento:', error);
+        this.errorMessage = 'Erro ao enviar depoimento. Tente novamente.';
+      }
+    });
+  }
+
+  onFeedbackUpdated(feedbackData: any): void {
+    const cartId = this.route.snapshot.paramMap.get('id');
+    const currentUser = this.userService.getCurrentUser();
+    const userId = currentUser ? currentUser.id : null;
+
+    if (!userId || !this.feedback) {
+      this.errorMessage = 'Usuário não encontrado ou feedback não disponível.';
+      return;
+    }
+
+    const feedbackRequest: FeedbackUpdateRequest = {
+      description: feedbackData.description,
+      rating: feedbackData.rating,
+      cartId: cartId || '',
+      userId: userId
+    };
+
+    this.feedbackService.updateFeedback(feedbackRequest).subscribe({
+      next: (response) => {
+        this.successMessage = 'Avaliação atualizada com sucesso!';
+        
+        if (this.feedback) {
+          this.feedback.description = response.description;
+          this.feedback.rating = response.rating;
+        }
+        
+        // Atualizar o carrinho com o feedback atualizado
+        if (this.cart) {
+          this.cart.feedback = {
+            description: response.description,
+            rating: response.rating
+          };
+        }
+
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar depoimento:', error);
+        this.errorMessage = 'Erro ao atualizar depoimento. Tente novamente.';
+      }
+    });
+  }
+
+  onFeedbackCancelled(): void {
+    // Apenas limpar mensagens de erro se houver
+    this.errorMessage = '';
+  }
+
+  redirectToWhatsApp(): void {
     if (this.cartMessage) {
       const encodedMessage = encodeURIComponent(this.cartMessage);
       const whatsappUrl = `https://wa.me/5511944636254?text=${encodedMessage}`;
       window.open(whatsappUrl, '_blank');
       this.successMessage = 'Redirecionando para WhatsApp...';
       
-      // Limpar mensagem de sucesso após 3 segundos
       setTimeout(() => {
         this.successMessage = '';
       }, 3000);
@@ -258,11 +397,11 @@ export class CartDetails implements OnInit {
   getStatusColor(status: string): string {
     switch (status.toLowerCase()) {
       case 'open':
-        return '#48bb78'; // Verde
+        return '#48bb78';
       case 'sold':
-        return '#1c8546'; // Vermelho
+        return '#1c8546';
       default:
-        return '#718096'; // Cinza
+        return '#718096';
     }
   }
 
@@ -305,16 +444,13 @@ export class CartDetails implements OnInit {
     this.errorMessage = '';
   }
 
-
   loadProductImage(product: ProductResponse) {
     if (!product.imgUrl) return;
     
     this.productService.getImage(product.imgUrl).subscribe({
       next: (imageBlob: Blob) => {
-        // Criar URL da imagem a partir do blob retornado
         const imageUrl = URL.createObjectURL(imageBlob);
         
-        // Atualizar o produto com a URL da imagem
         if (this.cart?.productResponses) {
           const index = this.cart.productResponses.findIndex(p => p.id === product.id);
           if (index !== -1) {
@@ -327,12 +463,10 @@ export class CartDetails implements OnInit {
       },
       error: (error: any) => {
         console.error(`Erro ao carregar imagem do produto ${product.name}:`, error);
-        // Em caso de erro, manter a imgUrl original ou usar imagem padrão
       }
     });
   }
 
-  // Método para carregar imagens de todos os produtos do carrinho
   loadAllProductImages() {
     if (!this.cart?.productResponses) return;
     
@@ -343,21 +477,16 @@ export class CartDetails implements OnInit {
     });
   }
 
-  // Método para obter a URL da imagem de um produto
   getProductImage(product: ProductResponse): string {
     if (product.imgUrl && (product.imgUrl.startsWith('blob:') || product.imgUrl.startsWith('data:image'))) {
-      // Se já é uma URL de blob ou dados (base64), usar diretamente
       return product.imgUrl;
     } else if (product.imgUrl) {
-      // Se é apenas o nome do arquivo, retornar imagem padrão até carregar
       return 'assets/images/default-product.png';
     } else {
-      // Se não há imagem, usar imagem padrão
       return 'assets/images/default-product.png';
     }
   }
 
-  // Método para tratar erro de carregamento de imagem
   onImageError(event: any, product: ProductResponse) {
     console.log(`Erro ao carregar imagem do produto ${product.name}, usando imagem padrão`);
     event.target.src = 'assets/images/default-product.png';

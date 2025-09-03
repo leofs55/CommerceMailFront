@@ -57,7 +57,7 @@
             
             <div class="product-grid" *ngIf="!loading && filteredProducts && filteredProducts.length > 0">
                 <div class="product-card" *ngFor="let product of filteredProducts">
-                    <a [routerLink]="['/product-details', product.id]" class="product-card-link">
+                    <a href="/product/{{ product.id }}" class="product-card-link">
                         <div class="product-image">
                             <img [src]="getProductImage(product)" 
                             [alt]="product.name" 

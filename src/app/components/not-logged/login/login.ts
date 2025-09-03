@@ -59,7 +59,7 @@ export class Login {
           console.error('Erro no login:', error);
           this.isLoading = false;
           
-          if (error.status === 401) {
+          if (error.status === 500) {
             this.errorMessage = 'Email ou senha inválidos';
           } else if (error.status === 0) {
             this.errorMessage = 'Erro de conexão. Verifique se o servidor está rodando.';

@@ -49,6 +49,10 @@ export interface CartResponse {
   totalPrice: number;
   user: UserResponse;
   status: string;
+  feedback?: {
+    description: string;
+    rating: number;
+  };
 }
 
 export interface CartUpdateResponse {
@@ -66,7 +70,7 @@ export interface CartItem {
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private apiUrl = 'http://localhost:8080/api/v1/cart';
+  private apiUrl = 'http://ec2-18-117-12-169.us-east-2.compute.amazonaws.com:8080/api/v1/cart';
   private cartKey = 'local_cart';
   
   // BehaviorSubject para gerenciar o carrinho local
